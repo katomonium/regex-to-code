@@ -1,15 +1,23 @@
 ## variaveis: <nome-da-variavel> = <padrao-regex>
-numeros = [0-9]
-letras = [a-z]
-palavras-chave = se | senao | para | para cada
-traco = @$-
-## caractere '{' indica o inicio da expressao
+## variaveis tem nomes compostos SOMENTE por letras e sao declaradas ## antes da expressao
+## os caracteres devem estar entre aspas simples
+## vazio é representado por: ''
+numeros = ['0'-'9']
+letras = ['a'-'z']
+## o simbolo "|" deve estar separado de qualquer outro caractere por ## espaço
+palavras-chave = 'se' | 'senao' | 'para' | 'para cada'
+traco = '-'
+## caractere '{' indica a linha anterior do inicio da expressao
 {
-## os simbolos "*", "+", "|", ")", "]", "-", "(", "[" sao simbolos
-## especiais da expressao regular e, por isso devem conter a sequencia ## "@$" antes de serem usados na expressao
+## os simbolos "*", "+", "|", ")", "]", "-", "(", "[" e "." sao simbolos
+## especiais da expressao regular
+## OBS: Não deve haver espaço entre os elementos da expressão e os
+## operadores com exceção do simbolo "|", pois este sempre necessita estar
+## separado por espaço ou fim de linha espaço ou fim de linha quando usado ## como operador
+
 ## Exemplo: traco é uma variavel que deveria representar o caracter "-"
     
-    letras* | nomeros+    | traco    |      palavras-chave+
+    letras* | nomeros+    | traco    |      palavras-chave+ | ''
 
 ## caractere '}' indica o fim da expressao
 

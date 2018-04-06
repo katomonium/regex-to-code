@@ -1,0 +1,9 @@
+"*" : feixo de kleen (0 ou mais ocorrencias)
+"+" : uma ou mais ocorrencias
+"|" : união ('ou')
+"(" : abre parenteses
+")" : fecha parenteses
+"[" : abre colchetes
+"]" : fecha colchetes
+"-" : "até" (exemplo: ['b'-'z'] significa do caracter b até o caracter z)
+"." : concatenação ('e')

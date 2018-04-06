@@ -14,6 +14,8 @@ def main(args):
     # Ler uma ER
     er = ER()
     er.lerArquivo(args[1])
+    print(er.expressao)
+    er.criarAFND()
     # Gerar um AFND
 
     # Gerar um AFD

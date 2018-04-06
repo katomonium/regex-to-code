@@ -1,7 +1,8 @@
-numeros = [0-9]
-letras = [a-z]
-palavras-chave = se | senao | para | para cada
-traco = @$-
+numeros = ['0'-'9']
+letras = ['a'-'z']
+palavrasChave = 'se' | 'senao' | 'para' | 'para cada'
+traco = '-'
 {
-    letras* | nomeros+    | traco    |      palavras-chave+
+    ('se' | letras).'arroz*' |		numeros+    | traco    |      palavrasChave+ | ''
+    | letras+
 }

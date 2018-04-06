@@ -3,11 +3,16 @@
 
 
 class Automato:
-    estados = []
-    alfabeto = []
-    transicoes = []
+    estados = None
+    alfabeto = None
+    transicoes = None
     estadoInicial = None
-    estadosFinais = []
+    estadoFinal = None
 
-    def __init__(self):
-        pass
+    def __init__(self, estadoInicial):
+        self.estados = {}
+        self.alfabeto = {}
+        self.transicoes = []
+        self.estadoInicial = estadoInicial
+        self.estados[self.estadoInicial] = self.estadoInicial
+
