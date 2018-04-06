@@ -1,7 +1,7 @@
 numeros = [0-9]
 letras = [a-z]
 palavras-chave = se | senao | para | para cada
-traco = -
+traco = @$-
 {
     letras* | nomeros+    | traco    |      palavras-chave+
 }

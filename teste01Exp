@@ -1,0 +1,17 @@
+## variaveis: <nome-da-variavel> = <padrao-regex>
+numeros = [0-9]
+letras = [a-z]
+palavras-chave = se | senao | para | para cada
+traco = @$-
+## caractere '{' indica o inicio da expressao
+{
+## os simbolos "*", "+", "|", ")", "]", "-", "(", "[" sao simbolos
+## especiais da expressao regular e, por isso devem conter a sequencia ## "@$" antes de serem usados na expressao
+## Exemplo: traco é uma variavel que deveria representar o caracter "-"
+    
+    letras* | nomeros+    | traco    |      palavras-chave+
+
+## caractere '}' indica o fim da expressao
+
+}
+

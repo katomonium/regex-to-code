@@ -75,7 +75,7 @@ class ER:
                     self.expressao += linhas[posLinha][i]
                 i += 1
             posLinha += 1
-            
+
         print(self.variaveis)
         print(self.expressao)
 
