@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from Automato import Automato
+from Noh import Noh
 
 class ER:
     simbolosEspeciais = None
@@ -24,14 +25,14 @@ class ER:
         self.variaveis = {}
         self.expressao = []
 
-    #recebe o nome do arquivo com a expressao regular
+    # Recebe o nome do arquivo com a expressao regular
     def lerArquivo(self, nomeArquivo):
         arquivo = open(nomeArquivo, 'r')
         linhas = arquivo.read().splitlines()
         self.lerVariaveis(linhas)
         self.lerExpressao(linhas)
 
-    #le as "variaveis" da expressao
+    # Le as "variaveis" da expressao
     def lerVariaveis(self, linhas):
         posLinha = 0
         while(linhas[posLinha] != "{"):
@@ -57,7 +58,7 @@ class ER:
 
             posLinha += 1
 
-    #le a expressao em si, eliminando espacos inuteis
+    # Le a expressao em si, eliminando espacos inuteis
     def lerExpressao(self, linhas):
         posLinha = 0
         while (linhas[posLinha] != "{"):
@@ -87,9 +88,74 @@ class ER:
             posLinha += 1
             self.expressao = ex
 
+    def criarAFND(self, indice):
+        lista = []
+        parenteses = {}
+        self.inicializaListas(parenteses)
+        self.iniciaEstruturas(lista, parenteses)
+        saida = "{ \n"
+        for noh in lista:
+            saida += "inicio : " + str(noh.inicio) + ", fim : " + str(noh.fim) + " peso : " + str(noh.peso) + "\n"
+
+        print(saida + "}")
+        print(parenteses)
 
 
-    def criarAFND(self):
-        #for i in range(len(self.expressao)):
-            #self.expressao[i] = self.expressao.split(".")
-        afnd = Automato(0)
+
+
+
+    # Inicializa o dicionario de matrizes e gera a heap maxima de nos
+    def iniciaEstruturas(self, lista, parenteses):
+        peso = 0
+        i = 0
+        while(i < len(self.expressao)):
+            if(self.expressao[i] == "("):
+                peso += 1
+                parenteses[peso].append([i, -1])
+            elif(self.expressao[i] == ")"):
+                pos = self.buscaPrimeiroNone(parenteses, peso)
+                parenteses[peso][pos][1] = i
+                peso -= 1
+            elif(self.expressao[i] != "." and self.expressao[i] != " " and
+                 self.expressao[i] != "+" and self.expressao[i] != "*"  and
+                 self.expressao[i] != "|"):
+                inicio = i
+                fim = self.pegaFimPalavra(inicio)
+                noh = Noh(inicio, fim - 1, peso)
+                lista.append(noh)
+                i = fim - 1
+            i += 1
+
+
+    # Busca o primeiro parenteses nao balanceado com indice igual ao peso passado por parametro
+    def buscaPrimeiroNone(self, parenteses, peso):
+        lista = parenteses[peso]
+        for i in range(len(lista)):
+            if(lista[i][1] == -1):
+                return i
+
+    # Descobre a ultima posicao da letra de uma palavra a partir de seu indice de inicio
+    def pegaFimPalavra(self, inicio):
+        j = inicio
+        while(j < len(self.expressao)):
+            if(self.expressao[j] == "." or self.expressao[j] == " " or
+               self.expressao[j] == "+" or self.expressao[j] == "*"  or
+               self.expressao[j] == "|" or self.expressao[j] == "(" or
+               self.expressao[j] == ")"):
+                return (j)
+            j += 1
+
+        return (j)
+
+    def inicializaListas(self, parenteses):
+        cont = 0
+        pesoMax = 0
+        for caractere in self.expressao:
+            if(caractere == "("):
+                cont += 1
+                if(cont > pesoMax):
+                    pesoMax = cont
+            elif(caractere == ")"):
+                cont -= 1
+        for i in range(pesoMax + 1):
+            parenteses[i] = []

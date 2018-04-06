@@ -3,6 +3,6 @@ letras = ['a'-'z']
 palavrasChave = 'se' | 'senao' | 'para' | 'para cada'
 traco = '-'
 {
-    ('se' | letras).'arroz*' |		numeros+    | traco    |      palavrasChave+ | ''
-    | letras+
+    letras* | nomeros+    | traco    |      palavras-chave+
+    | ''
 }

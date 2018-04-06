@@ -1,0 +1,6 @@
+letras = ['a'-'z']
+numeros = ['0'-'9']
+
+{
+	letras+.(numeros.numeros* | '_' | letras)*
+}

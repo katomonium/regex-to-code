@@ -1,5 +1,5 @@
-## variaveis: <nome-da-variavel> = <padrao-regex>
-## variaveis tem nomes compostos SOMENTE por letras e sao declaradas ## antes da expressao
+## fragmentos: <nome-da-variavel> = <padrao-regex>
+## fragmentos tem nomes compostos SOMENTE por letras e sao declaradas ## antes da expressao
 ## os caracteres devem estar entre aspas simples
 ## vazio é representado por: ''
 numeros = ['0'-'9']
@@ -15,7 +15,7 @@ traco = '-'
 ## operadores com exceção do simbolo "|", pois este sempre necessita estar
 ## separado por espaço ou fim de linha espaço ou fim de linha quando usado ## como operador
 
-## Exemplo: traco é uma variavel que deveria representar o caracter "-"
+## Exemplo: traco é um fragmento que deveria representar o caracter "-"
     
     letras* | nomeros+    | traco    |      palavras-chave+ | ''
 
