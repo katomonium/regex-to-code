@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+from Noh import Noh
+
+# Heap de nós com duas prioridades, sendo o a principal o maior peso e a secundária o menor índice
+class Heap:
+    elementos = None
+        
+    def __init__(self):
+       self.elementos = []
+    
+        
+    def pai(self, i):
+        return ((i - 1)/2)
+    def esquerda(self, i):
+        return (2 * i + 1)
+    def direita(self, i):
+        return (2 * i + 2)
+    
+    
+    def heapfy(self, i):
+        if(len(self.elementos) <= 0):
+            return
+        if(i == 0):
+            return
+        maior = self.pai(i)
+        if(self.elementos[i].peso > self.elementos[maior].peso):
+            maior = i
+        
+        if(i == maior):
+            aux = self.elementos[self.pai(i)]
+            self.elementos[self.pai(i)] = self.elementos[i]
+            self.elementos[i] = aux
+            self.heapfy(self.pai(i))
+        
+    def insere(self, elemento):
+        self.elementos.append(elemento)
+        self.heapfy(len(self.elementos) - 1)
+        
+        
+    def corrigeDescendo(self, i):
+        if (len(self.elementos) <= 0):
+            return
+        
+        esq = self.esquerda(i)
+        dir = self.direita(i)
+        maior = i
+        if(esq < len(self.elementos) and self.elementos[esq].peso > self.elementos[maior].peso):
+            maior = esq
+        if(dir < len(self.elementos) and self.elementos[dir].peso > self.elementos[maior].peso):
+            maior = dir
+        if(maior != i):
+            aux = self.elementos[i]
+            self.elementos[i] = self.elementos[maior]
+            self.elementos[maior] = aux
+            self.corrigeDescendo(maior)
+        
+    def remove(self):
+        topo = self.elementos[0]
+        self.elementos = self.elementos[1:]
+        self.corrigeDescendo(0)
+        return topo

@@ -3,6 +3,7 @@
 
 from Automato import Automato
 from Noh import Noh
+from Heap import Heap
 
 class ER:
     simbolosEspeciais = None
@@ -95,7 +96,7 @@ class ER:
         self.iniciaEstruturas(lista, parenteses)
         saida = "{ \n"
         for noh in lista:
-            saida += "inicio : " + str(noh.inicio) + ", fim : " + str(noh.fim) + " peso : " + str(noh.peso) + "\n"
+            saida += "indice : " + str(noh.indice) + " inicio : " + str(noh.inicio) + ", fim : " + str(noh.fim) + " peso : " + str(noh.peso) + "\n"
 
         print(saida + "}")
         print(parenteses)
@@ -108,6 +109,8 @@ class ER:
     def iniciaEstruturas(self, lista, parenteses):
         peso = 0
         i = 0
+        indiceNoh = 0
+        h = Heap()
         while(i < len(self.expressao)):
             if(self.expressao[i] == "("):
                 peso += 1
@@ -121,11 +124,15 @@ class ER:
                  self.expressao[i] != "|"):
                 inicio = i
                 fim = self.pegaFimPalavra(inicio)
-                noh = Noh(inicio, fim - 1, peso)
+                noh = Noh(indiceNoh, inicio, fim - 1, peso)
+                h.insere(noh)
                 lista.append(noh)
+                indiceNoh += 1
                 i = fim - 1
             i += 1
-
+        for i in range(len(lista)):
+            lista[i] = h.remove()
+        
 
     # Busca o primeiro parenteses nao balanceado com indice igual ao peso passado por parametro
     def buscaPrimeiroNone(self, parenteses, peso):
