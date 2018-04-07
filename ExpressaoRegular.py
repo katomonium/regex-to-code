@@ -4,11 +4,13 @@
 from Automato import Automato
 from Noh import Noh
 from Heap import Heap
+import copy
 
 class ER:
     simbolosEspeciais = None
     variaveis = None
     expressao = None
+    indice = None
 
     def __init__(self):
         self.simbolosEspeciais = {
@@ -89,7 +91,7 @@ class ER:
             posLinha += 1
             self.expressao = ex
 
-    def criarAFND(self, indice):
+    def criarAFND(self):
         lista = []
         parenteses = {}
         self.inicializaListas(parenteses)
@@ -100,9 +102,9 @@ class ER:
 
         print(saida + "}")
         print(parenteses)
-
-
-
+        lista = self.gerarComponentesSimples(lista, parenteses)
+        
+    
 
 
     # Inicializa o dicionario de matrizes e gera a heap maxima de nos
@@ -134,6 +136,61 @@ class ER:
             lista[i] = h.remove()
         
 
+    def gerarComponentesSimples(self, lista, parenteses):
+        fila = []
+        self.indice = 1
+        for i in range(len(lista)):
+            noh = lista[0]
+            lista = lista[1:]
+            fila.append(self.criarAutomatoSimples(noh))
+            self.realizarOperacao(fila[i])
+            
+
+    def realizarOperacao(self, item):
+        noh = item[0]
+        automato = item[1]
+        if(not(noh.fim + 1 < len(self.expressao)) or self.expressao[noh.fim + 1] != '*'):
+          #(self.expressao[noh.fim + 1] != "+" and self.expressao[noh.fim + 1] != '*')):
+            return
+        exInicial = automato.estadoInicial
+        automato.estadoInicial = self.indice
+        automato.estados[automato.estadoInicial] = automato.estadoInicial
+        self.indice += 1
+        
+        exFinal = automato.estadoFinal
+        automato.estadoFinal = self.indice
+        automato.estados[automato.estadoFinal] = automato.estadoFinal
+        self.indice += 1
+        
+        transicao = (automato.estadoInicial, '', exInicial)
+        automato.transicoes.append(transicao)
+        
+        transicao = (exFinal, '', automato.estadoFinal)
+        automato.transicoes.append(transicao)
+        
+        transicao = (exFinal, '', exInicial)
+        automato.transicoes.append(transicao)
+        
+        transicao = (automato.estadoInicial, '', automato.estadoFinal)
+        automato.transicoes.append(transicao)
+        
+        print("Kleen")
+        for t in automato.transicoes:
+            print(t)
+        print("FIMKleen")
+    
+    
+    
+    def criarAutomatoSimples(self, noh):
+        automato = Automato(self.indice, self.indice + 1)
+        palavra = self.pegaPalavra(noh.inicio, noh.fim)
+        
+        transicao = (automato.estadoInicial, palavra, automato.estadoFinal)
+        automato.transicoes.append(transicao)
+        self.indice += 2
+        print(transicao)
+        return [noh, automato]
+
     # Busca o primeiro parenteses nao balanceado com indice igual ao peso passado por parametro
     def buscaPrimeiroNone(self, parenteses, peso):
         lista = parenteses[peso]
@@ -153,7 +210,14 @@ class ER:
             j += 1
 
         return (j)
-
+    
+    def pegaPalavra(self, inicio, fim):
+        palavra = ""
+        for i in range (inicio, fim + 1):
+            palavra += self.expressao[i]
+        if(palavra in self.variaveis):
+            palavra = self.variaveis[palavra]
+        return palavra
     def inicializaListas(self, parenteses):
         cont = 0
         pesoMax = 0

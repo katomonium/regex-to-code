@@ -17,7 +17,7 @@ class Heap:
     def direita(self, i):
         return (2 * i + 2)
     
-    
+    # Partindo de i, encontra seu lugar na heap subindo a arvore
     def heapfy(self, i):
         if(len(self.elementos) <= 0):
             return
@@ -37,7 +37,7 @@ class Heap:
         self.elementos.append(elemento)
         self.heapfy(len(self.elementos) - 1)
         
-        
+    # Partindo de i, ordena a si e todos seus filhos descendo a arvore
     def corrigeDescendo(self, i):
         if (len(self.elementos) <= 0):
             return

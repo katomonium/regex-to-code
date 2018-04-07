@@ -1,0 +1,4 @@
+letras = ['a'-'z']
+{
+	'se'* | letras*
+}

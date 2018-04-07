@@ -1,25 +1,28 @@
 ## fragmentos: <nome-da-variavel> = <padrao-regex>
-## fragmentos tem nomes compostos SOMENTE por letras e sao declaradas ## antes da expressao
-## os caracteres devem estar entre aspas simples
-## vazio é representado por: ''
+## fragmentos tem nomes compostos SOMENTE por letras e sao 
+## declaradas antes da expressao
+## os caracteres devem estar entre aspas simples vazio 
+##é representado por: ''
+## os operadores "*", "+", ".", "(", ")", "|" nao podem ser
+## usado na declaracao de fragmentos
+
 numeros = ['0'-'9']
 letras = ['a'-'z']
-## o simbolo "|" deve estar separado de qualquer outro caractere por ## espaço
-palavras-chave = 'se' | 'senao' | 'para' | 'para cada'
+palavras-chave = 'se'
 traco = '-'
+
 ## caractere '{' indica a linha anterior do inicio da expressao
 {
+
 ## os simbolos "*", "+", "|", ")", "]", "-", "(", "[" e "." sao simbolos
 ## especiais da expressao regular
 ## OBS: Não deve haver espaço entre os elementos da expressão e os
 ## operadores com exceção do simbolo "|", pois este sempre necessita estar
 ## separado por espaço ou fim de linha espaço ou fim de linha quando usado ## como operador
-
 ## Exemplo: traco é um fragmento que deveria representar o caracter "-"
     
     letras* | nomeros+    | traco    |      palavras-chave+ | ''
 
 ## caractere '}' indica o fim da expressao
-
 }
 
