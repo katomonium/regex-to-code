@@ -92,30 +92,26 @@ class ER:
             self.expressao = ex
 
     def criarAFND(self):
-        lista = []
+        fila = Heap()
         parenteses = {}
         self.inicializaListas(parenteses)
-        self.iniciaEstruturas(lista, parenteses)
-        saida = "{ \n"
-        for noh in lista:
-            saida += "indice : " + str(noh.indice) + " inicio : " + str(noh.inicio) + \
-                     ", fim : " + str(noh.fim) + " peso : " + str(noh.peso) + \
-                     " parenteses : " + str(noh.pilhaParenteses) + "\n"
-
-        print(saida + "}")
-        print(parenteses)
-        print("---------------")
-        fila = self.gerarComponentesSimples(lista, parenteses)
-        saida = "{ \n"
-        for elemento in fila:
-            saida += "indice : " + str(elemento[0].indice) + " inicio : " + str(elemento[0].inicio) + \
-                     ", fim : " + str(elemento[0].fim) + " peso : " + str(elemento[0].peso) + \
-                     " parenteses : " + str(elemento[0].pilhaParenteses) + "\n"
-        saida += "}"
-        print(saida)
-        
-        # resultado = self.juntarComponentes(fila, parenteses)
-        # return resultado
+        self.iniciaEstruturas(fila, parenteses)
+        # print("HEAP: ")
+        # print(fila.getDadosNohs())
+        # print("PARENTESES: ")
+        # print(parenteses)
+        # print("---------------")
+        componentes = self.gerarComponentesSimples(fila, parenteses)
+        # print("HEAP: ")
+        # print(fila.getDadosNohs())
+        # saida = "{\n"
+        # for noh in componentes:
+        #     saida += "------------------------------------------------------------------\n"
+        #     saida += noh.getDadosNoh() + "\n" + componentes[noh].getDadosAutomato()
+        # saida += "}"
+        # print(saida)
+        resultado = self.juntarComponentes(fila, componentes, parenteses)
+        return resultado
 
 
     # Inicializa o dicionario de matrizes e gera a heap maxima de nos
@@ -123,7 +119,6 @@ class ER:
         peso = 0
         i = 0
         indiceNoh = 0
-        h = Heap()
         pilhaParenteses = []
         while(i < len(self.expressao)):
             if(self.expressao[i] == "("):
@@ -141,28 +136,87 @@ class ER:
                 inicio = i
                 fim = self.pegaFimPalavra(inicio)
                 noh = Noh(indiceNoh, inicio, fim - 1, peso, pilhaParenteses)
-                h.insere(noh)
-                lista.append(noh)
+                lista.insere(noh)
                 indiceNoh += 1
                 i = fim - 1
             i += 1
-        for i in range(len(lista)):
-            lista[i] = h.remove()
         
 
     def gerarComponentesSimples(self, lista, parenteses):
-        fila = []
+        fila = {}
         self.indice = 1
-        for i in range(len(lista)):
-            noh = lista[0]
-            lista = lista[1:]
-            fila.append(self.criarAutomatoSimples(noh))
-            self.realizarOperacao(fila[i])
+        for i in range(len(lista.elementos)):
+            noh = lista.remove()
+            fila[noh] = self.criarAutomatoSimples(noh)
+            self.realizarOperacao(fila[noh], noh)
+        for noh in fila:
+            lista.insere(noh)
         return fila
+    
+    def juntarComponentes(self, fila, componentes, parenteses):
+        print(fila.getDadosNohs())
+        while(len(componentes) > 1):
+            noh1 = fila.remove()
+            noh2 = fila.remove()
+            if(noh1.peso > noh2.peso):
+                self.verificarParenteses(noh1, componentes)
+                fila.insere(noh1)
+                fila.insere(noh2)
+            elif(noh1.peso > 0):
+                if(noh1.pilhaParenteses[-1] == noh2.pilhaParenteses[-1]):
+                    if(self.expressao[noh1.fim + 1] == "."):
+                        if (noh2.inicio - 2 == noh1.fim):
+                            self.concatena(componentes, noh1, noh2)
+                            fila.insere(noh1)
+                    elif(self.expressao[noh1.fim + 1] == " "):
+                        if(noh2.inicio - 4 == noh1.fim):
+                            print("LABEL2")
+                else:
+                    self.verificarParenteses(noh1, componentes)
+                    fila.insere(noh1)
+                    fila.insere(noh2)
+            else:
+                self.concatena(componentes, noh1, noh2)
+                fila.insere(noh1)
+        for key in componentes:
+            return componentes[key]
+            
+    def concatena(self, componentes, noh1, noh2):
+        pre = componentes[noh1]
+        automato = componentes[noh2]
+        temp = pre.acrescentaAutomato(self.indice, automato)
+        self.indice = temp[0]
+        link = temp[1]
+        alvos = []
+        for i in range(len(pre.transicoes)):
+            if(pre.transicoes[i][0] == link[automato.estadoInicial]):
+                t = (pre.estadoFinal, pre.transicoes[i][1], pre.transicoes[i][2])
+                pre.transicoes.append(t)
+                alvos.append(i)
+            if(pre.transicoes[i][2] == link[automato.estadoInicial]):
+                t = (pre.transicoes[i][0], pre.transicoes[i][1], pre.estadoFinal)
+                pre.transicoes.append(t)
+                alvos.append(i)
+        j = 0
+        for i in alvos:
+            del pre.transicoes[i - j]
+            j += 1
+        del pre.estados[link[automato.estadoInicial]]
+        pre.estadoFinal = link[automato.estadoFinal]
+        noh1.fim = noh2.fim
+        componentes.pop(noh2)
+        
+    def verificarParenteses(self, noh, componentes):
+        noh.fim += 1
+        noh.inicio -= 1
+        if(noh.fim + 1 < len(self.expressao) and
+           (self.expressao[noh.fim + 1] == "+" or self.expressao[noh.fim + 1] == "*")):
+            self.realizarOperacao(componentes[noh], noh)
+        noh.peso -= 1
+        noh.pilhaParenteses.pop(len(noh.pilhaParenteses) - 1)
+        
 
-    def realizarOperacao(self, item):
-        noh = item[0]
-        automato = item[1]
+    def realizarOperacao(self, automato, noh):
         if(not(noh.fim + 1 < len(self.expressao)) or
           (self.expressao[noh.fim + 1] != "+" and self.expressao[noh.fim + 1] != '*')):
             return
@@ -220,7 +274,7 @@ class ER:
                 j += 1
             automato.estados.pop(automato.estadoInicial)
             automato.estadoInicial = link[pre.estadoInicial]
-    
+        noh.fim += 1
     
     def criarAutomatoSimples(self, noh):
         automato = Automato(self.indice, self.indice + 1)
@@ -229,7 +283,7 @@ class ER:
         transicao = (automato.estadoInicial, palavra, automato.estadoFinal)
         automato.transicoes.append(transicao)
         self.indice += 2
-        return [noh, automato]
+        return automato
 
     # Busca o primeiro parenteses nao balanceado com indice igual ao peso passado por parametro
     def buscaPrimeiroNone(self, parenteses, peso):

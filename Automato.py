@@ -36,3 +36,18 @@ class Automato:
             self.estadoInicial = link[acrescentado.estadoInicial]
             self.estadoFinal = link[acrescentado.estadoFinal]
         return [indice, link]
+    
+    def getDadosAutomato(self):
+        saida = "{\n"
+        saida += "q0: " + str(self.estadoInicial) + " qf: " + str(self.estadoFinal) + "\n"
+        for estado in self.estados:
+            saida += str(estado) + " - "
+        
+        saida += "\n"
+        saida += "Transicoes:\n  [\n"
+        for t in self.transicoes:
+            saida += "    " + str(t) + "\n"
+        saida += "  ]\n}\n"
+        return saida
+        
+    

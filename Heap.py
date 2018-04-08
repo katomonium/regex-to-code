@@ -24,9 +24,10 @@ class Heap:
         if(i == 0):
             return
         maior = self.pai(i)
-        if(self.elementos[i].peso > self.elementos[maior].peso):
+        if(self.elementos[i].peso > self.elementos[maior].peso or
+           (self.elementos[i].peso == self.elementos[maior].peso and
+            self.elementos[i].inicio < self.elementos[maior].inicio)):
             maior = i
-        
         if(i == maior):
             aux = self.elementos[self.pai(i)]
             self.elementos[self.pai(i)] = self.elementos[i]
@@ -45,9 +46,15 @@ class Heap:
         esq = self.esquerda(i)
         dir = self.direita(i)
         maior = i
-        if(esq < len(self.elementos) and self.elementos[esq].peso > self.elementos[maior].peso):
+        if(esq < len(self.elementos) and
+           (self.elementos[esq].peso > self.elementos[maior].peso or
+           (self.elementos[esq].peso == self.elementos[maior].peso and
+            self.elementos[esq].inicio < self.elementos[maior].inicio))):
             maior = esq
-        if(dir < len(self.elementos) and self.elementos[dir].peso > self.elementos[maior].peso):
+        if(dir < len(self.elementos) and
+           (self.elementos[dir].peso > self.elementos[maior].peso or
+           (self.elementos[dir].peso == self.elementos[maior].peso and
+            self.elementos[dir].inicio < self.elementos[maior].inicio))):
             maior = dir
         if(maior != i):
             aux = self.elementos[i]
@@ -60,3 +67,17 @@ class Heap:
         self.elementos = self.elementos[1:]
         self.corrigeDescendo(0)
         return topo
+    
+    def getDadosNohs(self):
+        lista = []
+        for i in range(len(self.elementos)):
+            lista.append(self.remove())
+        
+        for i in range(len(lista)):
+            self.insere(lista[i])
+        
+        saida = "{ \n"
+        for elemento in lista:
+            saida += elemento.getDadosNoh()
+        saida += "}"
+        return saida

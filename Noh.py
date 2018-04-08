@@ -14,3 +14,9 @@ class Noh:
         self.fim = fim
         self.peso = peso
         self.pilhaParenteses = copy.copy(pilhaParenteses)
+        
+    def getDadosNoh(self):
+        saida = "indice : " + str(self.indice) + " inicio : " + str(self.inicio) + \
+                ", fim : " + str(self.fim) + " peso : " + str(self.peso) + \
+                " parenteses : " + str(self.pilhaParenteses) + "\n"
+        return saida
