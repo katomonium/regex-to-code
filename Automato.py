@@ -9,7 +9,7 @@ class Automato:
     estadoInicial = None
     estadoFinal = None
 
-    def __init__(self, estadoInicial = None, estadoFinal = None, alfabeto = None):
+    def __init__(self, estadoInicial = None, estadoFinal = None, alfabeto = {}):
         self.alfabeto = alfabeto
         self.estados = {}
         self.alfabeto = {}
@@ -50,4 +50,56 @@ class Automato:
         saida += "  ]\n}\n"
         return saida
         
-    
+    def escreveArquivo(self, nomeArq):
+        saida = "(\n\t"
+        
+        listaEstados = []
+        for key in self.estados:
+            listaEstados.append(key)
+        
+        saida += "{"
+        for i in range(len(listaEstados) - 1):
+            saida += "q" + str(listaEstados[i]) + ","
+        
+        saida += "q" + str(listaEstados[len(listaEstados) - 1])
+        saida += "},\n"
+        
+        listaAlfabeto = []
+        for key in self.alfabeto:
+            listaAlfabeto.append(key)
+        
+        saida += "\t{"
+        for i in range(len(listaAlfabeto) - 1):
+            saida += listaAlfabeto[i] + ","
+        
+        if(len(self.alfabeto) > 0):
+            saida += listaAlfabeto[len(listaAlfabeto) - 1]
+        saida += "},\n"
+        saida += "\t{\n\t\t"
+        for i in range(len(self.transicoes) - 1):
+            t = self.transicoes[i]
+            if(t[1] == ''):
+                aux = "''"
+            else:
+                aux = t[1]
+            saida += "(q" + str(t[0]) + "," + \
+                     aux + "->" + "q" + str(t[2]) + "),\n\t\t"
+
+        t = self.transicoes[len(self.transicoes) - 1]
+        if (t[1] == ''):
+            aux = "''"
+        else:
+            aux = t[1]
+        saida += "(q" + str(t[0]) + "," + \
+                 aux + "->" + "q" + str(t[2]) + ")\n\t},\n"
+        
+        saida += "\tq" + str(self.estadoInicial) + ",\n"
+        saida += "\t{q" + str(self.estadoFinal) + "}\n)"
+        
+        
+        
+        arquivo = open(nomeArq, "w")
+        arquivo.write(saida)
+        arquivo.close()
+        
+        

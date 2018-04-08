@@ -17,6 +17,7 @@ def main(args):
     print(er.expressao)
     afnd = er.criarAFND()
     print(afnd.getDadosAutomato())
+    afnd.escreveArquivo(args[2])
     # Gerar um AFND
 
     # Gerar um AFD

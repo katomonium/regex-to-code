@@ -34,7 +34,7 @@ class ER:
         linhas = arquivo.read().splitlines()
         self.lerVariaveis(linhas)
         self.lerExpressao(linhas)
-
+        arquivo.close()
     # Le as "variaveis" da expressao
     def lerVariaveis(self, linhas):
         posLinha = 0
@@ -151,6 +151,10 @@ class ER:
             elif(noh1.peso > 0):
                 if(noh1.pilhaParenteses[-1] == noh2.pilhaParenteses[-1]):
                     self.juntarPar(noh1, noh2, componentes, fila)
+                elif(noh1.peso == noh2.peso):
+                    self.verificarParenteses(noh1, componentes)
+                    fila.insere(noh1)
+                    fila.insere(noh2)
             else:
                 self.juntarPar(noh1, noh2, componentes, fila)
         for key in componentes:
