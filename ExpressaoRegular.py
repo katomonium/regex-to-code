@@ -98,21 +98,24 @@ class ER:
         self.iniciaEstruturas(lista, parenteses)
         saida = "{ \n"
         for noh in lista:
-            saida += "indice : " + str(noh.indice) + " inicio : " + str(noh.inicio) + ", fim : " + str(noh.fim) + " peso : " + str(noh.peso) + "\n"
+            saida += "indice : " + str(noh.indice) + " inicio : " + str(noh.inicio) + \
+                     ", fim : " + str(noh.fim) + " peso : " + str(noh.peso) + \
+                     " parenteses : " + str(noh.pilhaParenteses) + "\n"
 
         print(saida + "}")
         print(parenteses)
         print("---------------")
         fila = self.gerarComponentesSimples(lista, parenteses)
+        saida = "{ \n"
         for elemento in fila:
-            aut = elemento[1]
-            print(aut.estados)
-            print(aut.estadoInicial)
-            print(aut.estadoFinal)
-            print(aut.transicoes)
-            print("*************")
-
-    
+            saida += "indice : " + str(elemento[0].indice) + " inicio : " + str(elemento[0].inicio) + \
+                     ", fim : " + str(elemento[0].fim) + " peso : " + str(elemento[0].peso) + \
+                     " parenteses : " + str(elemento[0].pilhaParenteses) + "\n"
+        saida += "}"
+        print(saida)
+        
+        # resultado = self.juntarComponentes(fila, parenteses)
+        # return resultado
 
 
     # Inicializa o dicionario de matrizes e gera a heap maxima de nos
@@ -121,20 +124,23 @@ class ER:
         i = 0
         indiceNoh = 0
         h = Heap()
+        pilhaParenteses = []
         while(i < len(self.expressao)):
             if(self.expressao[i] == "("):
                 peso += 1
                 parenteses[peso].append([i, -1])
+                pilhaParenteses.append(len(parenteses[peso]) - 1)
             elif(self.expressao[i] == ")"):
                 pos = self.buscaPrimeiroNone(parenteses, peso)
                 parenteses[peso][pos][1] = i
                 peso -= 1
+                pilhaParenteses.pop(-1)
             elif(self.expressao[i] != "." and self.expressao[i] != " " and
                  self.expressao[i] != "+" and self.expressao[i] != "*"  and
                  self.expressao[i] != "|"):
                 inicio = i
                 fim = self.pegaFimPalavra(inicio)
-                noh = Noh(indiceNoh, inicio, fim - 1, peso)
+                noh = Noh(indiceNoh, inicio, fim - 1, peso, pilhaParenteses)
                 h.insere(noh)
                 lista.append(noh)
                 indiceNoh += 1
