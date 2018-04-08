@@ -38,7 +38,7 @@ class ER:
     # Le as "variaveis" da expressao
     def lerVariaveis(self, linhas):
         posLinha = 0
-        while(linhas[posLinha] != "{"):
+        while(posLinha < len(linhas) and "{" not in linhas[posLinha]):
             linha = linhas[posLinha]
             indice = ""
             posCaractere = 0
@@ -64,12 +64,12 @@ class ER:
     # Le a expressao em si, eliminando espacos inuteis
     def lerExpressao(self, linhas):
         posLinha = 0
-        while (linhas[posLinha] != "{"):
+        while ("{" not in linhas[posLinha]):
             posLinha += 1
 
         posLinha += 1
         ex = ""
-        while(linhas[posLinha] != "}"):
+        while("}" not in linhas[posLinha]):
             i = 0
             while(linhas[posLinha][i] == " " or linhas[posLinha][i] == "\t"):
                 i += 1
@@ -102,8 +102,16 @@ class ER:
 
         print(saida + "}")
         print(parenteses)
-        lista = self.gerarComponentesSimples(lista, parenteses)
-        
+        print("---------------")
+        fila = self.gerarComponentesSimples(lista, parenteses)
+        for elemento in fila:
+            aut = elemento[1]
+            print(aut.estados)
+            print(aut.estadoInicial)
+            print(aut.estadoFinal)
+            print(aut.transicoes)
+            print("*************")
+
     
 
 
@@ -144,14 +152,23 @@ class ER:
             lista = lista[1:]
             fila.append(self.criarAutomatoSimples(noh))
             self.realizarOperacao(fila[i])
-            
+        return fila
 
     def realizarOperacao(self, item):
         noh = item[0]
         automato = item[1]
-        if(not(noh.fim + 1 < len(self.expressao)) or self.expressao[noh.fim + 1] != '*'):
-          #(self.expressao[noh.fim + 1] != "+" and self.expressao[noh.fim + 1] != '*')):
+        if(not(noh.fim + 1 < len(self.expressao)) or
+          (self.expressao[noh.fim + 1] != "+" and self.expressao[noh.fim + 1] != '*')):
             return
+        pre = None
+        linkAux = None
+        if (self.expressao[noh.fim + 1] == "+"):
+            pre = Automato()
+            self.indice += 2
+            temp = pre.acrescentaAutomato(self.indice, automato)
+            self.indice = temp[0]
+            linkAux = temp[1]
+        
         exInicial = automato.estadoInicial
         automato.estadoInicial = self.indice
         automato.estados[automato.estadoInicial] = automato.estadoInicial
@@ -173,12 +190,30 @@ class ER:
         
         transicao = (automato.estadoInicial, '', automato.estadoFinal)
         automato.transicoes.append(transicao)
-        
-        print("Kleen")
-        for t in automato.transicoes:
-            print(t)
-        print("FIMKleen")
-    
+        if (pre != None):
+            temp = automato.acrescentaAutomato(self.indice, pre)
+            pre.estadoInicial = linkAux[exInicial]
+            pre.estadoFinal = linkAux[exFinal]
+            self.indice = temp[0]
+            link = temp[1]
+            alvos = []
+            
+            for i in range(len(automato.transicoes)):
+                if(automato.transicoes[i][0] == automato.estadoInicial):
+                    t = (link[pre.estadoFinal], automato.transicoes[i][1], automato.transicoes[i][2])
+                    automato.transicoes.append(t)
+                    alvos.append(i)
+                elif(automato.transicoes[i][2] == automato.estadoInicial):
+                    t = (automato.transicoes[i][0], automato.transicoes[i][1], link[pre.estadoFinal])
+                    automato.transicoes.append(t)
+                    alvos.append(i)
+            
+            j = 0
+            for i in alvos:
+                del automato.transicoes[i - j]
+                j += 1
+            automato.estados.pop(automato.estadoInicial)
+            automato.estadoInicial = link[pre.estadoInicial]
     
     
     def criarAutomatoSimples(self, noh):
@@ -188,7 +223,6 @@ class ER:
         transicao = (automato.estadoInicial, palavra, automato.estadoFinal)
         automato.transicoes.append(transicao)
         self.indice += 2
-        print(transicao)
         return [noh, automato]
 
     # Busca o primeiro parenteses nao balanceado com indice igual ao peso passado por parametro

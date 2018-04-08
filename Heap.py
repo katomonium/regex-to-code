@@ -11,7 +11,7 @@ class Heap:
     
         
     def pai(self, i):
-        return ((i - 1)/2)
+        return ((i - 1)//2)
     def esquerda(self, i):
         return (2 * i + 1)
     def direita(self, i):
