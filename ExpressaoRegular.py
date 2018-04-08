@@ -96,20 +96,7 @@ class ER:
         parenteses = {}
         self.inicializaListas(parenteses)
         self.iniciaEstruturas(fila, parenteses)
-        # print("HEAP: ")
-        # print(fila.getDadosNohs())
-        # print("PARENTESES: ")
-        # print(parenteses)
-        # print("---------------")
         componentes = self.gerarComponentesSimples(fila, parenteses)
-        # print("HEAP: ")
-        # print(fila.getDadosNohs())
-        # saida = "{\n"
-        # for noh in componentes:
-        #     saida += "------------------------------------------------------------------\n"
-        #     saida += noh.getDadosNoh() + "\n" + componentes[noh].getDadosAutomato()
-        # saida += "}"
-        # print(saida)
         resultado = self.juntarComponentes(fila, componentes, parenteses)
         return resultado
 
@@ -154,7 +141,6 @@ class ER:
         return fila
     
     def juntarComponentes(self, fila, componentes, parenteses):
-        print(fila.getDadosNohs())
         while(len(componentes) > 1):
             noh1 = fila.remove()
             noh2 = fila.remove()
@@ -164,23 +150,54 @@ class ER:
                 fila.insere(noh2)
             elif(noh1.peso > 0):
                 if(noh1.pilhaParenteses[-1] == noh2.pilhaParenteses[-1]):
-                    if(self.expressao[noh1.fim + 1] == "."):
-                        if (noh2.inicio - 2 == noh1.fim):
-                            self.concatena(componentes, noh1, noh2)
-                            fila.insere(noh1)
-                    elif(self.expressao[noh1.fim + 1] == " "):
-                        if(noh2.inicio - 4 == noh1.fim):
-                            print("LABEL2")
-                else:
-                    self.verificarParenteses(noh1, componentes)
-                    fila.insere(noh1)
-                    fila.insere(noh2)
+                    self.juntarPar(noh1, noh2, componentes, fila)
             else:
-                self.concatena(componentes, noh1, noh2)
-                fila.insere(noh1)
+                self.juntarPar(noh1, noh2, componentes, fila)
         for key in componentes:
             return componentes[key]
-            
+    
+    def juntarPar(self, noh1, noh2, componentes, fila):
+        if (self.expressao[noh1.fim + 1] == "."):
+            if (noh2.inicio - 2 == noh1.fim):
+                self.concatena(componentes, noh1, noh2)
+                fila.insere(noh1)
+        elif (self.expressao[noh1.fim + 1] == " "):
+            if (noh2.inicio - 4 == noh1.fim):
+                self.une(componentes, noh1, noh2)
+                fila.insere(noh1)
+        else:
+            self.verificarParenteses(noh1, componentes)
+            fila.insere(noh1)
+            fila.insere(noh2)
+    
+    
+    def une(self, componentes, noh1, noh2):
+        pre = componentes[noh1]
+        automato = componentes[noh2]
+        temp = pre.acrescentaAutomato(self.indice, automato)
+        self.indice = temp[0]
+        link = temp[1]
+        
+        pre.estados[self.indice] = self.indice
+        transicao = (self.indice, '', pre.estadoInicial)
+        pre.transicoes.append(transicao)
+        transicao = (self.indice, '', link[automato.estadoInicial])
+        pre.transicoes.append(transicao)
+        pre.estadoInicial = self.indice
+        self.indice += 1
+        
+        pre.estados[self.indice] = self.indice
+        transicao = (pre.estadoFinal, '', self.indice)
+        pre.transicoes.append(transicao)
+        transicao = (link[automato.estadoFinal], '', self.indice)
+        pre.transicoes.append(transicao)
+        pre.estadoFinal = self.indice
+        self.indice += 1
+        
+        noh1.fim = noh2.fim
+        componentes.pop(noh2)
+        
+    
     def concatena(self, componentes, noh1, noh2):
         pre = componentes[noh1]
         automato = componentes[noh2]
