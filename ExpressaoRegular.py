@@ -13,6 +13,7 @@ class ER:
     expressao = None
     indice = None
     alfabeto = None
+    caminho = "testes/ER/"
 
     def __init__(self):
         self.simbolosEspeciais = {
@@ -32,7 +33,7 @@ class ER:
 
     # Recebe o nome do arquivo com a expressao regular
     def lerArquivo(self, nomeArquivo):
-        arquivo = open(nomeArquivo, 'r')
+        arquivo = open(self.caminho + nomeArquivo, 'r')
         linhas = arquivo.read().splitlines()
         self.substituiPadroes(linhas)
         self.leAlfabeto(linhas)
@@ -110,6 +111,8 @@ class ER:
             while (posCaractere < len(linha)):
                 valor += linha[posCaractere]
                 posCaractere += 1
+            if(valor == "''"):
+                valor = self.lamb
             self.variaveis[indice] = valor
                     
             posLinha += 1
@@ -159,7 +162,7 @@ class ER:
                 peso -= 1
                 pilhaParenteses.pop(-1)
             elif(self.expressao[i] != "." and self.expressao[i] != " " and
-                 self.expressao[i] != "+" and self.expressao[i] != "*"  and
+                 self.expressao[i] != "+" and self.expressao[i] != "*" and
                  self.expressao[i] != "|"):
                 inicio = i
                 fim = self.pegaFimPalavra(inicio)
@@ -339,7 +342,8 @@ class ER:
         noh.fim += 1
     
     def criarAutomatoSimples(self, noh):
-        automato = Automato(self.indice, self.indice + 1)
+        automato = Automato(self.indice, {self.indice + 1 : self.indice + 1})
+        automato.estadoFinal = self.indice + 1
         palavra = self.pegaPalavra(noh.inicio, noh.fim)
         
         transicao = (automato.estadoInicial, palavra, automato.estadoFinal)

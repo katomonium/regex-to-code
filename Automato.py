@@ -7,18 +7,19 @@ class Automato:
     alfabeto = None
     transicoes = None
     estadoInicial = None
-    estadoFinal = None
+    estadosFinais = None
 
-    def __init__(self, estadoInicial = None, estadoFinal = None, alfabeto = {}):
+    def __init__(self, estadoInicial = None, estadosFinais = {}, alfabeto = {}):
         self.alfabeto = alfabeto
         self.estados = {}
         self.transicoes = []
         self.estadoInicial = estadoInicial
-        self.estadoFinal = estadoFinal
+        self.estadosFinais = estadosFinais
         if(self.estadoInicial != None):
             self.estados[self.estadoInicial] = self.estadoInicial
-        if(self.estadoFinal != None):
-            self.estados[self.estadoFinal] = self.estadoFinal
+        
+        for key in self.estadosFinais:
+            self.estados[key] = key
         
     def acrescentaAutomato(self, indice, acrescentado):
         link = {}
@@ -31,14 +32,15 @@ class Automato:
                 if(estado == transicao[0]):
                     t = (link[estado], transicao[1], link[transicao[2]])
                     self.transicoes.append(t)
-        if(self.estadoInicial == None and self.estadoFinal == None):
+        if(self.estadoInicial == None and len(self.estadosFinais) == 0):
             self.estadoInicial = link[acrescentado.estadoInicial]
-            self.estadoFinal = link[acrescentado.estadoFinal]
+            for key in acrescentado.estadosFinais:
+                self.estadosFinais[key] = link[key]
         return [indice, link]
     
     def getDadosAutomato(self):
         saida = "{\n"
-        saida += "q0: " + str(self.estadoInicial) + " qf: " + str(self.estadoFinal) + "\n"
+        saida += "q0: " + str(self.estadoInicial) + " qf: " + str(self.estadosFinais) + "\n"
         for estado in self.estados:
             saida += str(estado) + " - "
         
@@ -92,8 +94,16 @@ class Automato:
         saida += "(q" + str(t[0]) + "," + \
                  aux + "->" + "q" + str(t[2]) + ")\n\t},\n"
         
+
+
         saida += "\tq" + str(self.estadoInicial) + ",\n"
-        saida += "\t{q" + str(self.estadoFinal) + "}\n)"
+        listaEstadosFinais = []
+        for key in self.estadosFinais:
+            listaEstadosFinais.append(key)
+        saida += "\t{"
+        for i in range(len(listaEstadosFinais) - 1):
+            saida += "q" + str(listaEstadosFinais[i]) + ","
+        saida += "q" + str(listaEstadosFinais[len(listaEstadosFinais) - 1]) + "}\n)"
         
         
         

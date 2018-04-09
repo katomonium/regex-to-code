@@ -1,0 +1,69 @@
+digraph "graph" {
+	rankdir=LR
+	node [shape=point]
+	start
+	node [shape=doublecircle]
+	q50
+	node [shape=circle]
+	q1
+	q2
+	q3
+	q4
+	q29
+	q30
+	q31
+	q32
+	q33
+	q34
+	q35
+	q36
+	q37
+	q38
+	q39
+	q40
+	q41
+	q42
+	q43
+	q44
+	q45
+	q46
+	q47
+	q48
+	q49
+	start -> q49
+	q1 -> q2 [label="'a'..'z'"]
+	q3 -> q1 [label="λ"]
+	q2 -> q4 [label="λ"]
+	q2 -> q1 [label="λ"]
+	q3 -> q4 [label="λ"]
+	q29 -> q30 [label="'0'..'9'"]
+	q30 -> q31 [label="λ"]
+	q30 -> q29 [label="λ"]
+	q32 -> q33 [label="'0'..'9'"]
+	q33 -> q29 [label="λ"]
+	q33 -> q31 [label="λ"]
+	q34 -> q3 [label="λ"]
+	q34 -> q32 [label="λ"]
+	q4 -> q35 [label="λ"]
+	q31 -> q35 [label="λ"]
+	q37 -> q36 [label="'-'"]
+	q38 -> q34 [label="λ"]
+	q38 -> q37 [label="λ"]
+	q35 -> q39 [label="λ"]
+	q36 -> q39 [label="λ"]
+	q40 -> q41 [label="'se'|'senao'|'para'|'paracada'"]
+	q41 -> q42 [label="λ"]
+	q41 -> q40 [label="λ"]
+	q43 -> q44 [label="'se'|'senao'|'para'|'paracada'"]
+	q44 -> q40 [label="λ"]
+	q44 -> q42 [label="λ"]
+	q45 -> q38 [label="λ"]
+	q45 -> q43 [label="λ"]
+	q39 -> q46 [label="λ"]
+	q42 -> q46 [label="λ"]
+	q47 -> q48 [label="λ"]
+	q49 -> q45 [label="λ"]
+	q49 -> q47 [label="λ"]
+	q46 -> q50 [label="λ"]
+	q48 -> q50 [label="λ"]
+}

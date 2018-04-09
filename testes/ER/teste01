@@ -3,7 +3,8 @@ numeros = ['0'-'9']
 letras = ['a'-'z']
 palavrasChave = 'se' | 'senao' | 'para' | 'para cada'
 traco = '-'
+vazio = ''
 {
     letras* | numeros+    | traco    |      palavrasChave+
-    | ''
+    | vazio
 }

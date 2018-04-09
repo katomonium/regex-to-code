@@ -1,7 +1,7 @@
 ## alfabeto: o alfabeto e declarado na primeira linha do arquivo utilizando
 ## o operador ':' antes da primeira letra do alfabeto
 ## o alfabeto sera lido ate o primeiro fim de linha
-:a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p,  q, r, s, t, u, v, w, x, y, z, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '-', ''
+:a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p,  q, r, s, t, u, v, w, x, y, z, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '-', '', se
 
 ## fragmentos: <nome-da-variavel> = <padrao-regex>
 ## fragmentos tem nomes compostos SOMENTE por letras e sao 
@@ -11,7 +11,7 @@
 ## usado na declaracao de fragmentos
 numeros = [0-9]
 letras = [a-z]
-palavras-chave = 'se'
+palavras-chave = se
 traco = '-'
 
 ## caractere '{' indica a linha anterior do inicio da expressao
