@@ -1,5 +1,5 @@
 letras = ['a'-'z']
-{	
-	('se')* | (letras)+
-}		
+{
+	('se')+ | (letras)+
+}
 

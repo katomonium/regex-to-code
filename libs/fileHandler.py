@@ -58,10 +58,12 @@ def lerAutomato(arquivo):
 
     estadoInicial = e.findall(linhas[-3])[0]
 
-    d = re.compile('(\w+\d+),(\w)->(\w+\d+)')
+    d = re.compile('(\w+\d+),(.*)->(\w+\d+)')
     transicoes = []
     for i in linhas:
         transicoes += d.findall(i)
+        
+    print(transicoes)
 
     return Automato(
             estados, alfabeto, transicoes, estadoInicial, estadosFinais

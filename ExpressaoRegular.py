@@ -7,6 +7,7 @@ from Heap import Heap
 import copy
 
 class ER:
+    lamb = 'λ'
     simbolosEspeciais = None
     variaveis = None
     expressao = None
@@ -32,9 +33,44 @@ class ER:
     def lerArquivo(self, nomeArquivo):
         arquivo = open(nomeArquivo, 'r')
         linhas = arquivo.read().splitlines()
+        self.substituiPadroes(linhas)
         self.lerVariaveis(linhas)
         self.lerExpressao(linhas)
         arquivo.close()
+        
+        
+    def substituiPadroes(self, linhas):
+        posLinha = 0
+        while(posLinha < len(linhas)):
+            novo = []
+            i = 0
+            while(i < len(linhas[posLinha]) and (linhas[posLinha][i] == "\t" or linhas[posLinha][i] == " ")):
+                i += 1
+            marca1 = [False, None]
+            marca2 = [False, None]
+            marca3 = [False, None]
+            while(i < len(linhas[posLinha])):
+                if(linhas[posLinha][i] == "[" and not marca1[0]):
+                    marca1[0] = True
+                    marca1[1] = i
+                if(marca1[0] and linhas[posLinha][i] == "-" and not marca2[0]):
+                    marca2[0] = True
+                    marca2[1] = i
+                if(marca2[0] and linhas[posLinha][i] == "]" and not marca3[0]):
+                    marca3[0] = True
+                    marca3[1] = i
+                if(marca1[0] and marca2[0] and marca3[0]):
+                    novo[marca1[1]] = ""
+                    novo[marca2[1]] = "."
+                    novo.insert(marca2[1] + 1, '.')
+                else:
+                    novo.append(linhas[posLinha][i])
+                i += 1
+            print(novo)
+            linhas[posLinha] = ''.join(novo)
+            posLinha += 1
+        
+        
     # Le as "variaveis" da expressao
     def lerVariaveis(self, linhas):
         posLinha = 0
@@ -58,7 +94,7 @@ class ER:
                 valor += linha[posCaractere]
                 posCaractere += 1
             self.variaveis[indice] = valor
-
+                    
             posLinha += 1
 
     # Le a expressao em si, eliminando espacos inuteis
@@ -80,10 +116,6 @@ class ER:
                     l[i] = ' '
                     linhas[posLinha] = ''.join(l)
                 if(linhas[posLinha][i] != " " and linhas[posLinha][i] != "\t"):
-                    cont = 0
-                else:
-                    cont += 1
-                if(cont < 2):
                     ex += linhas[posLinha][i]
                 i += 1
             if(linhas[posLinha + 1] != "}"):
@@ -165,8 +197,8 @@ class ER:
             if (noh2.inicio - 2 == noh1.fim):
                 self.concatena(componentes, noh1, noh2)
                 fila.insere(noh1)
-        elif (self.expressao[noh1.fim + 1] == " "):
-            if (noh2.inicio - 4 == noh1.fim):
+        elif (self.expressao[noh1.fim + 1] == "|"):
+            if (noh2.inicio - 2 == noh1.fim):
                 self.une(componentes, noh1, noh2)
                 fila.insere(noh1)
         else:
@@ -183,17 +215,17 @@ class ER:
         link = temp[1]
         
         pre.estados[self.indice] = self.indice
-        transicao = (self.indice, '', pre.estadoInicial)
+        transicao = (self.indice, self.lamb, pre.estadoInicial)
         pre.transicoes.append(transicao)
-        transicao = (self.indice, '', link[automato.estadoInicial])
+        transicao = (self.indice, self.lamb, link[automato.estadoInicial])
         pre.transicoes.append(transicao)
         pre.estadoInicial = self.indice
         self.indice += 1
         
         pre.estados[self.indice] = self.indice
-        transicao = (pre.estadoFinal, '', self.indice)
+        transicao = (pre.estadoFinal, self.lamb, self.indice)
         pre.transicoes.append(transicao)
-        transicao = (link[automato.estadoFinal], '', self.indice)
+        transicao = (link[automato.estadoFinal], self.lamb, self.indice)
         pre.transicoes.append(transicao)
         pre.estadoFinal = self.indice
         self.indice += 1
@@ -260,16 +292,16 @@ class ER:
         automato.estados[automato.estadoFinal] = automato.estadoFinal
         self.indice += 1
         
-        transicao = (automato.estadoInicial, '', exInicial)
+        transicao = (automato.estadoInicial, self.lamb, exInicial)
         automato.transicoes.append(transicao)
         
-        transicao = (exFinal, '', automato.estadoFinal)
+        transicao = (exFinal, self.lamb, automato.estadoFinal)
         automato.transicoes.append(transicao)
         
-        transicao = (exFinal, '', exInicial)
+        transicao = (exFinal, self.lamb, exInicial)
         automato.transicoes.append(transicao)
         
-        transicao = (automato.estadoInicial, '', automato.estadoFinal)
+        transicao = (automato.estadoInicial, self.lamb, automato.estadoFinal)
         automato.transicoes.append(transicao)
         if (pre != None):
             temp = automato.acrescentaAutomato(self.indice, pre)
