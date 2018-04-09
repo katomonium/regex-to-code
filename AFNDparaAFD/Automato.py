@@ -8,16 +8,21 @@ class Automato:
     alfabeto = None
     inicial = None
     finais = None                   #dicionario de estados finais
+    
+    pilha = None
 
     #cria um dicionario de estados para o automato
 
     def __init__(self, nomeArq = None):
+        self.pilha = []
+        
         if(nomeArq == None):        #se nao for passado o nome do arquivo por parametro, cria-se um automato vazio
             self.estados = []
             self.estadosDic = {}
             self.alfabeto = []
             self.finais = {}
-            return
+            
+          
 
         arquivo = Arquivo(nomeArq, 'r')         #instancia um objeto da classe arquivo (no arquivo LeituraEscrita)
 
@@ -47,39 +52,97 @@ class Automato:
                 #~ if(transicao.letra == "λ"):
                     #~ if(
     
+    
     def criaDicionario(self, estados):
         estadosDic = {}
         for i in range(len(estados)):
             estadosDic[estados[i].idEstado] = estados[i]
         return estadosDic
+        
+    def getAlcancaveis(self,estado):
+        if(estado.cor == "P"):
+            return estado.estadosAlcancaveis
+            
+        if(estado.cor == "B"):
+            self.pilha.append(estado)
+            estado.cor = "C"
+            estado.estadosAlcancaveis.add(estado)
+            for transicao in estado.transicoes:
+                if(transicao.letra == "λ"):
+                    destino = transicao.destino
+                    if(destino.cor == "C"):
+                        i = 1
+                        aux = self.pilha[-i]
+                        iguais = []
+                        while(aux != destino):
+                            iguais.append(aux)
+                            i+=1
+                            aux = self.pilha[-i]
+                        for item in iguais:
+                            for alcancavel in item.estadosAlcancaveis:
+                                destino.estadosAlcancaveis.add(alcancavel)
+                            item.estadosAlcancaveis = destino.estadosAlcancaveis
+                        
+                    else:
+                        print("atual = " + estado.idEstado + " COR = " + estado.cor)
+                        print("destino = " + destino.idEstado + " COR = " + destino.cor)
+                        alcancaveisDoDestino = self.getAlcancaveis(destino)
+                        for alcancavel in alcancaveisDoDestino:
+                            estado.estadosAlcancaveis.add(alcancavel)
+            self.pilha.remove(estado)
+            estado.cor = "P"
+            return estado.estadosAlcancaveis
+
 
     def tranformaEmAFD(self):
         automatoFD = AutomatoFD()
         estadoInicial = self.estadosDic[self.inicial]
-        vetorEstadosIniciais = []
-        vetorEstadosIniciais.append(estadoInicial)
-        for transicao in estadoInicial.transicoes:
-            if(transicao.letra == "λ"):
-                vetorEstadosIniciais.append(trasicao.destino)
+        vetorEstadosIniciais = estadoInicial.estadosAlcancaveis
+        
         PEinicial = automatoFD.fundirEstadosSeNaoForamFundidos(vetorEstadosIniciais)
         automatoFD.adicionaPE(PEinicial)
+        automatoFD.inicial = PEinicial
         # PEinicial.printPE()
 
         while(not automatoFD.acabou()):
             for PE in automatoFD.PErestantes:
                 for letra in self.alfabeto:
-                    vetorEstados = []
-                    for transicao in PE.transicoes:
-                        if(transicao.letra == letra):
-                            if(transicao.destino not in vetorEstados):
-                                vetorEstados.append(transicao.destino)
-                    PEdestino = automatoFD.fundirEstadosSeNaoForamFundidos(vetorEstados)
-                    if(PEdestino is not None):
-                        automatoFD.adicionaPE(PEdestino)
-                        PE.criarTransicaoReal(letra, PEdestino)
+                    if(letra != "λ"):
+                        vetorEstados = []
+                        for transicao in PE.transicoes:
+                            if(transicao.letra == letra):
+                                if(transicao.destino not in vetorEstados):
+                                    for estado in transicao.destino.estadosAlcancaveis:
+                                        vetorEstados.append(estado)
+                        PEdestino = automatoFD.fundirEstadosSeNaoForamFundidos(vetorEstados)
+                        if(PEdestino is not None):
+                            automatoFD.adicionaPE(PEdestino)
+                            PE.criarTransicaoReal(letra, PEdestino)
                 PE.verificado = True
                 automatoFD.PErestantes.remove(PE)
         automatoFD.printAFD()
+        #~ self.setFinais(automatFD)
+        automatoFD.alfabeto = self.alfabeto
+        return automatoFD
+
+
+    #~ def checaSeEhFinal(self, pseudoEstado):
+        #~ for estado in pseudoEstado.estados:
+            #~ for final in self.finais:
+                #~ if(estado == self.estadosDic[final]):
+                    #~ return True
+                #~ else:
+                    #~ return False
+                    
+    
+    #~ def setFinais(self, automatoFD):
+        #~ for PE in automatoFD.pseudoEstados:
+            #~ for estado in PE.estados:
+                #~ for final in self.finais:
+                    #~ if(estado == self.estadosDic[final]):
+                        #~ automatoFD
+                    #~ else:
+                        #~ return False
 
 
 

@@ -23,11 +23,14 @@ def main():
         # tabela = Tabela(a)
         # tabela.printTabela()
 
-
+        for i in a.finais:
+            print(i)
 
         for estado in a.estados:
-            estado.getAlcancaveis()
+            a.getAlcancaveis(estado)
             estado.printEstado()
-        #~ a.tranformaEmAFD()
+        AFD = a.tranformaEmAFD()
+        
+        print(AFD)
 
 main()

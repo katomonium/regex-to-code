@@ -8,7 +8,50 @@ class AutomatoFD:
     inicial = None
     finais = []                   #dicionario de estados finais
 
+
+    def __str__(self):
+        s = "(\n"
+
+        s += "\t{"
+        for i in self.pseudoEstados:
+                s += "q{},".format(i.idPE)
+
+        s = s[:-1]
+        s += "},\n"
+
+        s += "\t{"
+        for i in self.alfabeto:
+                s += "{},".format(i)
+
+        s = s[:-1]
+        s += "},\n\t{\n"
+        
+        for estado in self.pseudoEstados:
+            print(estado)
+            for transicao in estado.transicaoReal:
+                s += "\t\t(q{},{}->q{}),\n".format(transicao.origem.idPE, transicao.letra, transicao.destino.idPE)
+
+        s = s[:-2]
+        s += "\n\t},\n"
+        s += "\tq{},\n".format(self.inicial.idPE)
+
+        s += "\t{"
+        for PE in self.pseudoEstados:
+            if(PE.final == True):
+                s += "q{},".format(PE.idPE)
+
+        s = s[:-1]
+        s += "}\n)"
+        return s
+
+    def renomearEstados(self):
+        i = 0
+        for PE in self.pseudoEstados:
+            PE.idPE = i
+            i += 1
+
     def printAFD(self):
+        self.renomearEstados()
         for PE in self.pseudoEstados:
             PE.printPE()
 
@@ -29,7 +72,7 @@ class AutomatoFD:
                 if all(PE.contem(estado) for estado in estados):
                     return PE
         return None
-
+    
     def fundirEstadosSeNaoForamFundidos(self,estados):
         if(len(estados) == 0):
             return None
@@ -39,6 +82,6 @@ class AutomatoFD:
             return pseudoEstado
         else:
             pseudoEstado = PseudoEstado()
-            pseudoEstado.estados = estados
+            pseudoEstado.setEstados(estados)
             pseudoEstado.setTransicoes()
             return pseudoEstado
