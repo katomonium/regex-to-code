@@ -12,6 +12,7 @@ class ER:
     variaveis = None
     expressao = None
     indice = None
+    alfabeto = None
 
     def __init__(self):
         self.simbolosEspeciais = {
@@ -25,7 +26,7 @@ class ER:
             "-" : "-",
             "." : "."
         }
-
+        self.alfabeto = {}
         self.variaveis = {}
         self.expressao = []
 
@@ -34,13 +35,36 @@ class ER:
         arquivo = open(nomeArquivo, 'r')
         linhas = arquivo.read().splitlines()
         self.substituiPadroes(linhas)
+        self.leAlfabeto(linhas)
         self.lerVariaveis(linhas)
         self.lerExpressao(linhas)
         arquivo.close()
         
+    
+    def leAlfabeto(self, linhas):
+        if(linhas[0][0] == ":"):
+            alf = linhas[0].split(",")
+            alf[0] = alf[0][1:]
+            for item in alf:
+                self.alfabeto[item] = item
+        print(self.alfabeto)
+        print("----------------------------")
         
     def substituiPadroes(self, linhas):
         posLinha = 0
+        while(posLinha < len(linhas)):
+            teste = ""
+            if(linhas[posLinha] == ""):
+                del linhas[posLinha]
+                posLinha -= 1
+            else:
+                for i in range(len(linhas[posLinha])):
+                    if(linhas[posLinha][i] != " " and linhas[posLinha][i] != "\t"):
+                        teste += linhas[posLinha][i]
+                linhas[posLinha] = teste
+            posLinha += 1
+        posLinha= 0
+        
         while(posLinha < len(linhas)):
             novo = []
             i = 0
@@ -66,29 +90,22 @@ class ER:
                 else:
                     novo.append(linhas[posLinha][i])
                 i += 1
-            print(novo)
             linhas[posLinha] = ''.join(novo)
+            print(linhas[posLinha])
             posLinha += 1
-        
+        print("______________________-")
         
     # Le as "variaveis" da expressao
     def lerVariaveis(self, linhas):
         posLinha = 0
-        while(posLinha < len(linhas) and "{" not in linhas[posLinha]):
+        while(posLinha < len(linhas) and "{" != linhas[posLinha][0]):
             linha = linhas[posLinha]
             indice = ""
             posCaractere = 0
-            while(posCaractere < len(linha) and linha[posCaractere] != " "):
+            while(posCaractere < len(linha) and linha[posCaractere] != "="):
                 indice += linha[posCaractere]
                 posCaractere += 1
-
-            while(posCaractere < len(linha) and linha[posCaractere] == " "):
-                posCaractere += 1
-
             posCaractere += 1
-            while (posCaractere < len(linha) and linha[posCaractere] == " "):
-                posCaractere += 1
-
             valor = ""
             while (posCaractere < len(linha)):
                 valor += linha[posCaractere]
@@ -96,32 +113,23 @@ class ER:
             self.variaveis[indice] = valor
                     
             posLinha += 1
+        print(self.variaveis)
+        print("--------------------------------")
 
     # Le a expressao em si, eliminando espacos inuteis
     def lerExpressao(self, linhas):
         posLinha = 0
-        while ("{" not in linhas[posLinha]):
+        while(linhas[posLinha][0] != "{"):
             posLinha += 1
 
         posLinha += 1
         ex = ""
-        while("}" not in linhas[posLinha]):
-            i = 0
-            while(linhas[posLinha][i] == " " or linhas[posLinha][i] == "\t"):
-                i += 1
-            cont = 0
-            while (i < len(linhas[posLinha])):
-                if (linhas[posLinha][i] == "\t"):
-                    l = list(linhas[posLinha])
-                    l[i] = ' '
-                    linhas[posLinha] = ''.join(l)
-                if(linhas[posLinha][i] != " " and linhas[posLinha][i] != "\t"):
-                    ex += linhas[posLinha][i]
-                i += 1
-            if(linhas[posLinha + 1] != "}"):
-                ex += " "
+        while(linhas[posLinha][0] != "}"):
+            ex += linhas[posLinha]
             posLinha += 1
             self.expressao = ex
+        print(self.expressao)
+        print("_-----------------------_")
 
     def criarAFND(self):
         fila = Heap()
@@ -130,6 +138,7 @@ class ER:
         self.iniciaEstruturas(fila, parenteses)
         componentes = self.gerarComponentesSimples(fila, parenteses)
         resultado = self.juntarComponentes(fila, componentes, parenteses)
+        resultado.alfabeto = self.alfabeto
         return resultado
 
 

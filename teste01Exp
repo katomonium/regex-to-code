@@ -1,13 +1,16 @@
+## alfabeto: o alfabeto e declarado na primeira linha do arquivo utilizando
+## o operador ':' antes da primeira letra do alfabeto
+## o alfabeto sera lido ate o primeiro fim de linha
+:a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p,  q, r, s, t, u, v, w, x, y, z, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '-', ''
+
 ## fragmentos: <nome-da-variavel> = <padrao-regex>
 ## fragmentos tem nomes compostos SOMENTE por letras e sao 
 ## declaradas antes da expressao
-## os caracteres devem estar entre aspas simples vazio 
 ##é representado por: ''
 ## os operadores "*", "+", ".", "(", ")", "|" nao podem ser
 ## usado na declaracao de fragmentos
-
-numeros = ['0'-'9']
-letras = ['a'-'z']
+numeros = [0-9]
+letras = [a-z]
 palavras-chave = 'se'
 traco = '-'
 
@@ -16,12 +19,9 @@ traco = '-'
 
 ## os simbolos "*", "+", "|", ")", "]", "-", "(", "[" e "." sao simbolos
 ## especiais da expressao regular
-## OBS: Não deve haver espaço entre os elementos da expressão e os
-## operadores com exceção do simbolo "|", pois este sempre necessita estar
-## separado por espaço ou fim de linha espaço ou fim de linha quando usado ## como operador
-## Exemplo: traco é um fragmento que deveria representar o caracter "-"
+## Exemplo: traco é um fragmento que representa o conjunto de caracteres '-'
     
-    letras* | nomeros+    | traco    |      palavras-chave+ | ''
+    letras* | nomeros+    | traco    |      palavras-chave  + | ''
 
 ## caractere '}' indica o fim da expressao
 }

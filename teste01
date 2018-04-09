@@ -1,8 +1,9 @@
+:a, b, c, d, k,   l
 numeros = ['0'-'9']
 letras = ['a'-'z']
 palavrasChave = 'se' | 'senao' | 'para' | 'para cada'
 traco = '-'
 {
-    letras* | nomeros+    | traco    |      palavras-chave+
+    letras* | numeros+    | traco    |      palavrasChave+
     | ''
 }

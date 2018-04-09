@@ -12,7 +12,6 @@ class Automato:
     def __init__(self, estadoInicial = None, estadoFinal = None, alfabeto = {}):
         self.alfabeto = alfabeto
         self.estados = {}
-        self.alfabeto = {}
         self.transicoes = []
         self.estadoInicial = estadoInicial
         self.estadoFinal = estadoFinal
