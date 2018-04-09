@@ -145,7 +145,6 @@ class Automato:
                         #~ return False
 
 
-
     #funcao de minimizacao
     def minimiza(self, arqTabela, arqMin):
         arquivoTabela = open(arqTabela, 'w')    #instancia um arquivo para escrever a tabela

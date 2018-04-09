@@ -1,11 +1,12 @@
 from Automato import Automato
 from Tabela import Tabela
+from LeituraEscrita import Arquivo
 import sys
 
 def main():
-    if(len(sys.argv) != 2):
+    if(len(sys.argv) != 3):
         print("Modo de execucao: ")
-        print("python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>")
+        print("python Main.py <arquivoEntrada> <arquivoNovoAutomato>")
     else:
         entrada= sys.argv[1]
         # tabela = sys.argv[2]
@@ -30,6 +31,10 @@ def main():
             a.getAlcancaveis(estado)
             estado.printEstado()
         AFD = a.tranformaEmAFD()
+        
+        nomeArq = sys.argv[2]
+        arquivo = Arquivo(nomeArq, "w")
+        arquivo.escreveAFD(AFD)
         
         print(AFD)
 

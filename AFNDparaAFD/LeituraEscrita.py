@@ -77,37 +77,37 @@ class Arquivo:
         return dicionario
 
     #Formata o texto para escrever no arquivo
-    def escreveMinimizado(self, automato):
-        novo = automato.novoAutomato()                  #Gera o automato minimizado para escrevê-lo no arquivo
+    def escreveAFD(self, AFD):
+        #~ novo = automato.novoAutomato()                  #Gera o automato minimizado para escrevê-lo no arquivo
 
-        saida = "(\n\t{"
-        for i in range(len(novo.estados)):
-            saida += novo.estados[i].idEstado
-            if(i < len(novo.estados) - 1):
-                saida += ","
+        #~ saida = "(\n\t{"
+        #~ for i in range(len(novo.estados)):
+            #~ saida += novo.estados[i].idEstado
+            #~ if(i < len(novo.estados) - 1):
+                #~ saida += ","
 
-        saida += "},\n\t{"
-        for l in novo.alfabeto:
-            saida += l
-            if(l != novo.alfabeto[len(novo.alfabeto) - 1]):
-                saida += ","
+        #~ saida += "},\n\t{"
+        #~ for l in novo.alfabeto:
+            #~ saida += l
+            #~ if(l != novo.alfabeto[len(novo.alfabeto) - 1]):
+                #~ saida += ","
 
-        saida += "},\n\t{\n"
-        for i in range(len(novo.estados)):
-            for j in range(len(novo.estados[i].transicoes)):
-                saida += "\t\t(" + novo.estados[i].transicoes[j].origem.idEstado + "," + novo.estados[i].transicoes[j].letra + "->" + novo.estados[i].transicoes[j].destino.idEstado + ")"
-                if((j < len(novo.estados[i].transicoes) - 1) or (i < len(novo.estados) - 1)):
-                    saida += ","
-                saida += "\n"
+        #~ saida += "},\n\t{\n"
+        #~ for i in range(len(novo.estados)):
+            #~ for j in range(len(novo.estados[i].transicoes)):
+                #~ saida += "\t\t(" + novo.estados[i].transicoes[j].origem.idEstado + "," + novo.estados[i].transicoes[j].letra + "->" + novo.estados[i].transicoes[j].destino.idEstado + ")"
+                #~ if((j < len(novo.estados[i].transicoes) - 1) or (i < len(novo.estados) - 1)):
+                    #~ saida += ","
+                #~ saida += "\n"
 
-        saida += "\t},\n\t"
-        saida += novo.inicial + ","
-        saida += "\n\t{"
-        for i in range(len(novo.estados)):
-            if(novo.estados[i].final):
-                saida += novo.estados[i].idEstado
-                if(i < len(novo.finais)):
-                    saida += ","
-        saida += "}\n)"
+        #~ saida += "\t},\n\t"
+        #~ saida += novo.inicial + ","
+        #~ saida += "\n\t{"
+        #~ for i in range(len(novo.estados)):
+            #~ if(novo.estados[i].final):
+                #~ saida += novo.estados[i].idEstado
+                #~ if(i < len(novo.finais)):
+                    #~ saida += ","
+        #~ saida += "}\n)"
 
-        self.arq.write(saida)
+        self.arq.write(AFD.__str__())
