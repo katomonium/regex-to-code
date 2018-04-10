@@ -1,4 +1,5 @@
-from Transicao import Transicao
+from AFNDparaAFD.Transicao import Transicao
+
 
 class PseudoEstado:
     estados = None

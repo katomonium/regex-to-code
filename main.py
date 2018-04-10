@@ -4,11 +4,16 @@
 import sys
 
 from ERparaAFND.ERparaAFND import ERparaAFND
-from desenhaGrafo.desenhaGrafo import drawing
+# from desenhaGrafo.desenhaGrafo import drawing
+from AFNDparaAFD.AFNDparaAFD import AFNDparaAFD
 
 if __name__ == '__main__':
     print("Hello")
 
     ERparaAFND(sys.argv)
-    argsDesenha = [sys.argv[2], sys.argv[2] + "-grafo"]
-    drawing(argsDesenha)
+    argsDesenha = ["testes/AFND/arquivos/" + sys.argv[2], "testes/AFND/grafos/" + sys.argv[2] + "-grafo"]
+    # drawing(argsDesenha)
+
+    argsAFND = ["testes/AFND/arquivos/" + sys.argv[2], "testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-AFD"]
+    AFNDparaAFD(argsAFND)
+

@@ -1,11 +1,11 @@
  # -*- coding: UTF-8 -*-
 # GRUPO: Arthur Henrique, Pedro Silveira, João Pedro
 # MODO DE EXECUCAO:
-# python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
+# python AFNDparaAFD.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 import re
 
-from Estado import Estado
-from Transicao import Transicao
+from AFNDparaAFD.Estado import Estado
+from AFNDparaAFD.Transicao import Transicao
 # from Automato import Automato
 
 

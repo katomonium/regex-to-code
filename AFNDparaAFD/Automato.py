@@ -1,6 +1,5 @@
-from LeituraEscrita import Arquivo
-from PseudoEstado import PseudoEstado
-from AutomatoFD import AutomatoFD
+from AFNDparaAFD.LeituraEscrita import Arquivo
+from AFNDparaAFD.AutomatoFD import AutomatoFD
 
 class Automato:
     estados = None                  #lista de estados do automato

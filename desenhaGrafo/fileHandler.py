@@ -45,7 +45,7 @@ class Automato:
         return s
 
 
-caminhoAFND = "testes/AFND/arquivos/"
+caminhoAFND = ""
 
 
 def lerAutomato(arquivo):

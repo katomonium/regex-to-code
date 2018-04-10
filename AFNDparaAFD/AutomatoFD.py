@@ -1,4 +1,4 @@
-from PseudoEstado import PseudoEstado
+from AFNDparaAFD.PseudoEstado import PseudoEstado
 
 class AutomatoFD:
     PErestantes = []

@@ -3,7 +3,7 @@
 
 import graphviz
 
-caminhoAFNDGrafo = "testes/AFND/grafos/"
+caminhoAFNDGrafo = ""
 
 
 def drawing(auto, filename):
