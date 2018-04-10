@@ -1,0 +1,33 @@
+digraph "graph" {
+	rankdir=LR
+	node [shape=point]
+	start
+	node [shape=doublecircle]
+	q27
+	node [shape=circle]
+	q5
+	q6
+	q15
+	q19
+	q20
+	q21
+	q22
+	q23
+	q24
+	q25
+	q26
+	start -> q26
+	q5 -> q6 [label="'a'..'z'"]
+	q6 -> q15 [label="'0'..'9'"]
+	q19 -> q20 [label="'a'..'z'"]
+	q22 -> q23 [label="'0'..'9'"]
+	q24 -> q19 [label="λ"]
+	q24 -> q22 [label="λ"]
+	q20 -> q25 [label="λ"]
+	q23 -> q25 [label="λ"]
+	q25 -> q21 [label="'a'..'z'"]
+	q26 -> q5 [label="λ"]
+	q26 -> q24 [label="λ"]
+	q15 -> q27 [label="λ"]
+	q21 -> q27 [label="λ"]
+}

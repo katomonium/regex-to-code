@@ -1,0 +1,62 @@
+digraph "graph" {
+	rankdir=LR
+	node [shape=point]
+	start
+	node [shape=doublecircle]
+	q70
+	node [shape=circle]
+	q64
+	q65
+	q66
+	q67
+	q68
+	q69
+	q11
+	q12
+	q50
+	q51
+	q52
+	q53
+	q54
+	q55
+	q56
+	q57
+	q58
+	q59
+	q60
+	q61
+	q62
+	q63
+	start -> q69
+	q11 -> q12 [label="'a'..'z'"]
+	q59 -> q60 [label="'a'..'z'"]
+	q60 -> q64 [label="λ"]
+	q60 -> q59 [label="λ"]
+	q66 -> q65 [label="'a'..'z'"]
+	q65 -> q59 [label="λ"]
+	q65 -> q64 [label="λ"]
+	q51 -> q52 [label="'0'..'9'"]
+	q54 -> q55 [label="'0'..'9'"]
+	q55 -> q56 [label="λ"]
+	q55 -> q54 [label="λ"]
+	q52 -> q54 [label="λ"]
+	q52 -> q56 [label="λ"]
+	q58 -> q57 [label="'_'"]
+	q61 -> q51 [label="λ"]
+	q61 -> q58 [label="λ"]
+	q56 -> q67 [label="λ"]
+	q57 -> q67 [label="λ"]
+	q68 -> q62 [label="'a'..'z'"]
+	q63 -> q61 [label="λ"]
+	q63 -> q68 [label="λ"]
+	q67 -> q50 [label="λ"]
+	q62 -> q50 [label="λ"]
+	q50 -> q53 [label="λ"]
+	q50 -> q63 [label="λ"]
+	q64 -> q63 [label="λ"]
+	q64 -> q53 [label="λ"]
+	q69 -> q11 [label="λ"]
+	q69 -> q66 [label="λ"]
+	q12 -> q70 [label="λ"]
+	q53 -> q70 [label="λ"]
+}

@@ -4,7 +4,7 @@
 import sys
 
 from ERparaAFND.ERparaAFND import ERparaAFND
-# from desenhaGrafo.desenhaGrafo import drawing
+from desenhaGrafo.desenhaGrafo import desenhaGrafo
 from AFNDparaAFD.AFNDparaAFD import AFNDparaAFD
 
 if __name__ == '__main__':
@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     ERparaAFND(["testes/ER/" + sys.argv[1], "testes/AFND/arquivos/" + sys.argv[2]])
     argsDesenha = ["testes/AFND/arquivos/" + sys.argv[2], "testes/AFND/grafos/" + sys.argv[2] + "-grafo"]
-    # drawing(argsDesenha)
+    desenhaGrafo(argsDesenha)
 
     # argsAFND = ["testes/AFND/arquivos/" + sys.argv[2], "testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-AFD"]
     # AFNDparaAFD(argsAFND)

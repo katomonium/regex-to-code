@@ -11,5 +11,5 @@ def desenhaGrafo(args):
     logging.basicConfig(level=logging.INFO)
 
     auto = lerAutomato(args[0])
-    drawing.desenhaGrafo(auto, args[1])
+    drawing(auto, args[1])
 

@@ -4,7 +4,8 @@ letras = ['a'-'z']
 palavrasChave = 'se' | 'senao' | 'para' | 'para cada'
 traco = '-'
 vazio = ''
+parenteses1 = (
+parenteses2 = )
 {
-    letras* | numeros+    | traco    |      palavrasChave+
-    | vazio
+    s.e.parenteses1.letras*.parenteses2.e.n.t.a.o | s.e.n.a.o | letras* 
 }
