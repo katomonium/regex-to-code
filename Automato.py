@@ -3,6 +3,7 @@
 
 
 class Automato:
+    caminhoEscrita = "testes/AFND/arquivos/"
     estados = None
     alfabeto = None
     transicoes = None
@@ -35,7 +36,7 @@ class Automato:
         if(self.estadoInicial == None and len(self.estadosFinais) == 0):
             self.estadoInicial = link[acrescentado.estadoInicial]
             for key in acrescentado.estadosFinais:
-                self.estadosFinais[key] = link[key]
+                self.estadosFinais[link[key]] = link[key]
         return [indice, link]
     
     def getDadosAutomato(self):
@@ -107,7 +108,7 @@ class Automato:
         
         
         
-        arquivo = open(nomeArq, "w")
+        arquivo = open(self.caminhoEscrita + nomeArq, "w")
         arquivo.write(saida)
         arquivo.close()
         

@@ -94,6 +94,27 @@ class ER:
             linhas[posLinha] = ''.join(novo)
             print(linhas[posLinha])
             posLinha += 1
+        posLinha = 0
+        while(linhas[posLinha][0] != "{"):
+            posLinha += 1
+        posLinha += 1
+        while(linhas[posLinha][0] != "}"):
+            novo = []
+            i = 0
+            ultimoTrocou = False
+            while((i + 1) < len(linhas[posLinha])):
+                if(linhas[posLinha][i] == "'" and linhas[posLinha][i + 1] == "'"):
+                    novo.append(self.lamb)
+                    i += 1
+                    ultimoTrocou = True
+                else:
+                    novo.append(linhas[posLinha][i])
+                    ultimoTrocou = False
+                i += 1
+            if(not ultimoTrocou):
+                novo.append(linhas[posLinha][i])
+            linhas[posLinha] = ''.join(novo)
+            posLinha += 1
         print("______________________-")
         
     # Le as "variaveis" da expressao
@@ -184,6 +205,7 @@ class ER:
             lista.insere(noh)
         return fila
     
+    
     def juntarComponentes(self, fila, componentes, parenteses):
         while(len(componentes) > 1):
             noh1 = fila.remove()
@@ -205,14 +227,17 @@ class ER:
             return componentes[key]
     
     def juntarPar(self, noh1, noh2, componentes, fila):
-        if (self.expressao[noh1.fim + 1] == "."):
-            if (noh2.inicio - 2 == noh1.fim):
+        if (noh2.inicio - 2 == noh1.fim):
+            if (self.expressao[noh1.fim + 1] == "."):
                 self.concatena(componentes, noh1, noh2)
                 fila.insere(noh1)
-        elif (self.expressao[noh1.fim + 1] == "|"):
-            if (noh2.inicio - 2 == noh1.fim):
+                
+            elif (self.expressao[noh1.fim + 1] == "|"):
                 self.une(componentes, noh1, noh2)
                 fila.insere(noh1)
+            else:
+                fila.insere(noh1)
+                fila.insere(noh2)
         else:
             self.verificarParenteses(noh1, componentes)
             fila.insere(noh1)
@@ -239,12 +264,14 @@ class ER:
         pre.transicoes.append(transicao)
         transicao = (link[automato.estadoFinal], self.lamb, self.indice)
         pre.transicoes.append(transicao)
+        pre.estadosFinais.pop(pre.estadoFinal)
+        # pre.estados.pop(pre.estadoFinal)
         pre.estadoFinal = self.indice
         self.indice += 1
+        pre.estadosFinais[pre.estadoFinal] = pre.estadoFinal
         
         noh1.fim = noh2.fim
         componentes.pop(noh2)
-        
     
     def concatena(self, componentes, noh1, noh2):
         pre = componentes[noh1]
@@ -267,7 +294,10 @@ class ER:
             del pre.transicoes[i - j]
             j += 1
         del pre.estados[link[automato.estadoInicial]]
+        pre.estadosFinais.pop(pre.estadoFinal)
         pre.estadoFinal = link[automato.estadoFinal]
+        # pre.estados.pop(pre.estadoFinal)
+        pre.estadosFinais[pre.estadoFinal] = pre.estadoFinal
         noh1.fim = noh2.fim
         componentes.pop(noh2)
         
@@ -276,6 +306,8 @@ class ER:
         noh.inicio -= 1
         if(noh.fim + 1 < len(self.expressao) and
            (self.expressao[noh.fim + 1] == "+" or self.expressao[noh.fim + 1] == "*")):
+            print("SEM NEXO: " + str(componentes[noh].estados))
+            print(componentes[noh].transicoes)
             self.realizarOperacao(componentes[noh], noh)
         noh.peso -= 1
         noh.pilhaParenteses.pop(len(noh.pilhaParenteses) - 1)
@@ -288,11 +320,16 @@ class ER:
         pre = None
         linkAux = None
         if (self.expressao[noh.fim + 1] == "+"):
-            pre = Automato()
-            self.indice += 2
+            pre = Automato(None, {}, {})
+            print(pre.estados)
+            if(4 in pre.estados):
+                print("kkkkkkkkkk" + str(pre.estados))
+                print("kkkkkkkkkkk" + str(automato.estados))
             temp = pre.acrescentaAutomato(self.indice, automato)
             self.indice = temp[0]
             linkAux = temp[1]
+            
+
         
         exInicial = automato.estadoInicial
         automato.estadoInicial = self.indice
@@ -302,6 +339,7 @@ class ER:
         exFinal = automato.estadoFinal
         automato.estadoFinal = self.indice
         automato.estados[automato.estadoFinal] = automato.estadoFinal
+        automato.estadosFinais[automato.estadoFinal] = automato.estadoFinal
         self.indice += 1
         
         transicao = (automato.estadoInicial, self.lamb, exInicial)
@@ -315,6 +353,8 @@ class ER:
         
         transicao = (automato.estadoInicial, self.lamb, automato.estadoFinal)
         automato.transicoes.append(transicao)
+        
+        automato.estadosFinais.pop(exFinal)
         if (pre != None):
             temp = automato.acrescentaAutomato(self.indice, pre)
             pre.estadoInicial = linkAux[exInicial]
@@ -332,7 +372,6 @@ class ER:
                     t = (automato.transicoes[i][0], automato.transicoes[i][1], link[pre.estadoFinal])
                     automato.transicoes.append(t)
                     alvos.append(i)
-            
             j = 0
             for i in alvos:
                 del automato.transicoes[i - j]

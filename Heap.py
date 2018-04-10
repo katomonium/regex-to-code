@@ -27,14 +27,17 @@ class Heap:
         if(self.elementos[i].peso > self.elementos[maior].peso or
            (self.elementos[i].peso == self.elementos[maior].peso and
             self.elementos[i].inicio < self.elementos[maior].inicio)):
+            # print(self.elementos[i].getDadosNoh() + " > " + self.elementos[maior].getDadosNoh())
             maior = i
         if(i == maior):
+            # print(i)
             aux = self.elementos[self.pai(i)]
             self.elementos[self.pai(i)] = self.elementos[i]
             self.elementos[i] = aux
             self.heapfy(self.pai(i))
         
     def insere(self, elemento):
+        # print("INSERINDO: " + elemento.getDadosNoh())
         self.elementos.append(elemento)
         self.heapfy(len(self.elementos) - 1)
         
@@ -64,20 +67,26 @@ class Heap:
         
     def remove(self):
         topo = self.elementos[0]
-        self.elementos = self.elementos[1:]
+        # print("REMOVENDO: " + topo.getDadosNoh())
+        self.elementos[0] = self.elementos[len(self.elementos) - 1]
+        self.elementos = self.elementos[:-1]
         self.corrigeDescendo(0)
         return topo
     
     def getDadosNohs(self):
         lista = []
         for i in range(len(self.elementos)):
-            lista.append(self.remove())
+            r = self.remove()
+            lista.append(r)
+            
         
         for i in range(len(lista)):
-            self.insere(lista[i])
+            # print("LISTA::")
+            # print(lista[i].getDadosNoh())
+            self.insere(lista[i]);
         
         saida = "{ \n"
-        for elemento in lista:
-            saida += elemento.getDadosNoh()
+        for i in range(len(lista)):
+            saida += lista[i].getDadosNoh()
         saida += "}"
         return saida

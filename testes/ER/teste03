@@ -2,5 +2,5 @@ letras = ['a'-'z']
 numeros = ['0'-'9']
 
 {
-	letras*.((numeros+)).letras+.((letras | numeros) | (letras))+.'_' | ''
+letras*.((numeros+)).letras+.((letras | numeros) | (letras))+.'_' | ''
 }

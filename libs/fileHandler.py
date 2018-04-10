@@ -44,9 +44,9 @@ class Automato:
 
         return s
 
-
+caminhoAFND = "../testes/AFND/arquivos/"
 def lerAutomato(arquivo):
-    linhas = open(arquivo, 'r').read().splitlines()
+    linhas = open(caminhoAFND + arquivo, 'r').read().splitlines()
 
     e = re.compile('\w+\d+')
     estados = e.findall(linhas[1])

@@ -1,0 +1,28 @@
+digraph "graph" {
+	rankdir=LR
+	node [shape=point]
+	start
+	node [shape=doublecircle]
+	q14
+	node [shape=circle]
+	q1
+	q2
+	q8
+	q9
+	q10
+	q11
+	q12
+	q13
+	start -> q13
+	q1 -> q2 [label="'se'"]
+	q2 -> q8 [label="λ"]
+	q2 -> q1 [label="λ"]
+	q9 -> q10 [label="'se'"]
+	q10 -> q1 [label="λ"]
+	q10 -> q8 [label="λ"]
+	q11 -> q12 [label="'a'..'z'"]
+	q13 -> q9 [label="λ"]
+	q13 -> q11 [label="λ"]
+	q8 -> q14 [label="λ"]
+	q12 -> q14 [label="λ"]
+}
