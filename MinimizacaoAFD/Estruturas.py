@@ -4,32 +4,8 @@
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 
 from MinimizacaoAFD.LeituraEscrita import *
-class Estado:                       #Estrutura para representar os estados do automato
-    idEstado = None                 #"nome" do estado
-    transicoes = None               #transicoes do estado
-    final = None                    #booleano para representar se é final ou nao
-    equivalentes = None             #estados que sao iguais
-    usado = None                    #booleano para evitar repetições na construção do automato minimizado 
-    estadoNovo = None               #referencia o seu estado equivalente no automato minimizado
-    
-    
-    def __init__(self):             #construtor de Estado
-        self.final = False
-        self.transicoes = []
-        self.equivalentes = []
-        self.usado = False
-        self.estadoNovo = False
-
-class Transicao:                    #Estrutura para representar uma transição
-    origem = None                   #Estado de origem
-    destino = None                  #Estado de destino
-    letra = None                    #Simbolo lido
-    
-    def __init__(self, origem, letra, destino):
-        self.origem = origem
-        self.destino = destino
-        self.letra = letra
-
+from MinimizacaoAFD.Estado import Estado
+from MinimizacaoAFD.Transicao import Transicao
 
 class Par:                          #representa um par da tabela de minimizacao
     e1 = None                       #estado 1
@@ -84,7 +60,7 @@ class Automato:
                     for equivalente in estado.equivalentes:
                         novoEstado.equivalentes.append(equivalente)
                         equivalente.usado = True
-                        nome += "q" + equivalente.idEstado
+                        nome += "q" + str(equivalente.idEstado)
                         equivalente.estadoNovo = novoEstado
                         if(equivalente.idEstado == self.inicial):
                             ini = True
@@ -98,7 +74,7 @@ class Automato:
                     novoEstado.final = estado.final
                     novoAutomato.estados.append(novoEstado)
                     estado.estadoNovo = novoEstado
-                    nome = "q" + estado.idEstado
+                    nome = "q" + str(estado.idEstado)
                     novoEstado.idEstado = nome
                     novoEstado.equivalentes.append(estado)
                     if(estado.idEstado == self.inicial):
@@ -139,24 +115,34 @@ class Automato:
         completo = True
         estadoErro = Estado()
 
-        estadoErro.idEstado = len(self.estados)
+        estadoErro.idEstado = str(len(self.estados))
         self.estados.append(estadoErro)
-        self.estadosDic[estadoErro.idEstado] = self.estados[estadoErro.idEstado]
-
+        self.estadosDic[estadoErro.idEstado] = self.estados[int(estadoErro.idEstado)]
+        print("++++++++++++++++++++++++++++++++++++++")
         for estado in self.estados:
-            for letra in self.alfabeto:
-                achou = False
-                for transicao in estado.transicao:
-                    if(transicao.letra == letra):
-                        achou = True
-                if(not achou):
-                    completo = False
-                    transicaoErro = Transicao(estado, letra, estadoErro)
-                    estado.trasicoes.append(transicaoErro)
+            if(estado.idEstado != estadoErro.idEstado):
+                for letra in self.alfabeto:
+                    if(letra != "λ"):
+                        achou = False
+                        for transicao in estado.transicoes:
+                            if(transicao.letra == letra):
+                                achou = True
+                        if(not achou):
+                            completo = False
+                            transicaoErro = Transicao(estado, letra, estadoErro)
+                            print(transicaoErro.origem.idEstado + " " + transicaoErro.destino.idEstado)
+                            estado.transicoes.append(transicaoErro)
 
         if(completo):
-            self.estados.pop(estadoErro.idEstado)
+            self.estados.pop(int(estadoErro.idEstado))
             self.estadosDic.pop(estadoErro.idEstado)
+        else:
+            for letra in self.alfabeto:
+                if(letra != "λ"):
+                    t = Transicao(estadoErro, letra, estadoErro)
+                    estadoErro.transicoes.append(t)
+        print("++++++++++++++++++++++++++++++++++++++++++==")
+        print(self.finais)
 
 
     #cria um dicionario de estados para o automato
@@ -196,7 +182,7 @@ class Automato:
         arquivoTabela = open(arqTabela, 'w')    #instancia um arquivo para escrever a tabela
         tabela = Tabela()                       #instancia o objeto que monta a tabela
         
-        #cria os pares da tabela de minimizacao
+        # cria os pares da tabela de minimizacao
         for i in range(len(self.estados)):
             for j in range(i+1, len(self.estados)):
                 par = Par(self.estados[i], self.estados[j])
@@ -204,7 +190,7 @@ class Automato:
         
         tabela.minimiza(self)                   #aplica o algoritmo de minimizacao na tabela
         tabela.imprimeTabela(arquivoTabela)     #escreve a tabela no arquivo
-            
+        
         escritor = Arquivo(arqMin, 'w')         #instancia o objeto para escrever o automato no arquivo
         escritor.escreveMinimizado(self)        #escreve o novo automato no arquivo
         
@@ -246,8 +232,12 @@ class Tabela:
                         #se nao,##SILVERAAA, explica isso#
                         else:
                             if(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino):
+                                print(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino)
                                 for p in self.pares:
+                                    print("t1: " + transicao1.origem.idEstado + " t2: " + transicao2.origem.idEstado )
+                                    print(p.e1.idEstado + " " + transicao1.destino.idEstado + " ---- "+  p.e2.idEstado + " " +transicao2.destino.idEstado)
                                     if(p.e1.idEstado == transicao1.destino.idEstado and p.e2.idEstado == transicao2.destino.idEstado):
+                                        print("EUOOOOO")
                                         p.dependentes.append(par)
 
         #adiciona, ao estado, os estados iguais a ele

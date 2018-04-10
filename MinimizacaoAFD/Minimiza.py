@@ -3,25 +3,25 @@
 # MODO DE EXECUCAO:
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 from MinimizacaoAFD.Estruturas import Automato
+from MinimizacaoAFD.LeituraEscrita import Arquivo
 import sys
-def main():
-    if(len(sys.argv) != 4):
-        print("Modo de execucao: ")
-        print("python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>")
-    else:
-        entrada= sys.argv[1]
-        tabela = sys.argv[2]
-        minimizado = sys.argv[3]
+def Minimiza(args):
+        entrada= args[0]
+        saida = args[1]
         
         #~ minimizado = sys.argv[3]
+        
         a = Automato(entrada)
         a.completaAutomato()
-
-        # a.minimiza(tabela, minimizado)
+        le = Arquivo(saida + "1", "w")
+        le.imprimeAut(a)
+        a.novoAutomato()
+        # tab = "testes/AFD/Minimizado/tabela.txt"
+        a.minimiza(tab, saida)
         # print("Arquivo de entrada: " + sys.argv[1])
         # print("Arquivo com a tabela de minimizacao: " + sys.argv[2])
-        # print("Arquivo com o automato minimizado: " + sys.argv[3])
-        a.novoAutomato()
+        le.escreveMinimizado(a)
+        
+        
+        
 
-
-main()

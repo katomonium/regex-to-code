@@ -4,14 +4,15 @@
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 import re
 
-import Estruturas
-
+from MinimizacaoAFD.Estado import Estado
+from MinimizacaoAFD.Transicao import Transicao
 #classe que gerencia arquivo
 class Arquivo:
     arq = None
     linhas = None
     
     def __init__(self, nomeArq, modo):
+        print(nomeArq)
         self.arq = open(nomeArq, modo)              #Abre o arquivo no modo desejado ('w' - escrita, 'r' - leitura)
         if(modo == 'r'):                            #Se for estado de leitura, le o arquivo dividindo-o por linhas
             self.linhas = self.arq.read().splitlines()
@@ -23,22 +24,27 @@ class Arquivo:
         
         #Cria uma instancia de Estado para cada item da lista
         for i in range(len(estados)):               
-            novo = Estruturas.Estado()
+            novo = Estado()
             novo.idEstado = estados[i]
             estadosRetorno.append(novo)
         return estadosRetorno
     
     
     def leAlfabeto(self): #alfabeto é uma lista
-        simbolos = re.compile("\w")                     #Define simbolos como um padrao que encontra qualquer palavra (nao inclui carateres especiais)
-        alfabeto = simbolos.findall(self.linhas[2])     #Procura esse padrao na linha 3 do arquivo, retornando uma lista que é o alfabeto
-            
+        i = 2
+        aux = []
+        while(i < len(self.linhas[2]) - 2):
+            aux.append(self.linhas[2][i])
+            i += 1
+        aux = ''.join(aux)
+        alfabeto = aux.split(",")
+        
         return alfabeto
         
     def leTransicoes(self, automato):
         self.arq.seek(0)                                #Volta ao inicio do arquivo
         texto = self.arq.read()                         #Le o arquivo completo
-        aux = re.compile("q(\d+),(\w)->q(\d+)")         #Define aux como o seguinte padrao "q(\d+),(\w)->q(\d+)", 
+        aux = re.compile("q(\d+),(.+)->q(\d+)")         #Define aux como o seguinte padrao "q(\d+),(\w)->q(\d+)", 
                                                         #onde (\d+) é um ou mais digitos e (\w) é uma palavra qualquer
         transicoes = aux.findall(texto)                 #Procura em "texto" esse padrao e retorna uma lista de tuplas
         
@@ -52,7 +58,7 @@ class Arquivo:
             i = item[2]
             estadoDestino = automato.estadosDic[i]
             
-            transicao = Estruturas.Transicao(estadoOrigem, letra, estadoDestino)
+            transicao = Transicao(estadoOrigem, letra, estadoDestino)
             estadoOrigem.transicoes.append(transicao)
             
         return
@@ -76,6 +82,7 @@ class Arquivo:
     #Formata o texto para escrever no arquivo
     def escreveMinimizado(self, automato):
         novo = automato.novoAutomato()                  #Gera o automato minimizado para escrevê-lo no arquivo
+        # novo = automato
         
         saida = "(\n\t{"
         for i in range(len(novo.estados)):
@@ -109,4 +116,42 @@ class Arquivo:
         
         self.arq.write(saida)
 
+
+    def imprimeAut(self, novo):
+        saida = "(\n\t{"
+        for i in range(len(novo.estados)):
+            saida += novo.estados[i].idEstado
+            if(i < len(novo.estados) - 1):
+                saida += ","
+                
+        saida += "},\n\t{"
+        for l in novo.alfabeto:
+            saida += l
+            if(l != novo.alfabeto[len(novo.alfabeto) - 1]):
+                saida += ","
+        
+        saida += "},\n\t{\n"
+        for i in range(len(novo.estados)):
+            for j in range(len(novo.estados[i].transicoes)):
+                saida += "\t\t(" + novo.estados[i].transicoes[j].origem.idEstado + "," + novo.estados[i].transicoes[j].letra + "->" + novo.estados[i].transicoes[j].destino.idEstado + ")"
+                if((j < len(novo.estados[i].transicoes) - 1) or (i < len(novo.estados) - 1)):
+                    saida += ","
+                saida += "\n"
+        
+        saida += "\t},\n\t"
+        saida += novo.inicial + ","
+        saida += "\n\t{"
+        qntFinais = 0
+        for i in range(len(novo.estados)):
+            if(novo.estados[i].final):
+                if(qntFinais > 0):
+                    saida+=","
+                saida += novo.estados[i].idEstado
+                qntFinais += 1
+                # if(i < len(novo.finais)):
+                #     saida += ","
+        saida += "}\n)"
+        print(novo.finais)
+        print(saida)
+        
 
