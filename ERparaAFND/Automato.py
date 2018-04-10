@@ -3,7 +3,7 @@
 
 
 class Automato:
-    caminhoEscrita = "testes/AFND/arquivos/"
+    caminhoEscrita = ""
     estados = None
     alfabeto = None
     transicoes = None

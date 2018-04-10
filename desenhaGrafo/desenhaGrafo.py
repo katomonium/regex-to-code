@@ -10,6 +10,6 @@ from desenhaGrafo.fileHandler import lerAutomato
 def desenhaGrafo(args):
     logging.basicConfig(level=logging.INFO)
 
-    auto = lerAutomato(args[1])
-    drawing.desenhaGrafo(auto, args[2])
+    auto = lerAutomato(args[0])
+    drawing.desenhaGrafo(auto, args[1])
 

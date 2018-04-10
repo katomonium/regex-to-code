@@ -10,10 +10,10 @@ from AFNDparaAFD.AFNDparaAFD import AFNDparaAFD
 if __name__ == '__main__':
     print("Hello")
 
-    ERparaAFND(sys.argv)
+    ERparaAFND(["testes/ER/" + sys.argv[1], "testes/AFND/arquivos/" + sys.argv[2]])
     argsDesenha = ["testes/AFND/arquivos/" + sys.argv[2], "testes/AFND/grafos/" + sys.argv[2] + "-grafo"]
     # drawing(argsDesenha)
 
-    argsAFND = ["testes/AFND/arquivos/" + sys.argv[2], "testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-AFD"]
-    AFNDparaAFD(argsAFND)
+    # argsAFND = ["testes/AFND/arquivos/" + sys.argv[2], "testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-AFD"]
+    # AFNDparaAFD(argsAFND)
 

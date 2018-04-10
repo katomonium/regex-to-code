@@ -13,7 +13,7 @@ class ER:
     expressao = None
     indice = None
     alfabeto = None
-    caminho = "testes/ER/"
+    caminho = ""
 
     def __init__(self):
         self.simbolosEspeciais = {
@@ -115,6 +115,8 @@ class ER:
                 novo.append(linhas[posLinha][i])
             linhas[posLinha] = ''.join(novo)
             posLinha += 1
+
+
         print("______________________-")
         
     # Le as "variaveis" da expressao
@@ -154,6 +156,27 @@ class ER:
             self.expressao = ex
         print(self.expressao)
         print("_-----------------------_")
+        i = 0
+        novo = []
+        novo.append("(")
+        while (i < len(self.expressao)):
+            if (self.expressao[i] == "("):
+                novo.append("(")
+                novo.append("(")
+            elif (self.expressao[i] == ")"):
+                novo.append(")")
+                novo.append(")")
+            elif (self.expressao[i] == "|"):
+                novo.append(")")
+                novo.append("|")
+                novo.append("(")
+            else:
+                novo.append(self.expressao[i])
+            i += 1
+        novo.append(")")
+        self.expressao = (''.join(novo))
+        print(self.expressao)
+        print("--------------------------")
 
     def criarAFND(self):
         fila = Heap()
@@ -306,8 +329,6 @@ class ER:
         noh.inicio -= 1
         if(noh.fim + 1 < len(self.expressao) and
            (self.expressao[noh.fim + 1] == "+" or self.expressao[noh.fim + 1] == "*")):
-            print("SEM NEXO: " + str(componentes[noh].estados))
-            print(componentes[noh].transicoes)
             self.realizarOperacao(componentes[noh], noh)
         noh.peso -= 1
         noh.pilhaParenteses.pop(len(noh.pilhaParenteses) - 1)
@@ -321,10 +342,6 @@ class ER:
         linkAux = None
         if (self.expressao[noh.fim + 1] == "+"):
             pre = Automato(None, {}, {})
-            print(pre.estados)
-            if(4 in pre.estados):
-                print("kkkkkkkkkk" + str(pre.estados))
-                print("kkkkkkkkkkk" + str(automato.estados))
             temp = pre.acrescentaAutomato(self.indice, automato)
             self.indice = temp[0]
             linkAux = temp[1]

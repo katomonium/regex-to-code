@@ -6,18 +6,14 @@ from ERparaAFND.ExpressaoRegular import ER
 
 
 def ERparaAFND(args):
-    if(len(args) != 3):
-        print("Modo de uso")
-        print("./{} <arquivo-entrada> <arquivo-saida>".format(args[0], ))
-        sys.exit(1)
-
     # Ler uma ER
     er = ER()
-    er.lerArquivo(args[1])
+    er.lerArquivo(args[0])
     print(er.expressao)
     afnd = er.criarAFND()
     print(afnd.getDadosAutomato())
-    afnd.escreveArquivo(args[2])
+    afnd.escreveArquivo(args[1])
+    print(args[1])
     # Gerar um AFND
 
     # Gerar um AFD

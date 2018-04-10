@@ -13,8 +13,10 @@ class AutomatoFD:
         s = "(\n"
 
         s += "\t{"
+        print("__________________________")
+        print(self.estadosDic)
         for i in self.pseudoEstados:
-                s += "q{},".format(i.idPE)
+            s += "q{},".format(i.idPE)
 
         s = s[:-1]
         s += "},\n"
@@ -27,8 +29,11 @@ class AutomatoFD:
         s += "},\n\t{\n"
         
         for estado in self.pseudoEstados:
+            print("Estados S")
             print(estado)
             for transicao in estado.transicaoReal:
+                print("AQUI")
+                print(transicao)
                 s += "\t\t(q{},{}->q{}),\n".format(transicao.origem.idPE, transicao.letra, transicao.destino.idPE)
 
         s = s[:-2]
