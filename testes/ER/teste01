@@ -1,4 +1,4 @@
-:a, b, c, d, k,   l
+:s,e,n,t,a,o,'0'..'9','a'..'z',(,)
 numeros = ['0'-'9']
 letras = ['a'-'z']
 palavrasChave = 'se' | 'senao' | 'para' | 'para cada'

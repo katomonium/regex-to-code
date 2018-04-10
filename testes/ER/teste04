@@ -1,3 +1,5 @@
+
+:'a'..'z', 'se'
 letras = ['a'-'z']
 {
 	('se')+ | (letras)
