@@ -44,7 +44,10 @@ class Automato:
 
         return s
 
-caminhoAFND = "../testes/AFND/arquivos/"
+
+caminhoAFND = "testes/AFND/arquivos/"
+
+
 def lerAutomato(arquivo):
     linhas = open(caminhoAFND + arquivo, 'r').read().splitlines()
 

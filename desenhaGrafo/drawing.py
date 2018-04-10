@@ -3,9 +3,10 @@
 
 import graphviz
 
-caminhoAFNDGrafo = "../testes/AFND/grafos/"
+caminhoAFNDGrafo = "testes/AFND/grafos/"
 
-def desenhaGrafo(auto, filename):
+
+def drawing(auto, filename):
     g = graphviz.Digraph('graph', filename=caminhoAFNDGrafo + filename)
     g.attr(rankdir='LR')
 

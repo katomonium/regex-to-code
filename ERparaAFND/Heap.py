@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from Noh import Noh
 
 # Heap de nós com duas prioridades, sendo o a principal o maior peso e a secundária o menor índice
 class Heap:

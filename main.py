@@ -2,26 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from ExpressaoRegular import ER
 
+from ERparaAFND.ERparaAFND import ERparaAFND
+from desenhaGrafo.desenhaGrafo import drawing
 
-def main(args):
-    if(len(args) != 3):
-        print("Mode de uso")
-        print("./{} <arquivo-entrada> <arquivo-saida>".format(args[0], ))
-        sys.exit(1)
+if __name__ == '__main__':
+    print("Hello")
 
-    # Ler uma ER
-    er = ER()
-    er.lerArquivo(args[1])
-    print(er.expressao)
-    afnd = er.criarAFND()
-    print(afnd.getDadosAutomato())
-    afnd.escreveArquivo(args[2])
-    # Gerar um AFND
-
-    # Gerar um AFD
-    # Gerar código fonte
-
-
-main(sys.argv)
+    ERparaAFND(sys.argv)
+    argsDesenha = [sys.argv[2], sys.argv[2] + "-grafo"]
+    drawing(argsDesenha)

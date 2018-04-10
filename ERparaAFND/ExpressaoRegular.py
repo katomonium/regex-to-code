@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from Automato import Automato
-from Noh import Noh
-from Heap import Heap
-import copy
+from ERparaAFND.Automato import Automato
+from ERparaAFND.Noh import Noh
+from ERparaAFND.Heap import Heap
+
 
 class ER:
     lamb = 'λ'
