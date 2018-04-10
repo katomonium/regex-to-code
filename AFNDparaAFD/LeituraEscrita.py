@@ -33,15 +33,26 @@ class Arquivo:
 
 
     def leAlfabeto(self): #alfabeto é uma lista
-        simbolos = re.compile("\w")                     #Define simbolos como um padrao que encontra qualquer palavra (nao inclui carateres especiais)
-        alfabeto = simbolos.findall(self.linhas[2])     #Procura esse padrao na linha 3 do arquivo, retornando uma lista que é o alfabeto
+        #simbolos = re.compile("\w")                     #Define simbolos como um padrao que encontra qualquer palavra (nao inclui carateres especiais)
+        #alfabeto = simbolos.findall(self.linhas[2])     #Procura esse padrao na linha 3 do arquivo, retornando uma lista que é o alfabeto
+
+        i = 2
+        aux = []
+        while(i < len(self.linhas[2]) - 2):
+            aux.append(self.linhas[2][i])
+            i += 1
+        aux = ''.join(aux)
+        alfabeto = aux.split(",")
+        print("________++++++++++++++++_______________")
+        print(alfabeto)
+        print("________++++++++++++++++_______________")
 
         return alfabeto
 
     def leTransicoes(self, automato):
         self.arq.seek(0)                                #Volta ao inicio do arquivo
         texto = self.arq.read()                         #Le o arquivo completo
-        aux = re.compile("q(\d+),(\w)->q(\d+)")         #Define aux como o seguinte padrao "q(\d+),(\w)->q(\d+)",
+        aux = re.compile("q(\d+),(.+)->q(\d+)")         #Define aux como o seguinte padrao "q(\d+),(\w)->q(\d+)",
                                                         #onde (\d+) é um ou mais digitos e (\w) é uma palavra qualquer
         transicoes = aux.findall(texto)                 #Procura em "texto" esse padrao e retorna uma lista de tuplas
 
@@ -56,6 +67,10 @@ class Arquivo:
             estadoDestino = automato.estadosDic[i]
 
             transicao = Transicao(estadoOrigem, letra, estadoDestino)
+            print("hoooooooooly")
+            print(transicao.origem.idEstado + "--" + transicao.letra + "->" + transicao.destino.idEstado)
+            print("nooooooooooooooooousa")
+
             estadoOrigem.transicoes.append(transicao)
 
         return

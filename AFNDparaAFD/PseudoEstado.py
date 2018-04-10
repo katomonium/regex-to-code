@@ -19,10 +19,14 @@ class PseudoEstado:
     
 
     def setTransicoes(self):
+        print("*************************8")
         for estado in self.estados:
+            print(estado.idEstado + " olha aeeee")
             for transicao in estado.transicoes:
-                self.transicoes.append(transicao)
 
+                print(transicao.origem.idEstado + "--" + transicao.letra + "->" + transicao.destino.idEstado)
+                self.transicoes.append(transicao)
+        print("-------------------------")
     
     def setEstados(self,estados):
         self.estados = estados

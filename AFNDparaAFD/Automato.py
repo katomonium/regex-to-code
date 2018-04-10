@@ -94,11 +94,17 @@ class Automato:
 
 
     def tranformaEmAFD(self):
+
         automatoFD = AutomatoFD()
         estadoInicial = self.estadosDic[self.inicial]
         vetorEstadosIniciais = estadoInicial.estadosAlcancaveis
-        
+        print("ID dos estados alcancaveis do inicial:")
+        for v in vetorEstadosIniciais:
+            print(v.idEstado)
         PEinicial = automatoFD.fundirEstadosSeNaoForamFundidos(vetorEstadosIniciais)
+        for t in PEinicial.transicoes:
+            print(t.origem.idEstado + "--" + t.letra + "->" + t.destino.idEstado)
+
         automatoFD.adicionaPE(PEinicial)
         automatoFD.inicial = PEinicial
         # PEinicial.printPE()
@@ -109,6 +115,8 @@ class Automato:
                     if(letra != "λ"):
                         vetorEstados = []
                         for transicao in PE.transicoes:
+                            print(transicao.letra + " ooooooooooooooooooo")
+                            print(letra + " ooooooooooooooooooo")
                             if(transicao.letra == letra):
                                 if(transicao.destino not in vetorEstados):
                                     for estado in transicao.destino.estadosAlcancaveis:
