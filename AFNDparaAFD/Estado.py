@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 class Estado:                       #Estrutura para representar os estados do automato
     idEstado = None                 #"nome" do estado
     transicoes = None               #transicoes do estado
@@ -18,30 +21,6 @@ class Estado:                       #Estrutura para representar os estados do au
         self.estadosAlcancaveis = set()
         self.cor = "B"
 
-    #~ def getAlcancaveis(self):
-        #~ if(self.cor == "P"):
-            #~ return self.estadosAlcancaveis
-            
-        #~ if(self.cor == "B"):
-            #~ self.cor = "C"
-            #~ self.estadosAlcancaveis.add(self)
-            #~ for transicao in self.transicoes:
-                #~ if(transicao.letra == "λ"):
-                    #~ destino = transicao.destino
-                    #~ if(destino.cor == "C"):
-                        #~ for alcancavel in self.estadosAlcancaveis:
-                            #~ destino.estadosAlcancaveis.add(alcancavel)
-                        #~ self.estadosAlcancaveis = destino.estadosAlcancaveis
-                        
-                    #~ else:
-                        #~ print("atual = " + self.idEstado + " COR = " + self.cor)
-                        #~ print("atual = " + destino.idEstado + " COR = " + self.cor)
-                        #~ alcancaveisDoDestino = destino.getAlcancaveis()
-                        #~ for alcancavel in alcancaveisDoDestino:
-                            #~ self.estadosAlcancaveis.add(alcancavel)
-            #~ self.cor = "P"
-            #~ return self.estadosAlcancaveis
-            
     def printEstado(self):
         s = "\nID do Estado: \n"
         s += "q" + self.idEstado
@@ -49,10 +28,3 @@ class Estado:                       #Estrutura para representar os estados do au
         s += "\nAlcança: \n"
         for estado in self.estadosAlcancaveis:
             s += "q" + estado.idEstado + "\n"
-        print(s)
-                        
-
-    #~ def getAlcancaveis(self):
-        #~ if(self.cor == "B"):
-            #~ self.setAlcancaveis()
-        #~ return self.estadosAlcancaveis

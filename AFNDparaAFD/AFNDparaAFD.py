@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from AFNDparaAFD.Automato import Automato
 from AFNDparaAFD.LeituraEscrita import Arquivo
 
@@ -7,9 +10,6 @@ def AFNDparaAFD(args):
 
         a = Automato(entrada)
 
-        for i in a.finais:
-            print(i)
-
         for estado in a.estados:
             a.getAlcancaveis(estado)
             estado.printEstado()
@@ -18,6 +18,4 @@ def AFNDparaAFD(args):
         nomeArq = args[1]
         arquivo = Arquivo(nomeArq, "w")
         arquivo.escreveAFD(AFD)
-        
-        print(AFD)
 

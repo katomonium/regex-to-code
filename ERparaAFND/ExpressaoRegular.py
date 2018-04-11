@@ -156,17 +156,62 @@ class ER:
             self.expressao = ex
         print(self.expressao)
         print("_-----------------------_")
-        i = 0
+        
+        novo = []
+        palavra = ""
+        for i in range(len(self.expressao)):
+            if(self.expressao[i] != "(" and self.expressao[i] != ")" and
+               self.expressao[i] != "[" and self.expressao[i] != "]" and
+               self.expressao[i] != "." and self.expressao[i] != " " and
+               self.expressao[i] != "+" and self.expressao[i] != "*" and
+               self.expressao[i] != "|" and self.expressao[i] != "-"):
+                palavra += self.expressao[i]
+            else:
+                subExp = self.variaveis[palavra]
+                for j in range(len(subExp)):
+                    if(subExp[j - 1] == "." and subExp[j] == "."):
+                        inicio = subExp[j - 2]
+                        print("SPOKDPASOKDPASOKDps")
+                        fim = subExp[j + 1]
+                        print(inicio, fim)
+                        if(ord(inicio) <= ord(fim)):
+                            while(ord(inicio) <= (ord(fim) - 1)):
+                                novo.append(inicio)
+                                inicio = chr(ord(inicio) + 1)
+                                novo.append("|")
+                            novo.append(fim)
+                        else:
+                            aux = chr(ord(inicio))
+                            inicio = chr(ord(inicio) - 1)
+                            while(ord(inicio) >= ord(fim)):
+                                novo.append(inicio)
+                                inicio = chr(ord(inicio) - 1)
+                                novo.append("|")
+                            novo.append(aux)
+                # for i in range(1, len(subExp)):
+                #     if(subExp[i] == "(" or subExp[i] == ")" or
+                #       subExp[i] == "[" or subExp[i] == "]" or
+                #       subExp[i] == "." or subExp[i] == " " or
+                #       subExp[i] == "+" or subExp[i] == "*" or
+                #       subExp[i] == "|" or subExp[i] == "-" or
+                #       subExp[i - 1] == "\\"):
+                #           if(i < (len(subExp) - 2) and subExp[i + 1] == "."):
+                #               pass
+                #           else:
+            
+        print("AAAADDDASDAD", novo)
+        
         novo = []
         novo.append("(")
+        i = 0
         while (i < len(self.expressao)):
-            if (self.expressao[i] == "("):
+            if (i > 0 and self.expressao[i - 1] != "\\" and self.expressao[i] == "("):
                 novo.append("(")
                 novo.append("(")
-            elif (self.expressao[i] == ")"):
+            elif (i > 0 and self.expressao[i - 1] != "\\" and self.expressao[i] == ")"):
                 novo.append(")")
                 novo.append(")")
-            elif (self.expressao[i] == "|"):
+            elif (i > 0 and self.expressao[i - 1] != "\\" and self.expressao[i] == "|"):
                 novo.append(")")
                 novo.append("|")
                 novo.append("(")
@@ -246,8 +291,10 @@ class ER:
                     fila.insere(noh2)
             else:
                 self.juntarPar(noh1, noh2, componentes, fila)
-        for key in componentes:
-            return componentes[key]
+        for noh in componentes:
+            while(noh.inicio > 0 and noh.fim < (len(self.expressao) - 1)):
+                self.verificarParenteses(noh, componentes)
+            return componentes[noh]
     
     def juntarPar(self, noh1, noh2, componentes, fila):
         if (noh2.inicio - 2 == noh1.fim):

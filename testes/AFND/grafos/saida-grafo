@@ -3,118 +3,17 @@ digraph "graph" {
 	node [shape=point]
 	start
 	node [shape=doublecircle]
-	q133
+	q6
 	node [shape=circle]
-	q128
 	q1
 	q2
-	q131
-	q132
-	q129
-	q130
-	q40
-	q42
-	q63
-	q64
-	q65
-	q66
-	q67
-	q68
-	q69
-	q70
-	q71
-	q72
-	q73
-	q74
-	q75
-	q76
-	q77
-	q78
-	q79
-	q80
-	q104
-	q105
-	q106
-	q107
-	q108
-	q109
-	q110
-	q111
-	q112
-	q113
-	q114
-	q115
-	q116
-	q117
-	q118
-	q119
-	q120
-	q121
-	q122
-	q123
-	q124
-	q125
-	q126
-	q127
-	start -> q132
-	q1 -> q2 [label=f]
-	q2 -> q40 [label=o]
-	q40 -> q42 [label=r]
-	q65 -> q63 [label=i]
-	q63 -> q64 [label=f]
-	q66 -> q1 [label="λ"]
-	q66 -> q65 [label="λ"]
-	q42 -> q67 [label="λ"]
-	q64 -> q67 [label="λ"]
-	q68 -> q69 [label=i]
-	q69 -> q70 [label=n]
-	q70 -> q71 [label=s]
-	q71 -> q72 [label=t]
-	q72 -> q73 [label=a]
-	q73 -> q74 [label=n]
-	q74 -> q75 [label=c]
-	q75 -> q76 [label=e]
-	q76 -> q77 [label=O]
-	q77 -> q78 [label=f]
-	q79 -> q66 [label="λ"]
-	q79 -> q68 [label="λ"]
-	q67 -> q80 [label="λ"]
-	q78 -> q80 [label="λ"]
-	q80 -> q104 [label="λ"]
-	q80 -> q79 [label="λ"]
-	q106 -> q107 [label=f]
-	q107 -> q123 [label=o]
-	q123 -> q124 [label=r]
-	q112 -> q126 [label=i]
-	q126 -> q105 [label=f]
-	q118 -> q106 [label="λ"]
-	q118 -> q112 [label="λ"]
-	q124 -> q108 [label="λ"]
-	q105 -> q108 [label="λ"]
-	q109 -> q110 [label=i]
-	q110 -> q111 [label=n]
-	q111 -> q125 [label=s]
-	q125 -> q113 [label=t]
-	q113 -> q114 [label=a]
-	q114 -> q115 [label=n]
-	q115 -> q116 [label=c]
-	q116 -> q117 [label=e]
-	q117 -> q120 [label=O]
-	q120 -> q119 [label=f]
-	q122 -> q118 [label="λ"]
-	q122 -> q109 [label="λ"]
-	q108 -> q121 [label="λ"]
-	q119 -> q121 [label="λ"]
-	q121 -> q79 [label="λ"]
-	q121 -> q104 [label="λ"]
-	q131 -> q127 [label=f]
-	q127 -> q128 [label="λ"]
-	q127 -> q131 [label="λ"]
-	q130 -> q129 [label=f]
-	q129 -> q131 [label="λ"]
-	q129 -> q128 [label="λ"]
-	q132 -> q122 [label="λ"]
-	q132 -> q130 [label="λ"]
-	q104 -> q133 [label="λ"]
-	q128 -> q133 [label="λ"]
+	q7
+	q8
+	start -> q7
+	q1 -> q2 [label="o..g"]
+	q2 -> q6 [label="λ"]
+	q2 -> q1 [label="λ"]
+	q7 -> q8 [label="o..g"]
+	q8 -> q1 [label="λ"]
+	q8 -> q6 [label="λ"]
 }

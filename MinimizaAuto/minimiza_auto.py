@@ -18,7 +18,6 @@ def minimiza_auto(args):
     fl = open(args[1], 'w')
     fl.write(novo_auto.__str__())
 
-    # print(gen_dot(novo_auto))
 
 def junta_transicoes(trans):
     t = []

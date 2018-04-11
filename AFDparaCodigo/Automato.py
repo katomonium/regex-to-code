@@ -29,13 +29,10 @@ class Automato:
         #operacoes de leitura do arquivo
         self.estados = arquivo.leEstados()
         self.estadosDic = self.criaDicionario(self.estados)
-        print(self.estadosDic)
         self.alfabeto = arquivo.leAlfabeto()
         arquivo.leTransicoes(self)
-        # print(self.estadosDic)
         self.inicial = arquivo.leInicial()
         self.finais = arquivo.leFinais()
-        print(self.inicial)
         #marca os estados finais
         for i in range(len(self.estados)):
             if(self.estados[i].idEstado in self.finais):

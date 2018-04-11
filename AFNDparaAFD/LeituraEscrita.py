@@ -1,7 +1,6 @@
- # -*- coding: UTF-8 -*-
-# GRUPO: Arthur Henrique, Pedro Silveira, João Pedro
-# MODO DE EXECUCAO:
-# python AFNDparaAFD.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import re
 
 from AFNDparaAFD.Estado import Estado
@@ -43,9 +42,6 @@ class Arquivo:
             i += 1
         aux = ''.join(aux)
         alfabeto = aux.split(",")
-        print("________++++++++++++++++_______________")
-        print(alfabeto)
-        print("________++++++++++++++++_______________")
 
         return alfabeto
 
@@ -67,9 +63,6 @@ class Arquivo:
             estadoDestino = automato.estadosDic[i]
 
             transicao = Transicao(estadoOrigem, letra, estadoDestino)
-            print("hoooooooooly")
-            print(transicao.origem.idEstado + "--" + transicao.letra + "->" + transicao.destino.idEstado)
-            print("nooooooooooooooooousa")
 
             estadoOrigem.transicoes.append(transicao)
 
@@ -93,36 +86,4 @@ class Arquivo:
 
     #Formata o texto para escrever no arquivo
     def escreveAFD(self, AFD):
-        #~ novo = automato.novoAutomato()                  #Gera o automato minimizado para escrevê-lo no arquivo
-
-        #~ saida = "(\n\t{"
-        #~ for i in range(len(novo.estados)):
-            #~ saida += novo.estados[i].idEstado
-            #~ if(i < len(novo.estados) - 1):
-                #~ saida += ","
-
-        #~ saida += "},\n\t{"
-        #~ for l in novo.alfabeto:
-            #~ saida += l
-            #~ if(l != novo.alfabeto[len(novo.alfabeto) - 1]):
-                #~ saida += ","
-
-        #~ saida += "},\n\t{\n"
-        #~ for i in range(len(novo.estados)):
-            #~ for j in range(len(novo.estados[i].transicoes)):
-                #~ saida += "\t\t(" + novo.estados[i].transicoes[j].origem.idEstado + "," + novo.estados[i].transicoes[j].letra + "->" + novo.estados[i].transicoes[j].destino.idEstado + ")"
-                #~ if((j < len(novo.estados[i].transicoes) - 1) or (i < len(novo.estados) - 1)):
-                    #~ saida += ","
-                #~ saida += "\n"
-
-        #~ saida += "\t},\n\t"
-        #~ saida += novo.inicial + ","
-        #~ saida += "\n\t{"
-        #~ for i in range(len(novo.estados)):
-            #~ if(novo.estados[i].final):
-                #~ saida += novo.estados[i].idEstado
-                #~ if(i < len(novo.finais)):
-                    #~ saida += ","
-        #~ saida += "}\n)"
-
         self.arq.write(AFD.__str__())

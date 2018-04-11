@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from AFNDparaAFD.PseudoEstado import PseudoEstado
 
 class AutomatoFD:
@@ -13,8 +16,6 @@ class AutomatoFD:
         s = "(\n"
 
         s += "\t{"
-        print("__________________________")
-        print(self.estadosDic)
         for i in self.pseudoEstados:
             s += "q{},".format(i.idPE)
 
@@ -29,11 +30,7 @@ class AutomatoFD:
         s += "},\n\t{\n"
         
         for estado in self.pseudoEstados:
-            print("Estados S")
-            print(estado)
             for transicao in estado.transicaoReal:
-                print("AQUI")
-                print(transicao)
                 s += "\t\t(q{},{}->q{}),\n".format(transicao.origem.idPE, transicao.letra, transicao.destino.idPE)
 
         s = s[:-2]
@@ -54,11 +51,6 @@ class AutomatoFD:
         for PE in self.pseudoEstados:
             PE.idPE = i
             i += 1
-
-    def printAFD(self):
-        self.renomearEstados()
-        for PE in self.pseudoEstados:
-            PE.printPE()
 
     def acabou(self):
         for estado in self.pseudoEstados:
@@ -83,7 +75,6 @@ class AutomatoFD:
             return None
         pseudoEstado = self.estadoJaExiste(estados)
         if(pseudoEstado is not None):
-            # print("ja fundiu")
             return pseudoEstado
         else:
             pseudoEstado = PseudoEstado()

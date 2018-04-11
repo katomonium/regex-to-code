@@ -11,9 +11,7 @@ def ERparaAFND(args):
     er.lerArquivo(args[0])
     print(er.expressao)
     afnd = er.criarAFND()
-    print(afnd.getDadosAutomato())
     afnd.escreveArquivo(args[1])
-    print(args[1])
     # Gerar um AFND
 
     # Gerar um AFD

@@ -43,7 +43,7 @@ def juntaTransicoes(trans):
         else:
             for j in li:
                 _j = list(t[t.index(j)])
-                _j[1] = t[t.index(j)][1] + i[1]
+                _j[1] = t[t.index(j)][1] + ", " + i[1]
                 t[t.index(j)] = tuple(_j)
 
     return t

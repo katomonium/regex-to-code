@@ -65,8 +65,6 @@ def lerAutomato(arquivo):
     transicoes = []
     for i in linhas:
         transicoes += d.findall(i)
-        
-    print(transicoes)
 
     return Automato(
             estados, alfabeto, transicoes, estadoInicial, estadosFinais

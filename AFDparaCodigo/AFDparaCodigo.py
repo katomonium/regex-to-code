@@ -25,8 +25,6 @@ class GeradorDeCodigo:
         resultado = self.cabecalho
         for estado in self.automato.estados:
             resultado += self.criaFuncao(estado)
-        print(self.automato.inicial + " okoko")
-        print(self.automato.estadosDic)
         resultado += self.criaMain(self.automato.estadosDic[self.automato.inicial])
         return resultado
         
@@ -38,6 +36,8 @@ class GeradorDeCodigo:
         else:
             resultado += self.condicaoFinal.substitute(booleano = 'False')
         for transicao in estado.transicoes:
+            if(transicao.letra == "␣"):
+                transicao.letra = " "
             resultado += self.condicaoCaractere.substitute(letraTransicao = transicao.letra, estadoDestino = transicao.destino.idEstado)
         resultado += "    return False\n\n"
         return resultado
@@ -50,8 +50,6 @@ def AFDparaCodigo(argv):
         return
     entrada = argv[0]
     saida = argv[1]
-    #~ automato = lerAutomato(entrada)
-    #~ print(automato.inicial)
     
     a = Automato(entrada)
     
@@ -59,4 +57,3 @@ def AFDparaCodigo(argv):
     
     gdc = GeradorDeCodigo(a)
     arquivo.write(gdc.gerarCodigo())
-    print(gdc.gerarCodigo())

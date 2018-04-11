@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from AFNDparaAFD.LeituraEscrita import Arquivo
 from AFNDparaAFD.AutomatoFD import AutomatoFD
 
@@ -30,7 +33,6 @@ class Automato:
         self.estadosDic = self.criaDicionario(self.estados)
         self.alfabeto = arquivo.leAlfabeto()
         arquivo.leTransicoes(self)
-        # print(self.estadosDic)
         self.inicial = arquivo.leInicial()
         self.finais = arquivo.leFinais()
 
@@ -38,19 +40,6 @@ class Automato:
         for i in range(len(self.estados)):
             if(self.estados[i].idEstado in self.finais):
                 self.estados[i].final = True
-    
-    #~ def buscaEmProfundidade(self):
-        #~ for estado in self.estados:
-            #~ buscaEmProfundidadeAUX(estado)
-                        
-    
-    #~ def buscaEmProfundidadeAUX(self, estado):
-        #~ if(estado.cor == "B"):
-            #~ estado.estadosAlcancaveis.append(estado)
-            #~ for transicao in estado.transicoes:
-                #~ if(transicao.letra == "λ"):
-                    #~ if(
-    
     
     def criaDicionario(self, estados):
         estadosDic = {}
@@ -83,8 +72,6 @@ class Automato:
                             item.estadosAlcancaveis = destino.estadosAlcancaveis
                         
                     else:
-                        print("atual = " + estado.idEstado + " COR = " + estado.cor)
-                        print("destino = " + destino.idEstado + " COR = " + destino.cor)
                         alcancaveisDoDestino = self.getAlcancaveis(destino)
                         for alcancavel in alcancaveisDoDestino:
                             estado.estadosAlcancaveis.add(alcancavel)
@@ -98,16 +85,10 @@ class Automato:
         automatoFD = AutomatoFD()
         estadoInicial = self.estadosDic[self.inicial]
         vetorEstadosIniciais = estadoInicial.estadosAlcancaveis
-        print("ID dos estados alcancaveis do inicial:")
-        for v in vetorEstadosIniciais:
-            print(v.idEstado)
         PEinicial = automatoFD.fundirEstadosSeNaoForamFundidos(vetorEstadosIniciais)
-        for t in PEinicial.transicoes:
-            print(t.origem.idEstado + "--" + t.letra + "->" + t.destino.idEstado)
 
         automatoFD.adicionaPE(PEinicial)
         automatoFD.inicial = PEinicial
-        # PEinicial.printPE()
 
         while(not automatoFD.acabou()):
             for PE in automatoFD.PErestantes:
@@ -115,8 +96,6 @@ class Automato:
                     if(letra != "λ"):
                         vetorEstados = []
                         for transicao in PE.transicoes:
-                            print(transicao.letra + " ooooooooooooooooooo")
-                            print(letra + " ooooooooooooooooooo")
                             if(transicao.letra == letra):
                                 if(transicao.destino not in vetorEstados):
                                     for estado in transicao.destino.estadosAlcancaveis:
@@ -127,44 +106,7 @@ class Automato:
                             PE.criarTransicaoReal(letra, PEdestino)
                 PE.verificado = True
                 automatoFD.PErestantes.remove(PE)
-        automatoFD.printAFD()
+        automatoFD.renomearEstados()
         #~ self.setFinais(automatFD)
         automatoFD.alfabeto = self.alfabeto
         return automatoFD
-
-
-    #~ def checaSeEhFinal(self, pseudoEstado):
-        #~ for estado in pseudoEstado.estados:
-            #~ for final in self.finais:
-                #~ if(estado == self.estadosDic[final]):
-                    #~ return True
-                #~ else:
-                    #~ return False
-                    
-    
-    #~ def setFinais(self, automatoFD):
-        #~ for PE in automatoFD.pseudoEstados:
-            #~ for estado in PE.estados:
-                #~ for final in self.finais:
-                    #~ if(estado == self.estadosDic[final]):
-                        #~ automatoFD
-                    #~ else:
-                        #~ return False
-
-
-    #funcao de minimizacao
-    def minimiza(self, arqTabela, arqMin):
-        arquivoTabela = open(arqTabela, 'w')    #instancia um arquivo para escrever a tabela
-        tabela = Tabela()                       #instancia o objeto que monta a tabela
-
-        #cria os pares da tabela de minimizacao
-        for i in range(len(self.estados)):
-            for j in range(i+1, len(self.estados)):
-                par = Par(self.estados[i], self.estados[j])
-                tabela.pares.append(par)
-
-        tabela.minimiza(self)                   #aplica o algoritmo de minimizacao na tabela
-        tabela.imprimeTabela(arquivoTabela)     #escreve a tabela no arquivo
-
-        escritor = Arquivo(arqMin, 'w')         #instancia o objeto para escrever o automato no arquivo
-        escritor.escreveMinimizado(self)        #escreve o novo automato no arquivo
