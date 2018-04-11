@@ -6,7 +6,7 @@ import re
 class Auto:
     def __init__(self, arq):
         arquivo = open(arq, "r")
-        linhas = arquivo.read().splitlines()
+        linhas = arquivo.read().strip().splitlines()
 
         # Achar estados
         # O estados tem que conter pelo menos uma letra seguido por pelo menos um digito
