@@ -1,0 +1,16 @@
+(
+	{q0,q1,q2q3,qerr0},
+	{'a'..'z','se'},
+	{
+		(q0,'a'..'z'->q1),
+		(q0,'se'->q2q3),
+		(q1,'a'..'z'->qerr0),
+		(q1,'se'->qerr0),
+		(q2q3,'a'..'z'->qerr0),
+		(q2q3,'se'->q2q3),
+		(qerr0,'a'..'z'->qerr0),
+		(qerr0,'se'->qerr0)
+	},
+	q0,
+	{q1,q2q3}
+)

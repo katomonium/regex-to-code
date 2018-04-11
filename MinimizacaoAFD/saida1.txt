@@ -1,4 +1,0 @@
-INDICE 	 	D[i,j] = 	 S[i,j] = 	 	MOTIVO
-[11,1] 		1	 	{  }	 	 	final/nao-final
-[11,2] 		0	 	{  }	 	 	
-[1,2] 		1	 	{  }	 	 	final/nao-final
