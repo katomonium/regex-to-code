@@ -1,0 +1,15 @@
+digraph "graph" {
+	rankdir=LR
+	node [shape=point]
+	start
+	node [shape=doublecircle]
+	q1q2q3q4q5q6
+	node [shape=circle]
+	q0
+	qerr0
+	start -> q0
+	q0 -> qerr0 [label="'0'..'9''_'"]
+	q0 -> q1q2q3q4q5q6 [label="'a'..'z'"]
+	q1q2q3q4q5q6 -> q1q2q3q4q5q6 [label="'0'..'9''_''a'..'z'"]
+	qerr0 -> qerr0 [label="'0'..'9''_''a'..'z'"]
+}

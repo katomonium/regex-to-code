@@ -1,0 +1,57 @@
+digraph "graph" {
+	rankdir=LR
+	node [shape=point]
+	start
+	node [shape=doublecircle]
+	q0
+	q2
+	q13
+	q14
+	node [shape=circle]
+	q1
+	q3
+	q4
+	q5
+	q6
+	q7
+	q8
+	q9
+	q10
+	q11
+	q12
+	qerr0
+	start -> q0
+	q0 -> q1 [label=s]
+	q0 -> q2 [label="'a'..'z'"]
+	q1 -> q3 [label=e]
+	q2 -> q2 [label="'a'..'z'"]
+	q3 -> q4 [label=n]
+	q3 -> q5 [label="("]
+	q4 -> q9 [label=a]
+	q5 -> q6 [label="'a'..'z'"]
+	q5 -> q7 [label=")"]
+	q6 -> q6 [label="'a'..'z'"]
+	q6 -> q7 [label=")"]
+	q7 -> q8 [label=e]
+	q8 -> q10 [label=n]
+	q9 -> q13 [label=o]
+	q10 -> q11 [label=t]
+	q11 -> q12 [label=a]
+	q12 -> q14 [label=o]
+	q0 -> qerr0 [label="n, e, t, (, o, '0'..'9', ), a"]
+	q1 -> qerr0 [label="n, t, (, o, '0'..'9', s, 'a'..'z', ), a"]
+	q2 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, ), a"]
+	q3 -> qerr0 [label="e, t, o, '0'..'9', s, 'a'..'z', ), a"]
+	q4 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, 'a'..'z', )"]
+	q5 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, a"]
+	q6 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, a"]
+	q7 -> qerr0 [label="n, t, (, o, '0'..'9', s, 'a'..'z', ), a"]
+	q8 -> qerr0 [label="e, t, (, o, '0'..'9', s, 'a'..'z', ), a"]
+	q9 -> qerr0 [label="n, e, t, (, '0'..'9', s, 'a'..'z', ), a"]
+	q10 -> qerr0 [label="n, e, (, o, '0'..'9', s, 'a'..'z', ), a"]
+	q11 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, 'a'..'z', )"]
+	q12 -> qerr0 [label="n, e, t, (, '0'..'9', s, 'a'..'z', ), a"]
+	q13 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, 'a'..'z', ), a"]
+	q14 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, 'a'..'z', ), a"]
+	qerr0 -> qerr0 [label="n, e, t, (, o, '0'..'9', s, 'a'..'z', ), a"]
+}

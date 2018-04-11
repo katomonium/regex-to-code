@@ -4,9 +4,9 @@
 import sys
 #~ from desenhaGrafo.fileHandler import lerAutomato
 from string import Template
-from Estado import Estado
-from Transicao import Transicao
-from Automato import Automato
+from AFDparaCodigo.Estado import Estado
+from AFDparaCodigo.Transicao import Transicao
+from AFDparaCodigo.Automato import Automato
 
 class GeradorDeCodigo:
     
@@ -16,7 +16,7 @@ class GeradorDeCodigo:
     condicaoCaractere = Template('    if(codigo[indice] == "$letraTransicao"):\n        indice+=1\n        return q$estadoDestino(codigo,indice)\n')
     condicaoFinal = Template('    if(indice == len(codigo)):\n        return $booleano\n')
     cabecalho = "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\nimport sys\n\n"
-    mainPrograma = Template("def main(args):\n    arquivo = open(args[1], 'r')\n    indice = 0\n    linhas = arquivo.read().splitlines()\n    print($estadoInicial(linhas[0], indice))")
+    mainPrograma = Template("def main(args):\n    arquivo = open(args[1], 'r')\n    indice = 0\n    linhas = arquivo.read().splitlines()\n    print($estadoInicial(linhas[0], indice))\n")
     
     def __init__(self,automato):
         self.automato = automato
@@ -45,11 +45,11 @@ class GeradorDeCodigo:
     def criaMain(self, estadoInicial):
         return self.mainPrograma.substitute(estadoInicial = estadoInicial.idEstado)
 
-def AFDparaCodigo():
-    if(len(sys.argv) < 3):
+def AFDparaCodigo(argv):
+    if(len(argv) < 2):
         return
-    entrada = sys.argv[1]
-    saida = sys.argv[2]
+    entrada = argv[0]
+    saida = argv[1]
     #~ automato = lerAutomato(entrada)
     #~ print(automato.inicial)
     
@@ -58,10 +58,8 @@ def AFDparaCodigo():
     
     
     
-    arquivo = open(sys.argv[2], 'w')
+    arquivo = open(saida, 'w')
     
     gdc = GeradorDeCodigo(a)
     arquivo.write(gdc.gerarCodigo())
     print(gdc.gerarCodigo())
-    
-AFDparaCodigo()

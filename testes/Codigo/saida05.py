@@ -6,10 +6,10 @@ import sys
 def q0(codigo, indice):
     if(indice == len(codigo)):
         return False
-    if(codigo[indice] == "'a'..'z'"):
+    if(codigo[indice] == "'0'..'9'"):
         indice+=1
         return q1(codigo,indice)
-    if(codigo[indice] == "'0'..'9'"):
+    if(codigo[indice] == "'a'..'z'"):
         indice+=1
         return q2(codigo,indice)
     return False
@@ -20,14 +20,14 @@ def q1(codigo, indice):
     if(codigo[indice] == "'a'..'z'"):
         indice+=1
         return q3(codigo,indice)
-    if(codigo[indice] == "'0'..'9'"):
-        indice+=1
-        return q4(codigo,indice)
     return False
 
 def q2(codigo, indice):
     if(indice == len(codigo)):
         return False
+    if(codigo[indice] == "'0'..'9'"):
+        indice+=1
+        return q3(codigo,indice)
     if(codigo[indice] == "'a'..'z'"):
         indice+=1
         return q3(codigo,indice)

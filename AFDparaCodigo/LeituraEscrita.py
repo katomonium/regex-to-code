@@ -1,11 +1,12 @@
- # -*- coding: UTF-8 -*-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 # GRUPO: Arthur Henrique, Pedro Silveira, João Pedro
 # MODO DE EXECUCAO:
 # python AFNDparaAFD.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 import re
 
-from Estado import Estado
-from Transicao import Transicao
+from AFDparaCodigo.Estado import Estado
+from AFDparaCodigo.Transicao import Transicao
 # from Automato import Automato
 
 

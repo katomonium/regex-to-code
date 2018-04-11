@@ -1,4 +1,6 @@
-from LeituraEscrita import Arquivo
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+from AFDparaCodigo.LeituraEscrita import Arquivo
 
 class Automato:
     estados = None                  #lista de estados do automato

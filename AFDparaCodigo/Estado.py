@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 class Estado:                       #Estrutura para representar os estados do automato
     idEstado = None                 #"nome" do estado
     transicoes = None               #transicoes do estado

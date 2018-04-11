@@ -1,0 +1,45 @@
+digraph "graph" {
+	rankdir=LR
+	node [shape=point]
+	start
+	node [shape=doublecircle]
+	q00
+	q02
+	q09q14
+	node [shape=circle]
+	q01
+	q03
+	q04q07
+	q05q12
+	q06q13
+	q08
+	q10
+	q11
+	qERRO1
+	start -> q00
+	q00 -> qERRO1 [label="'0'..'9'()aenot"]
+	q00 -> q02 [label="'a'..'z'"]
+	q00 -> q01 [label=s]
+	q01 -> qERRO1 [label="'0'..'9''a'..'z'()anost"]
+	q01 -> q03 [label=e]
+	q02 -> qERRO1 [label="'0'..'9'()aenost"]
+	q02 -> q02 [label="'a'..'z'"]
+	q03 -> qERRO1 [label="'0'..'9''a'..'z')aeost"]
+	q03 -> q04q07 [label="("]
+	q03 -> q05q12 [label=n]
+	q04q07 -> qERRO1 [label="'0'..'9'(aenost"]
+	q04q07 -> q04q07 [label="'a'..'z'"]
+	q04q07 -> q08 [label=")"]
+	q05q12 -> qERRO1 [label="'0'..'9''a'..'z'()enost"]
+	q05q12 -> q06q13 [label=a]
+	q06q13 -> qERRO1 [label="'0'..'9''a'..'z'()aenst"]
+	q06q13 -> q09q14 [label=o]
+	q08 -> qERRO1 [label="'0'..'9''a'..'z'()anost"]
+	q08 -> q10 [label=e]
+	q09q14 -> qERRO1 [label="'0'..'9''a'..'z'()aenost"]
+	q10 -> qERRO1 [label="'0'..'9''a'..'z'()aeost"]
+	q10 -> q11 [label=n]
+	q11 -> qERRO1 [label="'0'..'9''a'..'z'()aenos"]
+	q11 -> q05q12 [label=t]
+	qERRO1 -> qERRO1 [label="'0'..'9''a'..'z'()aenost"]
+}
