@@ -3,48 +3,57 @@ digraph "graph" {
 	node [shape=point]
 	start
 	node [shape=doublecircle]
-	q03q10q14
-	node [shape=circle]
-	q00
-	q01
 	q02
 	q04
-	q05
-	q06
-	q07
-	q08
-	q09
-	q11
-	q12
+	q06q09q16q20q21q29
+	node [shape=circle]
+	q00
+	q01q12
+	q03q15
+	q05q19
+	q07q22
+	q08q23
+	q10q24
+	q11q25
 	q13
+	q14q26
+	q17q27
+	q18q28
 	qERRO1
 	start -> q00
 	q00 -> qERRO1 [label=Oacenorst]
-	q00 -> q01 [label=f]
-	q00 -> q02 [label=i]
-	q01 -> qERRO1 [label=Oacefinrst]
-	q01 -> q06 [label=o]
-	q02 -> qERRO1 [label=Oaceiorst]
-	q02 -> q03q10q14 [label=f]
-	q02 -> q04 [label=n]
-	q03q10q14 -> qERRO1 [label=Oacefinorst]
-	q04 -> qERRO1 [label=Oacefinort]
-	q04 -> q05 [label=s]
-	q05 -> qERRO1 [label=Oacefinors]
-	q05 -> q07 [label=t]
-	q06 -> qERRO1 [label=Oacefinost]
-	q06 -> q03q10q14 [label=r]
-	q07 -> qERRO1 [label=Ocefinorst]
-	q07 -> q08 [label=a]
-	q08 -> qERRO1 [label=Oacefiorst]
-	q08 -> q09 [label=n]
-	q09 -> qERRO1 [label=Oaefinorst]
-	q09 -> q11 [label=c]
-	q11 -> qERRO1 [label=Oacfinorst]
-	q11 -> q12 [label=e]
-	q12 -> q13 [label=O]
-	q12 -> qERRO1 [label=acefinorst]
-	q13 -> qERRO1 [label=Oaceinorst]
-	q13 -> q03q10q14 [label=f]
+	q00 -> q02 [label=f]
+	q00 -> q01q12 [label=i]
+	q01q12 -> qERRO1 [label=Oaceiorst]
+	q01q12 -> q06q09q16q20q21q29 [label=f]
+	q01q12 -> q05q19 [label=n]
+	q02 -> qERRO1 [label=Oaceinrst]
+	q02 -> q04 [label=f]
+	q02 -> q03q15 [label=o]
+	q03q15 -> qERRO1 [label=Oacefinost]
+	q03q15 -> q06q09q16q20q21q29 [label=r]
+	q04 -> qERRO1 [label=Oaceinorst]
+	q04 -> q04 [label=f]
+	q05q19 -> qERRO1 [label=Oacefinort]
+	q05q19 -> q07q22 [label=s]
+	q06q09q16q20q21q29 -> qERRO1 [label=Oacenorst]
+	q06q09q16q20q21q29 -> q13 [label=f]
+	q06q09q16q20q21q29 -> q01q12 [label=i]
+	q07q22 -> qERRO1 [label=Oacefinors]
+	q07q22 -> q08q23 [label=t]
+	q08q23 -> qERRO1 [label=Ocefinorst]
+	q08q23 -> q10q24 [label=a]
+	q10q24 -> qERRO1 [label=Oacefiorst]
+	q10q24 -> q11q25 [label=n]
+	q11q25 -> qERRO1 [label=Oaefinorst]
+	q11q25 -> q14q26 [label=c]
+	q13 -> qERRO1 [label=Oacefinrst]
+	q13 -> q03q15 [label=o]
+	q14q26 -> qERRO1 [label=Oacfinorst]
+	q14q26 -> q17q27 [label=e]
+	q17q27 -> q18q28 [label=O]
+	q17q27 -> qERRO1 [label=acefinorst]
+	q18q28 -> qERRO1 [label=Oaceinorst]
+	q18q28 -> q06q09q16q20q21q29 [label=f]
 	qERRO1 -> qERRO1 [label=Oacefinorst]
 }

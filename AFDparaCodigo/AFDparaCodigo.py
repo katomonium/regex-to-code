@@ -16,7 +16,7 @@ class GeradorDeCodigo:
     condicaoCaractere = Template('    if(codigo[indice] == "$letraTransicao"):\n        indice+=1\n        return q$estadoDestino(codigo,indice)\n')
     condicaoFinal = Template('    if(indice == len(codigo)):\n        return $booleano\n')
     cabecalho = "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\nimport sys\n\n"
-    mainPrograma = Template("def main(args):\n    arquivo = open(args[1], 'r')\n    indice = 0\n    linhas = arquivo.read().splitlines()\n    print($estadoInicial(linhas[0], indice))\n")
+    mainPrograma = Template("def main(args):\n    arquivo = open(args[1], 'r')\n    indice = 0\n    linhas = arquivo.read().splitlines()\n    for lin in linhas:\n        print(q$estadoInicial(lin, indice))\nmain(sys.argv)")
     
     def __init__(self,automato):
         self.automato = automato
@@ -54,9 +54,6 @@ def AFDparaCodigo(argv):
     #~ print(automato.inicial)
     
     a = Automato(entrada)
-    
-    
-    
     
     arquivo = open(saida, 'w')
     
