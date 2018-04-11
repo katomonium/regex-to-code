@@ -3,9 +3,9 @@
 # MODO DE EXECUCAO:
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 
-from LeituraEscrita import *
-from Estado import Estado
-from Transicao import Transicao
+from MinimizaicaoAFD.LeituraEscrita import *
+from MinimizaicaoAFD.Estado import Estado
+from MinimizaicaoAFD.Transicao import Transicao
 
 class Par:                          #representa um par da tabela de minimizacao
     e1 = None                       #estado 1
@@ -176,9 +176,10 @@ class Tabela:
         #se houver dependentes, para cada dependente propaga o resultado
         if(len(par.dependentes) > 0):
             for dep in par.dependentes:
-                dep.valido = False
-                dep.motivo = "prop[" + par.e1.idEstado + "," + par.e2.idEstado + "]"
-                self.propaga(dep)               #propaga tambem para os dependentes desse dependente
+                if(par != dep):
+                    dep.valido = False
+                    dep.motivo = "prop[" + par.e1.idEstado + "," + par.e2.idEstado + "]"
+                    self.propaga(dep)               #propaga tambem para os dependentes desse dependente
     
     #aplica o algoritmo de minimizacao na tabela
     def minimiza(self, automato):
@@ -198,7 +199,7 @@ class Tabela:
                                 
                         #se nao,##SILVERAAA, explica isso#
                         else:
-                            #~ if(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino):
+                            # if(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino):
                             print(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino)
                             print("procurando par: " + transicao1.destino.idEstado + " - " + transicao2.destino.idEstado)
                             for p in self.pares:

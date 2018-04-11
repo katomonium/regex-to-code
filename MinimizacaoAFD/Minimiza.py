@@ -2,8 +2,8 @@
 # GRUPO: Arthur Henrique, Pedro Silveira, João Pedro
 # MODO DE EXECUCAO:
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
-from Estruturas import Automato
-from LeituraEscrita import Arquivo
+from MinimizaicaoAFD.Estruturas import Automato
+from MinimizaicaoAFD.LeituraEscrita import Arquivo
 import sys
 def Minimiza(args):
         entrada= args[1]
@@ -16,7 +16,7 @@ def Minimiza(args):
         le.imprimeAut(a)
         print("AQUI")
         # a.novoAutomato()
-        tab = "../testes/AFD/Minimizado/tabela.txt"
+        tab = "tabela.txt"
         a.minimiza(tab, saida)
         le.imprimeAut(a.novoAutomato())
         # print("Arquivo de entrada: " + sys.argv[1])

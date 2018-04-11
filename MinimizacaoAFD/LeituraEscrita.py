@@ -4,8 +4,8 @@
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 import re
 
-from Estado import Estado
-from Transicao import Transicao
+from MinimizaicaoAFD.Estado import Estado
+from MinimizaicaoAFD.Transicao import Transicao
 #classe que gerencia arquivo
 class Arquivo:
     arq = None
@@ -147,11 +147,13 @@ class Arquivo:
         saida += "\t},\n\t"
         saida += novo.inicial + ","
         saida += "\n\t{"
+        qtdFin = 0
         for i in range(len(novo.estados)):
             if(novo.estados[i].final):
+                if(qtdFin > 0):
+                    saida+=","
                 saida += novo.estados[i].idEstado
-                if(i < len(novo.finais)):
-                    saida += ","
+                qtdFin += 1
         saida += "}\n)"
         
         self.arq.write(saida)
