@@ -3,9 +3,9 @@
 # MODO DE EXECUCAO:
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 
-from MinimizacaoAFD.LeituraEscrita import *
-from MinimizacaoAFD.Estado import Estado
-from MinimizacaoAFD.Transicao import Transicao
+from LeituraEscrita import *
+from Estado import Estado
+from Transicao import Transicao
 
 class Par:                          #representa um par da tabela de minimizacao
     e1 = None                       #estado 1
@@ -111,40 +111,6 @@ class Automato:
                 
         return novoAutomato
 
-    def completaAutomato(self):
-        completo = True
-        estadoErro = Estado()
-
-        estadoErro.idEstado = str(len(self.estados))
-        self.estados.append(estadoErro)
-        self.estadosDic[estadoErro.idEstado] = self.estados[int(estadoErro.idEstado)]
-        print("++++++++++++++++++++++++++++++++++++++")
-        for estado in self.estados:
-            if(estado.idEstado != estadoErro.idEstado):
-                for letra in self.alfabeto:
-                    if(letra != "λ"):
-                        achou = False
-                        for transicao in estado.transicoes:
-                            if(transicao.letra == letra):
-                                achou = True
-                        if(not achou):
-                            completo = False
-                            transicaoErro = Transicao(estado, letra, estadoErro)
-                            print(transicaoErro.origem.idEstado + " " + transicaoErro.destino.idEstado)
-                            estado.transicoes.append(transicaoErro)
-
-        if(completo):
-            self.estados.pop(int(estadoErro.idEstado))
-            self.estadosDic.pop(estadoErro.idEstado)
-        else:
-            for letra in self.alfabeto:
-                if(letra != "λ"):
-                    t = Transicao(estadoErro, letra, estadoErro)
-                    estadoErro.transicoes.append(t)
-        print("++++++++++++++++++++++++++++++++++++++++++==")
-        print(self.finais)
-
-
     #cria um dicionario de estados para o automato
     def criaDicionario(self, estados):
         estadosDic = {}
@@ -154,6 +120,7 @@ class Automato:
     
     
     def __init__(self, nomeArq = None):
+        print("OEEEEEEEEEEEEE")
         if(nomeArq == None):        #se nao for passado o nome do arquivo por parametro, cria-se um automato vazio
             self.estados = []
             self.estadosDic = {}
@@ -231,14 +198,14 @@ class Tabela:
                                 
                         #se nao,##SILVERAAA, explica isso#
                         else:
-                            if(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino):
-                                print(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino)
-                                for p in self.pares:
-                                    print("t1: " + transicao1.origem.idEstado + " t2: " + transicao2.origem.idEstado )
-                                    print(p.e1.idEstado + " " + transicao1.destino.idEstado + " ---- "+  p.e2.idEstado + " " +transicao2.destino.idEstado)
-                                    if(p.e1.idEstado == transicao1.destino.idEstado and p.e2.idEstado == transicao2.destino.idEstado):
-                                        print("EUOOOOO")
-                                        p.dependentes.append(par)
+                            #~ if(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino):
+                            print(transicao1.origem != transicao1.destino and transicao2.origem != transicao2.destino)
+                            print("procurando par: " + transicao1.destino.idEstado + " - " + transicao2.destino.idEstado)
+                            for p in self.pares:
+                                print("achei o: " + p.e1.idEstado + " -- " + p.e2.idEstado)
+                                if(str(p.e1.idEstado) == str(transicao1.destino.idEstado) and str(p.e2.idEstado) == str(transicao2.destino.idEstado)):
+                                    print("EUOOOOO")
+                                    p.dependentes.append(par)
 
         #adiciona, ao estado, os estados iguais a ele
         for par in self.pares:

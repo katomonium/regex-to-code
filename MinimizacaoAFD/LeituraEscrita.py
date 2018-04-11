@@ -4,13 +4,13 @@
 # python Main.py <arquivoEntrada> <arquivoTabela> <arquivoNovoAutomato>
 import re
 
-from MinimizacaoAFD.Estado import Estado
-from MinimizacaoAFD.Transicao import Transicao
+from Estado import Estado
+from Transicao import Transicao
 #classe que gerencia arquivo
 class Arquivo:
     arq = None
     linhas = None
-    
+    posErro = None
     def __init__(self, nomeArq, modo):
         print(nomeArq)
         self.arq = open(nomeArq, modo)              #Abre o arquivo no modo desejado ('w' - escrita, 'r' - leitura)
@@ -27,6 +27,10 @@ class Arquivo:
             novo = Estado()
             novo.idEstado = estados[i]
             estadosRetorno.append(novo)
+        estadoErro = Estado()
+        estadoErro.idEstado = "ERRO"
+        estadosRetorno.append(estadoErro)
+        self.posErro = len(estadosRetorno) - 1
         return estadosRetorno
     
     
@@ -60,6 +64,42 @@ class Arquivo:
             
             transicao = Transicao(estadoOrigem, letra, estadoDestino)
             estadoOrigem.transicoes.append(transicao)
+        
+        completo = True
+        for letra in automato.alfabeto:
+            if(letra != "λ"):
+                for estado in automato.estados:
+                    if(estado.idEstado != "ERRO"):
+                        achou = False
+                        for t in estado.transicoes:
+                            if(t.letra == letra):
+                                achou = True
+                        if(not achou):
+                            completo = False
+                            estadoOrigem = automato.estados[int(estado.idEstado)]
+                            
+                            i = str(automato.estados[self.posErro].idEstado)
+                            estadoDestino = automato.estadosDic[i]
+                            
+                            transicao = Transicao(estadoOrigem, letra, estadoDestino)
+                            estadoOrigem.transicoes.append(transicao)
+        if(completo):
+            i = str(automato.estados[self.posErro])
+            automato.estadosDic.pop(i)
+            automato.estados.pop(self.posErro)
+            posErro = None
+        else:
+            for letra in automato.alfabeto:
+                if(letra != "λ"):
+                    estadoOrigem = automato.estados[self.posErro]
+                                
+                    i = str(automato.estados[self.posErro].idEstado)
+                    estadoDestino = automato.estadosDic[i]
+                                
+                    transicao = Transicao(estadoOrigem, letra, estadoDestino)
+                    estadoOrigem.transicoes.append(transicao)
+        
+        
             
         return
     
