@@ -2,5 +2,5 @@
 espaco = ␣
 abc = [o-g]
 {
-    abc+ | abc | a
+    abc+
 }

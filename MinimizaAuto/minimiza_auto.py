@@ -14,9 +14,36 @@ def minimiza_auto(args):
     tabela = CriarTabela(auto)
     AcharDisj(auto, tabela)
     novo_auto = JuntaEstados(auto, tabela)
+    
+    renomeia_estados(novo_auto)
 
     fl = open(args[1], 'w')
     fl.write(novo_auto.__str__())
+
+
+def renomeia_estados(auto):
+    count = 0
+    novos_estados = {}
+    
+    for i in range(len(auto.estados)):
+        f = 'q{}'.format(count)
+        novos_estados[auto.estados[i]] = f
+        auto.estados[i] = f
+        
+        count += 1
+    
+    for i in range(len(auto.trans)):
+        t = list(auto.trans[i])
+        
+        t[0] = novos_estados[t[0]]
+        t[2] = novos_estados[t[2]]
+        
+        auto.trans[i] = tuple(t)
+
+    for i in range(len(auto.finais)):
+        auto.finais[i] = novos_estados[auto.finais[i]]
+        
+    auto.inicial = novos_estados[auto.inicial]
 
 
 def junta_transicoes(trans):
