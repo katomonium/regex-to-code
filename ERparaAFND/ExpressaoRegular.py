@@ -156,12 +156,10 @@ class ER:
             self.expressao = ex
         print(self.expressao)
         print("_-----------------------_")
-        
+        novoExp = self.expressao
         palavra = ""
         for i in range(len(self.expressao)):
             novo = []
-            
-        
             if(self.expressao[i] != "(" and self.expressao[i] != ")" and
                self.expressao[i] != "[" and self.expressao[i] != "]" and
                self.expressao[i] != "." and self.expressao[i] != " " and
@@ -169,50 +167,46 @@ class ER:
                self.expressao[i] != "|" and self.expressao[i] != "-"):
                 palavra += self.expressao[i]
             else:
+                print("variavel: " + palavra)
                 if palavra in self.variaveis:
+                    # print("variavel: " + palavra)
                     subExp = self.variaveis[palavra]
                     print('subExp', subExp)
-                    for j in range(len(subExp)):
-                        if(subExp[j - 1] == "." and subExp[j] == "."):
-                            inicio = subExp[j - 2]
-                            novo.append('(')
-                            print("SPOKDPASOKDPASOKDps")
-                            fim = subExp[j + 1]
-                            print(inicio, fim)
-                            if(ord(inicio) <= ord(fim)):
-                                while(ord(inicio) <= (ord(fim) - 1)):
-                                    novo.append(inicio)
-                                    inicio = chr(ord(inicio) + 1)
-                                    novo.append("|")
-                                novo.append(fim)
-                                
-                            else:
-                                aux = chr(ord(inicio))
-                                inicio = chr(ord(inicio) - 1)
-                                while(ord(inicio) >= ord(fim)):
-                                    novo.append(inicio)
+                    if len(subExp) < 4:
+                        novo.append(palavra)
+                    else:
+                        for j in range(len(subExp)):
+                            if(subExp[j - 1] == "." and subExp[j] == "."):
+                                inicio = subExp[j - 2]
+                                novo.append('(')
+                                fim = subExp[j + 1]
+                                if(ord(inicio) <= ord(fim)):
+                                    while(ord(inicio) <= (ord(fim) - 1)):
+                                        novo.append(inicio)
+                                        inicio = chr(ord(inicio) + 1)
+                                        novo.append("|")
+                                    novo.append(fim)
+                                    
+                                else:
+                                    aux = chr(ord(inicio))
                                     inicio = chr(ord(inicio) - 1)
-                                    novo.append("|")
-                                novo.append(aux)
-                            novo.append(')')
-                    
+                                    while(ord(inicio) >= ord(fim)):
+                                        novo.append(inicio)
+                                        inicio = chr(ord(inicio) - 1)
+                                        novo.append("|")
+                                    novo.append(aux)
+                                novo.append(')')
                 else:
                     novo.append(palavra)
                         
-                self.expressao = self.expressao.replace(palavra, ''.join(novo))            
+                novoExp = novoExp.replace(palavra, ''.join(novo))            
                 palavra = ''
-                        
-            print('novo', ' '.join(novo))
-            print('palavra', palavra)
-            
-            print('nova exp', self.expressao)
         
+        self.expressao = novoExp
         novo = []
         novo.append("(")
-        print('novo1', novo)
         i = 0
         while (i < len(self.expressao)):
-            print('i', self.expressao[i])
             if (i == 0 and self.expressao[i] == "("):
                 novo.append('(')
                 novo.append('(')
@@ -230,7 +224,6 @@ class ER:
                 novo.append(self.expressao[i])
             i += 1
         novo.append(")")
-        print('novo2', novo)
         self.expressao = (''.join(novo))
         print(self.expressao)
         print("--------------------------")

@@ -10,8 +10,6 @@ from MinimizaAuto.minimiza_auto import minimiza_auto
 from AFDparaCodigo.AFDparaCodigo import AFDparaCodigo
 
 if __name__ == '__main__':
-    print("Hello")
-
     ERparaAFND(["testes/ER/" + sys.argv[1], "testes/AFND/arquivos/" + sys.argv[2] + "-AFND"])
     argsDesenha = ["testes/AFND/arquivos/" + sys.argv[2] + "-AFND", "testes/AFND/grafos/" + sys.argv[2] + "-grafo"]
     desenhaGrafo(argsDesenha)
@@ -23,7 +21,7 @@ if __name__ == '__main__':
     desenhaGrafo(argsDesenha2)
 
     argsMin = ["testes/AFD/NaoMinimizado/arquivos/" + sys.argv[2] + "-AFD",
-               "testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-min"]
+              "testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-min"]
     minimiza_auto(argsMin)
     argsDesenha3 = ["testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-min", "testes/AFD/Minimizado/grafos/" + sys.argv[2] + "-grafo"]
     desenhaGrafo(argsDesenha3)
