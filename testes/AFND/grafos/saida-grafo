@@ -3,17 +3,107 @@ digraph "graph" {
 	node [shape=point]
 	start
 	node [shape=doublecircle]
-	q6
+	q56
 	node [shape=circle]
 	q1
 	q2
-	q7
-	q8
-	start -> q7
-	q1 -> q2 [label="o..g"]
-	q2 -> q6 [label="λ"]
-	q2 -> q1 [label="λ"]
-	q7 -> q8 [label="o..g"]
-	q8 -> q1 [label="λ"]
-	q8 -> q6 [label="λ"]
+	q13
+	q14
+	q15
+	q16
+	q17
+	q18
+	q19
+	q20
+	q21
+	q22
+	q23
+	q24
+	q25
+	q26
+	q27
+	q28
+	q29
+	q30
+	q31
+	q32
+	q57
+	q58
+	q59
+	q60
+	q61
+	q62
+	q63
+	q64
+	q65
+	q66
+	q67
+	q68
+	q69
+	q70
+	q71
+	q72
+	q73
+	q74
+	q75
+	q76
+	q77
+	q78
+	start -> q77
+	q1 -> q2 [label=0]
+	q13 -> q14 [label=1]
+	q15 -> q1 [label="λ"]
+	q15 -> q13 [label="λ"]
+	q2 -> q16 [label="λ"]
+	q14 -> q16 [label="λ"]
+	q17 -> q18 [label=2]
+	q19 -> q15 [label="λ"]
+	q19 -> q17 [label="λ"]
+	q16 -> q20 [label="λ"]
+	q18 -> q20 [label="λ"]
+	q22 -> q21 [label=3]
+	q23 -> q19 [label="λ"]
+	q23 -> q22 [label="λ"]
+	q20 -> q24 [label="λ"]
+	q21 -> q24 [label="λ"]
+	q25 -> q26 [label=4]
+	q27 -> q23 [label="λ"]
+	q27 -> q25 [label="λ"]
+	q24 -> q28 [label="λ"]
+	q26 -> q28 [label="λ"]
+	q29 -> q30 [label=5]
+	q31 -> q27 [label="λ"]
+	q31 -> q29 [label="λ"]
+	q28 -> q32 [label="λ"]
+	q30 -> q32 [label="λ"]
+	q32 -> q56 [label="λ"]
+	q32 -> q31 [label="λ"]
+	q57 -> q58 [label=0]
+	q59 -> q60 [label=1]
+	q61 -> q57 [label="λ"]
+	q61 -> q59 [label="λ"]
+	q58 -> q62 [label="λ"]
+	q60 -> q62 [label="λ"]
+	q63 -> q64 [label=2]
+	q65 -> q61 [label="λ"]
+	q65 -> q63 [label="λ"]
+	q62 -> q66 [label="λ"]
+	q64 -> q66 [label="λ"]
+	q68 -> q67 [label=3]
+	q69 -> q65 [label="λ"]
+	q69 -> q68 [label="λ"]
+	q66 -> q70 [label="λ"]
+	q67 -> q70 [label="λ"]
+	q71 -> q72 [label=4]
+	q73 -> q69 [label="λ"]
+	q73 -> q71 [label="λ"]
+	q70 -> q74 [label="λ"]
+	q72 -> q74 [label="λ"]
+	q75 -> q76 [label=5]
+	q77 -> q73 [label="λ"]
+	q77 -> q75 [label="λ"]
+	q74 -> q78 [label="λ"]
+	q76 -> q78 [label="λ"]
+	q78 -> q31 [label="λ"]
+	q78 -> q56 [label="λ"]
 }

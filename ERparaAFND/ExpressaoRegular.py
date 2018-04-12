@@ -168,6 +168,7 @@ class ER:
                 palavra += self.expressao[i]
             else:
                 subExp = self.variaveis[palavra]
+                print('subExp', subExp)
                 for j in range(len(subExp)):
                     if(subExp[j - 1] == "." and subExp[j] == "."):
                         inicio = subExp[j - 2]
@@ -188,18 +189,13 @@ class ER:
                                 inicio = chr(ord(inicio) - 1)
                                 novo.append("|")
                             novo.append(aux)
-                # for i in range(1, len(subExp)):
-                #     if(subExp[i] == "(" or subExp[i] == ")" or
-                #       subExp[i] == "[" or subExp[i] == "]" or
-                #       subExp[i] == "." or subExp[i] == " " or
-                #       subExp[i] == "+" or subExp[i] == "*" or
-                #       subExp[i] == "|" or subExp[i] == "-" or
-                #       subExp[i - 1] == "\\"):
-                #           if(i < (len(subExp) - 2) and subExp[i + 1] == "."):
-                #               pass
-                #           else:
-            
-        print("AAAADDDASDAD", novo)
+
+        novo.insert(0, '(')
+        novo.append(')')
+        print('novo', ' '.join(novo))
+        print('palavra', palavra)
+        self.expressao = self.expressao.replace(palavra, ''.join(novo))
+        print('nova exp', self.expressao)
         
         novo = []
         novo.append("(")
@@ -247,6 +243,7 @@ class ER:
                 pilhaParenteses.append(len(parenteses[peso]) - 1)
             elif(self.expressao[i] == ")"):
                 pos = self.buscaPrimeiroNone(parenteses, peso)
+                print('buscaPrimeiroNone({}, {}) = {}'.format(parenteses, peso, pos))
                 parenteses[peso][pos][1] = i
                 peso -= 1
                 pilhaParenteses.pop(-1)
