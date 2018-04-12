@@ -172,6 +172,7 @@ class ER:
                 for j in range(len(subExp)):
                     if(subExp[j - 1] == "." and subExp[j] == "."):
                         inicio = subExp[j - 2]
+                        novo.append('(')
                         print("SPOKDPASOKDPASOKDps")
                         fim = subExp[j + 1]
                         print(inicio, fim)
@@ -189,9 +190,8 @@ class ER:
                                 inicio = chr(ord(inicio) - 1)
                                 novo.append("|")
                             novo.append(aux)
+                        novo.append(')')
 
-        novo.insert(0, '(')
-        novo.append(')')
         print('novo', ' '.join(novo))
         print('palavra', palavra)
         self.expressao = self.expressao.replace(palavra, ''.join(novo))
@@ -199,9 +199,14 @@ class ER:
         
         novo = []
         novo.append("(")
+        print('novo1', novo)
         i = 0
         while (i < len(self.expressao)):
-            if (i > 0 and self.expressao[i - 1] != "\\" and self.expressao[i] == "("):
+            print('i', self.expressao[i])
+            if (i == 0 and self.expressao[i] == "("):
+                novo.append('(')
+                novo.append('(')
+            elif (i > 0 and self.expressao[i - 1] != "\\" and self.expressao[i] == "("):
                 novo.append("(")
                 novo.append("(")
             elif (i > 0 and self.expressao[i - 1] != "\\" and self.expressao[i] == ")"):
@@ -215,6 +220,7 @@ class ER:
                 novo.append(self.expressao[i])
             i += 1
         novo.append(")")
+        print('novo2', novo)
         self.expressao = (''.join(novo))
         print(self.expressao)
         print("--------------------------")
@@ -243,7 +249,6 @@ class ER:
                 pilhaParenteses.append(len(parenteses[peso]) - 1)
             elif(self.expressao[i] == ")"):
                 pos = self.buscaPrimeiroNone(parenteses, peso)
-                print('buscaPrimeiroNone({}, {}) = {}'.format(parenteses, peso, pos))
                 parenteses[peso][pos][1] = i
                 peso -= 1
                 pilhaParenteses.pop(-1)

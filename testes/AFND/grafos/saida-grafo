@@ -3,16 +3,10 @@ digraph "graph" {
 	node [shape=point]
 	start
 	node [shape=doublecircle]
-	q56
+	q86
 	node [shape=circle]
 	q1
 	q2
-	q13
-	q14
-	q15
-	q16
-	q17
-	q18
 	q19
 	q20
 	q21
@@ -27,83 +21,143 @@ digraph "graph" {
 	q30
 	q31
 	q32
-	q57
-	q58
-	q59
-	q60
-	q61
-	q62
-	q63
-	q64
-	q65
-	q66
-	q67
-	q68
-	q69
-	q70
-	q71
-	q72
-	q73
-	q74
-	q75
-	q76
-	q77
-	q78
-	start -> q77
-	q1 -> q2 [label=0]
-	q13 -> q14 [label=1]
-	q15 -> q1 [label="λ"]
-	q15 -> q13 [label="λ"]
-	q2 -> q16 [label="λ"]
-	q14 -> q16 [label="λ"]
-	q17 -> q18 [label=2]
-	q19 -> q15 [label="λ"]
-	q19 -> q17 [label="λ"]
-	q16 -> q20 [label="λ"]
-	q18 -> q20 [label="λ"]
-	q22 -> q21 [label=3]
-	q23 -> q19 [label="λ"]
-	q23 -> q22 [label="λ"]
-	q20 -> q24 [label="λ"]
-	q21 -> q24 [label="λ"]
-	q25 -> q26 [label=4]
-	q27 -> q23 [label="λ"]
-	q27 -> q25 [label="λ"]
-	q24 -> q28 [label="λ"]
-	q26 -> q28 [label="λ"]
-	q29 -> q30 [label=5]
-	q31 -> q27 [label="λ"]
-	q31 -> q29 [label="λ"]
-	q28 -> q32 [label="λ"]
-	q30 -> q32 [label="λ"]
-	q32 -> q56 [label="λ"]
-	q32 -> q31 [label="λ"]
-	q57 -> q58 [label=0]
-	q59 -> q60 [label=1]
-	q61 -> q57 [label="λ"]
-	q61 -> q59 [label="λ"]
-	q58 -> q62 [label="λ"]
-	q60 -> q62 [label="λ"]
-	q63 -> q64 [label=2]
-	q65 -> q61 [label="λ"]
-	q65 -> q63 [label="λ"]
-	q62 -> q66 [label="λ"]
-	q64 -> q66 [label="λ"]
-	q68 -> q67 [label=3]
-	q69 -> q65 [label="λ"]
-	q69 -> q68 [label="λ"]
-	q66 -> q70 [label="λ"]
-	q67 -> q70 [label="λ"]
-	q71 -> q72 [label=4]
-	q73 -> q69 [label="λ"]
-	q73 -> q71 [label="λ"]
-	q70 -> q74 [label="λ"]
-	q72 -> q74 [label="λ"]
-	q75 -> q76 [label=5]
-	q77 -> q73 [label="λ"]
-	q77 -> q75 [label="λ"]
-	q74 -> q78 [label="λ"]
-	q76 -> q78 [label="λ"]
-	q78 -> q31 [label="λ"]
-	q78 -> q56 [label="λ"]
+	q33
+	q34
+	q35
+	q36
+	q37
+	q38
+	q39
+	q40
+	q41
+	q42
+	q43
+	q44
+	q45
+	q46
+	q47
+	q48
+	q49
+	q50
+	q87
+	q88
+	q89
+	q90
+	q91
+	q92
+	q93
+	q94
+	q95
+	q96
+	q97
+	q98
+	q99
+	q100
+	q101
+	q102
+	q103
+	q104
+	q105
+	q106
+	q107
+	q108
+	q109
+	q110
+	q111
+	q112
+	q113
+	q114
+	q115
+	q116
+	q117
+	q118
+	q119
+	q120
+	start -> q106
+	q1 -> q2 [label=n]
+	q19 -> q20 [label=m]
+	q21 -> q1 [label="λ"]
+	q21 -> q19 [label="λ"]
+	q2 -> q22 [label="λ"]
+	q20 -> q22 [label="λ"]
+	q23 -> q24 [label=l]
+	q25 -> q21 [label="λ"]
+	q25 -> q23 [label="λ"]
+	q22 -> q26 [label="λ"]
+	q24 -> q26 [label="λ"]
+	q28 -> q27 [label=k]
+	q29 -> q25 [label="λ"]
+	q29 -> q28 [label="λ"]
+	q26 -> q30 [label="λ"]
+	q27 -> q30 [label="λ"]
+	q31 -> q32 [label=j]
+	q33 -> q29 [label="λ"]
+	q33 -> q31 [label="λ"]
+	q30 -> q34 [label="λ"]
+	q32 -> q34 [label="λ"]
+	q35 -> q36 [label=i]
+	q37 -> q33 [label="λ"]
+	q37 -> q35 [label="λ"]
+	q34 -> q38 [label="λ"]
+	q36 -> q38 [label="λ"]
+	q39 -> q40 [label=h]
+	q41 -> q37 [label="λ"]
+	q41 -> q39 [label="λ"]
+	q38 -> q42 [label="λ"]
+	q40 -> q42 [label="λ"]
+	q44 -> q43 [label=g]
+	q45 -> q41 [label="λ"]
+	q45 -> q44 [label="λ"]
+	q42 -> q46 [label="λ"]
+	q43 -> q46 [label="λ"]
+	q47 -> q48 [label=o]
+	q49 -> q45 [label="λ"]
+	q49 -> q47 [label="λ"]
+	q46 -> q50 [label="λ"]
+	q48 -> q50 [label="λ"]
+	q50 -> q86 [label="λ"]
+	q50 -> q49 [label="λ"]
+	q108 -> q109 [label=n]
+	q110 -> q111 [label=m]
+	q112 -> q108 [label="λ"]
+	q112 -> q110 [label="λ"]
+	q109 -> q113 [label="λ"]
+	q111 -> q113 [label="λ"]
+	q114 -> q115 [label=l]
+	q116 -> q112 [label="λ"]
+	q116 -> q114 [label="λ"]
+	q113 -> q117 [label="λ"]
+	q115 -> q117 [label="λ"]
+	q119 -> q118 [label=k]
+	q120 -> q116 [label="λ"]
+	q120 -> q119 [label="λ"]
+	q117 -> q87 [label="λ"]
+	q118 -> q87 [label="λ"]
+	q88 -> q89 [label=j]
+	q90 -> q120 [label="λ"]
+	q90 -> q88 [label="λ"]
+	q87 -> q91 [label="λ"]
+	q89 -> q91 [label="λ"]
+	q92 -> q93 [label=i]
+	q94 -> q90 [label="λ"]
+	q94 -> q92 [label="λ"]
+	q91 -> q95 [label="λ"]
+	q93 -> q95 [label="λ"]
+	q96 -> q97 [label=h]
+	q98 -> q94 [label="λ"]
+	q98 -> q96 [label="λ"]
+	q95 -> q99 [label="λ"]
+	q97 -> q99 [label="λ"]
+	q101 -> q100 [label=g]
+	q102 -> q98 [label="λ"]
+	q102 -> q101 [label="λ"]
+	q99 -> q103 [label="λ"]
+	q100 -> q103 [label="λ"]
+	q104 -> q105 [label=o]
+	q106 -> q102 [label="λ"]
+	q106 -> q104 [label="λ"]
+	q103 -> q107 [label="λ"]
+	q105 -> q107 [label="λ"]
+	q107 -> q49 [label="λ"]
+	q107 -> q86 [label="λ"]
 }

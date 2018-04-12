@@ -3,8 +3,14 @@ digraph "graph" {
 	node [shape=point]
 	start
 	node [shape=doublecircle]
+	q01q02q03q04q05q06q07q08q09q10q11q12q13q14q15q16q17q18
 	node [shape=circle]
-	q0qERRO1
-	start -> q0qERRO1
-	q0qERRO1 -> q0qERRO1 [label="O, a, c, e, f, i, n, o, r, s, t, ␣"]
+	q00
+	qERRO1
+	start -> q00
+	q00 -> qERRO1 [label=a]
+	q00 -> q01q02q03q04q05q06q07q08q09q10q11q12q13q14q15q16q17q18 [label="g, h, i, j, k, l, m, n, o"]
+	q01q02q03q04q05q06q07q08q09q10q11q12q13q14q15q16q17q18 -> qERRO1 [label=a]
+	q01q02q03q04q05q06q07q08q09q10q11q12q13q14q15q16q17q18 -> q01q02q03q04q05q06q07q08q09q10q11q12q13q14q15q16q17q18 [label="g, h, i, j, k, l, m, n, o"]
+	qERRO1 -> qERRO1 [label="a, g, h, i, j, k, l, m, n, o"]
 }

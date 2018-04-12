@@ -1,6 +1,6 @@
-:f, o, r, i, n, s, t, a, c, e, O, ␣
+:g, h, i, j, k, l, m, n, o, a
 espaco = ␣
-abc = [0-5]
+abc = [o-g]
 {
-    abc+
+    abc+ | abc | a
 }
