@@ -35,8 +35,8 @@ class ER:
     def lerArquivo(self, nomeArquivo):
         arquivo = open(self.caminho + nomeArquivo, 'r')
         linhas = arquivo.read().splitlines()
-        self.substituiPadroes(linhas)
         self.leAlfabeto(linhas)
+        self.substituiPadroes(linhas)
         self.lerVariaveis(linhas)
         self.lerExpressao(linhas)
         arquivo.close()
@@ -47,8 +47,25 @@ class ER:
             alf = linhas[0].split(",")
             alf[0] = alf[0][1:]
             for item in alf:
-                self.alfabeto[item] = item
+                self.alfabeto[item.strip()] = item.strip()
         print(self.alfabeto)
+        
+        novo_alfabeto = {}
+        for k in self.alfabeto:
+            l = self.alfabeto[k]
+            # if len(l) == 6 and l[0] == '[' and l[2] == '.' and l[3] == '.' and l[5] == ']':
+            if len(l) == 5 and l[0] == '[' and l[2] == '-' and l[4] == ']':
+                ini = ord(l[1])
+                fim = ord(l[3])
+                for i in range(ini, fim+1):
+                    c = chr(i)
+                    novo_alfabeto[c] = c
+            else:
+                novo_alfabeto[l] = l
+        
+        self.alfabeto = novo_alfabeto
+        print(self.alfabeto)
+        
         print("----------------------------")
         
     def substituiPadroes(self, linhas):

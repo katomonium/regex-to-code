@@ -3,22 +3,8 @@ digraph "graph" {
 	node [shape=point]
 	start
 	node [shape=doublecircle]
-	q4
 	node [shape=circle]
 	q0
-	q1
-	q2
-	q3
-	q5
 	start -> q0
-	q0 -> q5 [label="., a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ␣"]
-	q0 -> q1 [label="0, 1, 2, 3, 4, 5, 6, 7, 8, 9"]
-	q1 -> q5 [label="., 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z"]
-	q1 -> q2 [label="␣"]
-	q2 -> q3 [label="."]
-	q2 -> q5 [label="0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ␣"]
-	q3 -> q5 [label="., a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ␣"]
-	q3 -> q4 [label="0, 1, 2, 3, 4, 5, 6, 7, 8, 9"]
-	q4 -> q5 [label="., 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ␣"]
-	q5 -> q5 [label="., 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ␣"]
+	q0 -> q0 [label="., 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ␣"]
 }
