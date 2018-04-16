@@ -7,6 +7,6 @@ numeros = [0-9]
 abrepar = (
 fecharpar = )
 {
-    letrasMin.(letrasMin | numeros)*
+    (letrasMin | letrasMai | _ | $).(letrasMin | letrasMai | _ | numeros | $)*
 
 }
