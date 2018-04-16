@@ -1,8 +1,12 @@
-:[a-z], [0-9], ␣, .
+:[a-z], (, ␣, [A-Z], [0-9], _, $
 espaco = ␣
 ponto = .
-letras = [a-z]
+letrasMin = [a-z]
+letrasMai = [A-Z]
 numeros = [0-9]
+abrepar = (
+fecharpar = )
 {
-    letras.(letras | numeros)+
+    letrasMin.(letrasMin | numeros)*
+
 }

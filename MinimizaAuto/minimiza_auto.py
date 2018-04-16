@@ -25,20 +25,30 @@ def renomeia_estados(auto):
     count = 0
     novos_estados = {}
     
-    for i in range(len(auto.estados)):
-        f = 'q{}'.format(count)
-        novos_estados[auto.estados[i]] = f
-        auto.estados[i] = f
-        
-        count += 1
+    i = 0
+    while (i < len(auto.estados)):
+        if(auto.estados[i] != "qERRO1"):
+            f = 'q{}'.format(count)
+            novos_estados[auto.estados[i]] = f
+            auto.estados[i] = f
+            count += 1
+        else:
+            auto.estados.pop(i)
+            i -= 1
+        i += 1
     
-    for i in range(len(auto.trans)):
+    i = 0
+    while(i < len(auto.trans)):
         t = list(auto.trans[i])
-        
-        t[0] = novos_estados[t[0]]
-        t[2] = novos_estados[t[2]]
-        
-        auto.trans[i] = tuple(t)
+        if(t[0] != "qERRO1" and t[2] != "qERRO1"):
+            t[0] = novos_estados[t[0]]
+            t[2] = novos_estados[t[2]]
+            
+            auto.trans[i] = tuple(t)
+        else:
+            auto.trans.pop(i)
+            i -= 1
+        i += 1
 
     for i in range(len(auto.finais)):
         auto.finais[i] = novos_estados[auto.finais[i]]

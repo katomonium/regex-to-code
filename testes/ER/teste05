@@ -1,6 +1,6 @@
-:'a'..'z','0'..'9',λ
-numeros = ['0'-'9']
-letras = ['a'-'z']
+: [a-b], [0-1]
+numeros = 0
+letras = a
 {
     letras.numeros | (letras | numeros).letras
 }
