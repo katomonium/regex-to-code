@@ -2,48 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from MinimizaAuto.class_auto import *
-from MinimizaAuto.functions import *
-from MinimizaAuto.completa_auto import *
-
-
-def minimiza_auto(args):
-    auto = Auto(args[0])
-    completa_auto(auto)
-
-    tabela = CriarTabela(auto)
-    AcharDisj(auto, tabela)
-    novo_auto = JuntaEstados(auto, tabela)
-    
-    renomeia_estados(novo_auto)
-
-    fl = open(args[1], 'w')
-    fl.write(novo_auto.__str__())
-
-
-def renomeia_estados(auto):
-    count = 0
-    novos_estados = {}
-    
-    for i in range(len(auto.estados)):
-        f = 'q{}'.format(count)
-        novos_estados[auto.estados[i]] = f
-        auto.estados[i] = f
-        
-        count += 1
-    
-    for i in range(len(auto.trans)):
-        t = list(auto.trans[i])
-        
-        t[0] = novos_estados[t[0]]
-        t[2] = novos_estados[t[2]]
-        
-        auto.trans[i] = tuple(t)
-
-    for i in range(len(auto.finais)):
-        auto.finais[i] = novos_estados[auto.finais[i]]
-        
-    auto.inicial = novos_estados[auto.inicial]
+import logging
+from class_auto import Auto
 
 
 def junta_transicoes(trans):
@@ -52,7 +12,7 @@ def junta_transicoes(trans):
     for i in trans:
         li = [(a, b, c) for (a, b, c) in t if i[0] == a and i[2] == c]
 
-        if not len(li) :
+        if not len(li):
             t.append(i)
 
         else:
@@ -63,6 +23,7 @@ def junta_transicoes(trans):
 
     return t
 
+
 def gen_dot(auto):
     s = "digraph \"graph\" {\n\trankdir=LR\n\tnode [shape=point]\n\tstart\n"
 
@@ -70,10 +31,10 @@ def gen_dot(auto):
     for i in auto.finais:
         s += '\t{}\n'.format(i)
 
-    l = [x for x in auto.estados if x not in auto.finais]
+    nao_finais = [x for x in auto.estados if x not in auto.finais]
 
     s += '\tnode [shape=circle]\n'
-    for i in l:
+    for i in nao_finais:
         s += '\t{}\n'.format(i)
 
     s += '\tstart -> {}\n'.format(auto.inicial)
@@ -83,3 +44,11 @@ def gen_dot(auto):
 
     s += '}'
     return s
+
+
+def minimiza_auto(args):
+    # Criar automato apartir do arquivo
+    auto = Auto(args[0])
+    auto.minimiza()
+    print(auto, file = open(args[1], "w"))
+
