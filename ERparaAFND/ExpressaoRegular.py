@@ -57,6 +57,8 @@ class ER:
             if len(l) == 5 and l[0] == '[' and l[2] == '-' and l[4] == ']':
                 ini = ord(l[1])
                 fim = ord(l[3])
+                # aux = l[1] + ".." + l[3]
+                # novo_alfabeto[aux] = l[1] + ".." + l[3]
                 for i in range(ini, fim+1):
                     c = chr(i)
                     novo_alfabeto[c] = c
@@ -178,10 +180,10 @@ class ER:
         for i in range(len(self.expressao)):
             novo = []
             if(self.expressao[i] != "(" and self.expressao[i] != ")" and
-               self.expressao[i] != "[" and self.expressao[i] != "]" and
-               self.expressao[i] != "." and self.expressao[i] != " " and
-               self.expressao[i] != "+" and self.expressao[i] != "*" and
-               self.expressao[i] != "|" and self.expressao[i] != "-"):
+              self.expressao[i] != "[" and self.expressao[i] != "]" and
+              self.expressao[i] != "." and self.expressao[i] != " " and
+              self.expressao[i] != "+" and self.expressao[i] != "*" and
+              self.expressao[i] != "|" and self.expressao[i] != "-"):
                 palavra += self.expressao[i]
             else:
                 print("variavel: " + palavra)

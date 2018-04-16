@@ -3,8 +3,10 @@ digraph "graph" {
 	node [shape=point]
 	start
 	node [shape=doublecircle]
+	q1
 	node [shape=circle]
 	q0
 	start -> q0
-	q0 -> q0 [label="., 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ␣"]
+	q0 -> q1 [label="U, W, D, j, s, M, z, l, p, Z, K, e, c, d, F, i, $, R, t, r, a, y, P, G, n, I, u, o, m, _, V, g, A, C, E, L, O, h, Q, T, k, X, v, f, N, x, J, q, H, Y, w, b, B, S"]
+	q1 -> q1 [label="U, W, D, j, s, M, 0, z, l, p, Z, K, e, c, d, F, i, $, R, t, r, a, y, P, G, n, I, u, o, 1, m, 6, _, 4, 5, V, g, A, C, 3, E, 9, L, 8, 7, O, h, Q, T, k, X, v, f, N, x, J, q, H, Y, w, b, B, 2, S"]
 }

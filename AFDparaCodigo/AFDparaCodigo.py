@@ -38,6 +38,8 @@ main(sys.argv)""")
         
     
     def criaFuncao(self,estado):
+        if(estado.idEstado == "qERRO1"):
+            return ""
         resultado = self.definicaoClasse.substitute(nomeEstado = estado.idEstado)
         if estado.final:
             resultado += self.condicaoFinal.substitute(booleano = 'True')
@@ -53,6 +55,7 @@ main(sys.argv)""")
     def criaMain(self, estadoInicial):
         return self.mainPrograma.substitute(estadoInicial = estadoInicial.idEstado)
 
+
 def AFDparaCodigo(argv):
     if(len(argv) < 2):
         return
@@ -60,7 +63,6 @@ def AFDparaCodigo(argv):
     saida = argv[1]
     
     a = Automato(entrada)
-    
     arquivo = open(saida, 'w')
     
     gdc = GeradorDeCodigo(a)
