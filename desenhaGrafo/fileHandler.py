@@ -51,7 +51,7 @@ caminhoAFND = ""
 def lerAutomato(arquivo):
     linhas = open(caminhoAFND + arquivo, 'r').read().splitlines()
 
-    e = re.compile('\w+\d+')
+    e = re.compile('(\w+\d+|\w+)')
     estados = e.findall(linhas[1])
 
     a = re.compile('\w')
@@ -61,10 +61,11 @@ def lerAutomato(arquivo):
 
     estadoInicial = e.findall(linhas[-3])[0]
 
-    d = re.compile('(\w+\d+),(.*)->(\w+\d+)')
+    d = re.compile('(\w+\d+|\w+),(.*)->(\w+\d+|\w+)')
     transicoes = []
     for i in linhas:
         transicoes += d.findall(i)
+    
 
     return Automato(
             estados, alfabeto, transicoes, estadoInicial, estadosFinais

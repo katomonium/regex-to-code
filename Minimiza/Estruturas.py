@@ -3,13 +3,15 @@
 
 from Minimiza.LeituraEscrita import *
 class Par:                          #representa um par da tabela de minimizacao
+    idPar = None
     e1 = None                       #estado 1
     e2 = None                       #estado 2
     valido = None                   #se os estados desse par sao considerados iguais
     dependentes = None              #os pares dependentes desse par
     motivo = None                   #o motivo de nao serem iguais
     
-    def __init__(self, e1, e2):
+    def __init__(self, idPar, e1, e2):
+        self.idPar = idPar
         self.e1 = e1
         self.e2 = e2
         if(e1.final == e2.final):           #checa se os dois sao, ao mesmo tempo, finais ou nao-finais
@@ -110,12 +112,15 @@ class Automato:
     def renomeia(self):
         i = 0
         for estado in self.estados:
-            if(estado.idEstado != "qERRO"):
+            print(estado.idEstado + "+++++++++++++++++++")
+            if(estado.idEstado.find("qERRO") < 0):
                 if(estado.idEstado == self.inicial):
                     self.inicial = "q" + str(i)
                 estado.idEstado = "q" + str(i)
                 i += 1
-                
+            else:
+                estado.idEstado = "qERRO"
+                print("EUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUuu")
             
     
     #cria um dicionario de estados para o automato
@@ -156,15 +161,16 @@ class Automato:
         tabela = Tabela()                       #instancia o objeto que monta a tabela
         
         #cria os pares da tabela de minimizacao
+        idPar = 0
         for i in range(len(self.estados)):
             for j in range(i+1, len(self.estados)):
-                par = Par(self.estados[i], self.estados[j])
+                par = Par(idPar, self.estados[i], self.estados[j])
+                idPar += 1
                 tabela.pares.append(par)
-        #~ tabela.imprimeTabela("FODACE")
         
         tabela.minimiza(self)                   #aplica o algoritmo de minimizacao na tabela
         #~ tabela.imprimeTabela(arqTabela)     #escreve a tabela no arquivo
-            
+        #tabela.imprimeTabela("FODACE")
         escritor = Arquivo(arqMin, 'w')         #instancia o objeto para escrever o automato no arquivo
         escritor.escreveMinimizado(self)        #escreve o novo automato no arquivo
         
@@ -178,14 +184,15 @@ class Tabela:
         
         
     #propaga recursivamente o resultado de um par de estados
-    def propaga(self, par):
-        
+    def propaga(self, par, paresPropagados):
         #se houver dependentes, para cada dependente propaga o resultado
         if(len(par.dependentes) > 0):
             for dep in par.dependentes:
-                dep.valido = False
-                dep.motivo = "prop[" + par.e1.idEstado + "," + par.e2.idEstado + "]"
-                self.propaga(dep)               #propaga tambem para os dependentes desse dependente
+                if(dep not in paresPropagados):
+                    paresPropagados[dep] = dep
+                    dep.valido = False
+                    dep.motivo = "prop[" + par.e1.idEstado + "," + par.e2.idEstado + "]"
+                    self.propaga(dep, paresPropagados)               #propaga tambem para os dependentes desse dependente
     
     #aplica o algoritmo de minimizacao na tabela
     def minimiza(self, automato):
@@ -201,14 +208,20 @@ class Tabela:
                             par.valido = False
                             par.motivo = transicao1.letra + "[" + transicao2.destino.idEstado + "," + transicao1.destino.idEstado + "]"
                             
-                            self.propaga(par)
+                            self.propaga(par, {par : par})
                                 
                         #se nao,##SILVERAAA, explica isso#
                         else:
                             if(transicao1.origem != transicao1.destino or transicao2.origem != transicao2.destino):
                                 for p in self.pares:
-                                    if(p.e1.idEstado == transicao1.destino.idEstado and p.e2.idEstado == transicao2.destino.idEstado):
-                                        p.dependentes.append(par)
+                                    if((p.e1.idEstado == transicao1.destino.idEstado and p.e2.idEstado == transicao2.destino.idEstado) or
+                                       (p.e2.idEstado == transicao1.destino.idEstado and p.e1.idEstado == transicao2.destino.idEstado)):
+                                        achou = False
+                                        for i in range(len(p.dependentes)):
+                                            if(p.dependentes[i].idPar == par.idPar):
+                                                achou = True
+                                        if(not achou):
+                                            p.dependentes.append(par)
                                         
                             #~ else:
                                 #~ if(transicao1.origem == transicao1.destino and transicao2.origem != transicao2.destino):

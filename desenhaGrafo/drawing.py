@@ -20,13 +20,15 @@ def drawing(auto, filename):
     g.attr('node', shape='circle')
     a = [i for i in auto.estados if i not in auto.finais]
     for i in a:
-        g.node(i)
+        if(i != 'qERRO'):
+            g.node(i)
 
     g.edge('start', auto.inicial)
 
     t = juntaTransicoes(auto.transicoes)
     for i in t:
-        g.edge(i[0], i[2], i[1])
+        if(i[0] != 'qERRO' and i[2] != 'qERRO'):
+            g.edge(i[0], i[2], i[1])
 
     g.format = 'png'
     g.render()

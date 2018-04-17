@@ -37,7 +37,6 @@ class Arquivo:
         aux = re.compile("{(.*)}")         
                                                        
         alf = ''.join(aux.findall(self.linhas[2]))
-        print(alf)
         #~ self.linhas[2] = self.linhas[2].strip().split()
         #~ while(i < len(self.linhas[2]) - 2):
             #~ aux.append(self.linhas[2][i])
@@ -45,7 +44,6 @@ class Arquivo:
             #~ i += 1
         #~ aux = ''.join(aux)
         alfabeto = alf.strip().split(",")
-        print(alfabeto)
         return alfabeto
         
     def leTransicoes(self, automato):
@@ -130,11 +128,11 @@ class Arquivo:
         novo.renomeia()
         saida = "(\n\t{"
         for i in range(len(novo.estados)):
-            if(novo.estados[i].idEstado != "qERRO"):
-                saida += novo.estados[i].idEstado
-                if(i < len(novo.estados) - 1):
-                    saida += ","
-                
+        #if(novo.estados[i].idEstado != "qERRO"):
+            saida += novo.estados[i].idEstado
+            if(i < len(novo.estados) - 1):
+                saida += ","
+            
         saida += "},\n\t{"
         for l in novo.alfabeto:
             saida += l
@@ -143,12 +141,12 @@ class Arquivo:
         
         saida += "},\n\t{\n"
         for i in range(len(novo.estados)):
-            if(novo.estados[i].idEstado != "qERRO"):
-                for j in range(len(novo.estados[i].transicoes)):
-                    if(novo.estados[i].transicoes[j].destino.idEstado != "qERRO"):
-                        saida += "\t\t(" + novo.estados[i].transicoes[j].origem.idEstado + "," + novo.estados[i].transicoes[j].letra + "->" + novo.estados[i].transicoes[j].destino.idEstado + ")"
-                        if((j < len(novo.estados[i].transicoes) - 1) or (i < len(novo.estados) - 1)):
-                            saida += ","
+        #if(novo.estados[i].idEstado != "qERRO"):
+            for j in range(len(novo.estados[i].transicoes)):
+               # if(novo.estados[i].transicoes[j].destino.idEstado != "qERRO"):
+                    saida += "\t\t(" + novo.estados[i].transicoes[j].origem.idEstado + "," + novo.estados[i].transicoes[j].letra + "->" + novo.estados[i].transicoes[j].destino.idEstado + ")"
+                    if((j < len(novo.estados[i].transicoes) - 1) or (i < len(novo.estados) - 1)):
+                        saida += ","
                         saida += "\n"
         
         saida += "\t},\n\t"

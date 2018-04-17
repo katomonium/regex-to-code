@@ -1,12 +1,15 @@
-:[a-z], (, ␣, [A-Z], [0-9], _, $
+:[a-z], (, ␣, [A-Z], [0-9], _, $, ), {, }, >
 espaco = ␣
 ponto = .
 letrasMin = [a-z]
 letrasMai = [A-Z]
 numeros = [0-9]
+abrechaves = {
+fechachaves = }
 abrepar = (
-fecharpar = )
+fechapar = )
+opMaior = >
 {
-    a.b.s.t.r.a.c.t | c.l.a.s.s | e.x.t.e.n.d.s | e.l.s.e | c.h.a.r
+    a.b.s.t.r.a.c.t | c.l.a.s.s | e.x.t.e.n.d.s | e.l.s.e.abrechaves.(letrasMin).fechachaves | c.h.a.r | i.f.abrepar.(numeros+.opMaior.numeros+).fechapar
 
 }
