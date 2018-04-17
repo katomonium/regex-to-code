@@ -111,8 +111,12 @@ class Automato:
         i = 0
         for estado in self.estados:
             if(estado.idEstado != "qERRO"):
+                if(estado.idEstado == self.inicial):
+                    self.inicial = "q" + str(i)
+                print(estado.idEstado + "==" + self.inicial + " :" + str(estado.idEstado == self.inicial))
                 estado.idEstado = "q" + str(i)
                 i += 1
+                
             
     
     #cria um dicionario de estados para o automato
@@ -160,7 +164,7 @@ class Automato:
         tabela.imprimeTabela("FODACE")
         
         tabela.minimiza(self)                   #aplica o algoritmo de minimizacao na tabela
-        #~ tabela.imprimeTabela(arquivoTabela)     #escreve a tabela no arquivo
+        tabela.imprimeTabela(arqTabela)     #escreve a tabela no arquivo
             
         escritor = Arquivo(arqMin, 'w')         #instancia o objeto para escrever o automato no arquivo
         escritor.escreveMinimizado(self)        #escreve o novo automato no arquivo

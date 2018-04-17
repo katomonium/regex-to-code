@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from Minimiza.Estruturas import Automato
+import sys
+
 def Minimiza(args):
     #~ if(len(sys.argv) != 4):
         #~ print("Modo de execucao: ")
@@ -17,3 +19,4 @@ def Minimiza(args):
     print("Arquivo com a tabela de minimizacao: " + minimizado)
     #~ print("Arquivo com o automato minimizado: " + sys.argv[3])
     a.novoAutomato()
+

@@ -4,7 +4,7 @@
 import sys
 
 from ERparaAFND.ERparaAFND import ERparaAFND
-from desenhaGrafo.desenhaGrafo import desenhaGrafo
+#from desenhaGrafo.desenhaGrafo import desenhaGrafo
 from AFNDparaAFD.AFNDparaAFD import AFNDparaAFD
 from MinimizaAuto.minimiza_auto import minimiza_auto
 from AFDparaCodigo.AFDparaCodigo import AFDparaCodigo
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     Minimiza(argsMin)
     #print("EU BRENEX")
     argsDesenha3 = ["testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-min", "testes/AFD/Minimizado/grafos/" + sys.argv[2] + "-grafo"]
-    desenhaGrafo(argsDesenha3)
+    #desenhaGrafo(argsDesenha3)
     print("EU DESENHO BRENEX")
     argGeraCodigo = ["testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-min", "testes/Codigo/" + sys.argv[2] + ".py"]
     AFDparaCodigo(argGeraCodigo)

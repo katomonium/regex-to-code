@@ -34,13 +34,18 @@ class Arquivo:
     
     def leAlfabeto(self): #alfabeto é uma lista
         i = 2
-        aux = []
-        while(i < len(self.linhas[2]) - 2):
-            aux.append(self.linhas[2][i])
-            i += 1
-        aux = ''.join(aux)
-        alfabeto = aux.split(",")
-        
+        aux = re.compile("{(.*)}")         
+                                                       
+        alf = ''.join(aux.findall(self.linhas[2]))
+        print(alf)
+        #~ self.linhas[2] = self.linhas[2].strip().split()
+        #~ while(i < len(self.linhas[2]) - 2):
+            #~ aux.append(self.linhas[2][i])
+            #~ print(self.linhas[2][i])
+            #~ i += 1
+        #~ aux = ''.join(aux)
+        alfabeto = alf.strip().split(",")
+        print(alfabeto)
         return alfabeto
         
     def leTransicoes(self, automato):
@@ -73,6 +78,7 @@ class Arquivo:
                             if(t.letra == letra):
                                 achou = True
                         if(not achou):
+                            print("-----------" + letra)
                             completo = False
                             estadoOrigem = automato.estados[int(estado.idEstado)]
                             
