@@ -113,7 +113,6 @@ class Automato:
             if(estado.idEstado != "qERRO"):
                 if(estado.idEstado == self.inicial):
                     self.inicial = "q" + str(i)
-                print(estado.idEstado + "==" + self.inicial + " :" + str(estado.idEstado == self.inicial))
                 estado.idEstado = "q" + str(i)
                 i += 1
                 
@@ -161,10 +160,10 @@ class Automato:
             for j in range(i+1, len(self.estados)):
                 par = Par(self.estados[i], self.estados[j])
                 tabela.pares.append(par)
-        tabela.imprimeTabela("FODACE")
+        #~ tabela.imprimeTabela("FODACE")
         
         tabela.minimiza(self)                   #aplica o algoritmo de minimizacao na tabela
-        tabela.imprimeTabela(arqTabela)     #escreve a tabela no arquivo
+        #~ tabela.imprimeTabela(arqTabela)     #escreve a tabela no arquivo
             
         escritor = Arquivo(arqMin, 'w')         #instancia o objeto para escrever o automato no arquivo
         escritor.escreveMinimizado(self)        #escreve o novo automato no arquivo
@@ -187,7 +186,6 @@ class Tabela:
                 dep.valido = False
                 dep.motivo = "prop[" + par.e1.idEstado + "," + par.e2.idEstado + "]"
                 self.propaga(dep)               #propaga tambem para os dependentes desse dependente
-                print("AQUI")
     
     #aplica o algoritmo de minimizacao na tabela
     def minimiza(self, automato):
@@ -219,7 +217,6 @@ class Tabela:
                                 
                                 #~ if(transicao1.origem != transicao1.destino and transicao2.origem == transicao2.destino):
                                     
-        print("SAIU")
         #adiciona, ao estado, os estados iguais a ele
         for par in self.pares:
             if(par.valido):

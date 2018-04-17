@@ -78,7 +78,6 @@ class Arquivo:
                             if(t.letra == letra):
                                 achou = True
                         if(not achou):
-                            print("-----------" + letra)
                             completo = False
                             estadoOrigem = automato.estados[int(estado.idEstado)]
                             
@@ -110,7 +109,6 @@ class Arquivo:
     def leInicial(self):
         ini = re.compile("q(\d+)")                      #Define aux como um padrao de forma que ele é um ou mais digitos apos um caracter "q"
         inicial = ini.findall(self.linhas[-3])          #Encontra esse padrao na antepenultima linha do arquivo
-        print(self.linhas[-3] + "=====================================")
         inicial = inicial[0]
         return inicial
     

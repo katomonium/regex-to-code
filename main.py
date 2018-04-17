@@ -24,7 +24,7 @@ if __name__ == '__main__':
     argsMin = ["testes/AFD/NaoMinimizado/arquivos/" + sys.argv[2] + "-AFD",
               "testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-min"]
     Minimiza(argsMin)
-    #print("EU BRENEX")
+    print("EU BRENEX")
     argsDesenha3 = ["testes/AFD/Minimizado/arquivos/" + sys.argv[2] + "-min", "testes/AFD/Minimizado/grafos/" + sys.argv[2] + "-grafo"]
     #desenhaGrafo(argsDesenha3)
     print("EU DESENHO BRENEX")

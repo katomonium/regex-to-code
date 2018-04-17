@@ -186,11 +186,9 @@ class ER:
               self.expressao[i] != "|" and self.expressao[i] != "-"):
                 palavra += self.expressao[i]
             else:
-                print("variavel: " + palavra)
                 if palavra in self.variaveis:
                     # print("variavel: " + palavra)
                     subExp = self.variaveis[palavra]
-                    print('subExp', subExp)
                     if len(subExp) < 4:
                         novo.append(palavra)
                     else:
